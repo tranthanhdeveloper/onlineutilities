@@ -1,12 +1,18 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="base64decode">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="base64decode" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <title>Online utilities Home</title>
     <meta charset="utf-8">
+    <meta name="keyword"
+          content="decode base64, base64 decode, base64 to file base 64 to origin, free base64 decode. decode base64 online">
+    <meta name="description"
+          content="An online tool to decode Base64 data to origin data. Support multiple charset. Including file decode data for file Audio, text, images, PDF, etc">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="icon" type="image/png" href="https://storage.googleapis.com/onlineutilities.net/static/onlineutilities.ico"/>
+    <link rel="icon" type="image/png"
+          href="https://storage.googleapis.com/onlineutilities.net/static/onlineutilities.ico"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
     <style>
         body {
             height: 100vh;
@@ -15,7 +21,8 @@
         header {
             padding: 98px 0 32px;
         }
-        .data-input-section{
+
+        .data-input-section {
             padding-bottom: 25px;
         }
 
@@ -24,52 +31,116 @@
         }
 
         section {
-            padding: 50px 0;
+            padding: 10px 0;
+        }
+
+        .main-section {
+            padding-top: 100px;
         }
     </style>
+
 </head>
 
 <body>
 
 <div th:replace="header::header"></div>
-<header class="bg-primary text-white">
-    <div class="container text-center">
-        <h1>Decode base64</h1>
-        <p>Decode a base64 value to origin value.</p>
-    </div>
-</header>
-
 <section>
-    <div class="container">
-        <div>
-            <div class="data-input-section">
-            <form action="/base64decode" method="post">
-                <div class="form-group">
-                    <label for="exampleFormControlSelect1">Charset Encode</label>
-                    <select class="form-control" id="exampleFormControlSelect1" th:name="charsetEncode">
-                        <option th:each="charsetEncode : ${T(net.onlineutilities.enums.DecodeCharsetSupport).values()}" th:value="${charsetEncode.name()}" th:text="${charsetEncode.alias}"></option>
-                    </select>
+    <div class="container-fluid main-section">
+        <div class="row">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <div>
+                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                            <span>More base64 decode</span></h6>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#">
+                                    <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                                    <span>Audio to Base64</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                    <span>Image to Base64</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-file-video-o" aria-hidden="true"></i>
+                                    <span>Video to base64</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+<!--                    <div>-->
+<!--                        <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">-->
+<!--                            <span>Tools to encode Base64</span>-->
+<!--                        </h6>-->
+<!--                        <ul class="nav flex-colum">-->
+<!--                            <li>-->
+
+<!--                            </li>-->
+<!--                        </ul>-->
+<!--                    </div>-->
                 </div>
-                <div class="form-group">
-                    <label for="exampleFormControlTextarea1">Base64 value</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="base64"></textarea>
+            </nav>
+            <div class="col-md-8">
+                <div class="container text-center">
+                    <h5>Decode a base64 value to origin text value.</h5>
                 </div>
-                <button type="submit" class="btn btn-primary pull-left">Decode</button>
-            </form>
-            </div>
-            <div class="navPadding" th:if="${encoded != null && !encoded.isEmpty()}">
-                <div class="form-group">
+                <div class="data-input-section">
+                    <form action="/base64decode" method="post">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Charset Encode</label>
+                            <select class="form-control" id="exampleFormControlSelect1" th:name="charsetEncode">
+                                <option th:each="charsetEncode : ${T(net.onlineutilities.enums.DecodeCharsetSupport).values()}"
+                                        th:value="${charsetEncode.name()}" th:text="${charsetEncode.alias}"></option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleFormControlTextarea1">Base64 value</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                      name="base64"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">Decode</button>
+                    </form>
+                </div>
+                <div class="navPadding" th:if="${encoded != null && !encoded.isEmpty()}">
+                    <div class="form-group">
                     <textarea class="form-control" th:text="${encoded}">
                     </textarea>
+                    </div>
+                </div>
+                <div class="blog-post">
+                    <h3>What is base64?</h3>
+                    <hr>
+                    <p>Base64 is group of ASCII characters that represent to binary data. We present audio, video or any file in text format.
+                        The term Base64 originates from a specific <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
+                    <h3>What is base64 used for?</h3>
+                    <hr>
+                    <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
+                    <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
+                    <h3>Decode Base64 to origin data for some programming languages</h3>
+                    <hr>
+                    <p>Decode base64 in Java</p>
+                    <pre>
+                        <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
+                    </pre>
+                    <p>Decode base64 in Javascript</p>
+                    <pre>
+                        <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
+                    </pre>
                 </div>
             </div>
         </div>
-        <hr>
     </div>
 </section>
 <!-- Footer -->
 <div th:replace="footer :: footer"></div>
 <div th:replace="scripts-include :: page-script"></div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
 </body>
 
 </html>
