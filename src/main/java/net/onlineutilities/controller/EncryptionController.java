@@ -1,6 +1,7 @@
 package net.onlineutilities.controller;
 
 import net.onlineutilities.services.encrypt.EncryptService;
+import org.apache.commons.codec.binary.Base64;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,7 +26,8 @@ public class EncryptionController {
 
 	@PostMapping("/tripleencrypt")
 	public String encrypt(@RequestParam("file") MultipartFile file, @RequestParam("data") String data, Model model) throws IOException {
-		model.addAttribute("encryptedData", encryptService.encrypt(data, file.getBytes()));
+		System.out.println(encryptService.decrypt(data, file.getBytes()));
+		model.addAttribute("encryptedData", encryptService.decrypt(data, file.getBytes()));
 		return "encrypt/tripleencrypt";
 	}
 
