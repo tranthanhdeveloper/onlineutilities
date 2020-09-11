@@ -17,14 +17,32 @@
 <section>
     <div class="container-fluid main-section bg-light">
         <div class="row">
-            <nav class="col-md-2 d-none d-md-block sidebar">
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                <div class="sidebar-sticky">
+                    <div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/tripledes/generate">
+                                    <i class="fa fa-file-audio-o" aria-hidden="true"></i>
+                                    <span>Key file generator</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">
+                                    <i class="fa fa-file-image-o" aria-hidden="true"></i>
+                                    <span>Decrypt triple encrypted</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </nav>
             <div class="col-md-8">
                 <div class="container text-center">
                     <h5>Encrypt data use triple encryption</h5>
                 </div>
                 <div class="data-input-section">
-                    <form action="/tripleencrypt" method="post" enctype="multipart/form-data">
+                    <form action="/tripledes/encrypt" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <input type="file" class="form-control-file" name="file" aria-describedby="fileHelpId">
                             <small id="fileHelpId" class="form-text text-muted">Choose your key file</small>
@@ -36,11 +54,11 @@
                         <button type="submit" class="btn btn-primary pull-left">Encrypt now</button>
                     </form>
                 </div>
-            </div>
-            <div class="navPadding" th:if="${encryptedData != null && !encryptedData.isEmpty()}">
-                <div class="form-group">
-                    <textarea class="form-control" th:text="${encryptedData}">
-                    </textarea>
+                <div class="navPadding" th:if="${encryptedData != null && !encryptedData.isEmpty()}">
+                    <label for="exampleFormControlTextarea1">Encrypt data are represent in Base64 encoded</label>
+                    <div class="form-group">
+                        <textarea class="form-control" th:text="${encryptedData}"></textarea>
+                    </div>
                 </div>
             </div>
         </div>
