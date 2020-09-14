@@ -3,6 +3,9 @@ package net.onlineutilities.controller;
 import com.google.common.io.Files;
 import net.onlineutilities.enums.EncryptOutputType;
 import net.onlineutilities.services.encrypt.EncryptService;
+import org.apache.commons.codec.DecoderException;
+import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -68,7 +71,7 @@ public class EncryptionController {
     }
 
     /**
-     * Process encrypt data, afterwards show the encypted data to end-user
+     * Process encrypt data, afterwards show the encrypted data to end-user
      *
      * @param file  uploaded key file
      * @param data  origin data should be encrypted
@@ -76,62 +79,65 @@ public class EncryptionController {
      * @return template mapping to tripledes-encrypt.html
      * @throws IOException TODO need to handle exceptional cases.
      */
-    @PostMapping("/tripledes/encrypt")
-    public Object encrypt(@RequestParam("file") MultipartFile file, @RequestParam("data") String data, @RequestParam("output") Integer output, Model model) throws IOException {
+    @PostMapping("/tripledes-encryptor.html")
+    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("data") String data, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
         EncryptOutputType outputType;
-        if (output == null) {
+        if (outputTyp == null) {
             outputType = EncryptOutputType.FILE;
         } else {
-            // TODO handle case that the output type not supported
-            outputType = EncryptOutputType.getById(output);
+            outputType = EncryptOutputType.getById(outputTyp);
+        }
+
+
+        String encryptedData = null;
+        if (file != null) {
+            encryptedData = encryptService.encryptFile(file.getBytes(), keyfile.getBytes(), outputType);
+        } else {
+            encryptedData = encryptService.textBasedEncrypt(data, keyfile.getBytes(), outputType);
         }
 
         //
-        switch (outputType) {
-            case FILE: {
-                return download(encryptService.encryptThenSaveToFile(data, file.getBytes()));
-            }
-            case HEX: {
-                model.addAttribute("encryptedData", encryptService.encryptThenDoHex(data, file.getBytes()));
-                return "encrypt/tripledes-encrypt";
-            }
-            default:{
-                model.addAttribute("encryptedData", encryptService.encryptThenDoBase64(data, file.getBytes()));
-                return "encrypt/tripledes-encrypt";
-            }
+        if (outputType == EncryptOutputType.FILE) {
+            return download(encryptedData);
         }
+
+        model.addAttribute("outputType", outputType.getDisplay());
+        model.addAttribute("encryptedData", encryptedData);
+        return "encrypt/tripledes-encrypt";
     }
 
-    @PostMapping("/tripledes/decrypt")
-    public Object decrypt(@RequestParam("file") MultipartFile file, @RequestParam("data") String data, @RequestParam("output") Integer output, Model model) throws IOException {
+    @PostMapping("/tripledes-decryptor.html")
+    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("decodetype") Integer encodeType, @RequestParam("output") Integer outputTyp, Model model) throws IOException, DecoderException {
+
         EncryptOutputType outputType;
-        if (output == null) {
+        if (outputTyp == null) {
             outputType = EncryptOutputType.FILE;
         } else {
-            // TODO handle case that the output type not supported
-            outputType = EncryptOutputType.getById(output);
+            outputType = EncryptOutputType.getById(outputTyp);
         }
 
-        //
-        switch (outputType) {
-            case FILE: {
-//                return download(encryptService.decrypt(data, file.getBytes()));
-                return new Object();
-            }
-            case HEX: {
-                model.addAttribute("encryptedData", encryptService.encryptThenDoHex(data, file.getBytes()));
-                return "encrypt/tripledes-encrypt";
-            }
-            default:{
-                model.addAttribute("encryptedData", encryptService.encryptThenDoBase64(data, file.getBytes()));
-                return "encrypt/tripledes-encrypt";
-            }
+        // Starting decode data before do decryption
+        String output;
+        if (encodeType == 0 ){
+            output = encryptService.decryptTextBased(data, keyfile.getBytes(), outputType);
+        }else if (encodeType == 1){ // Do BASE64 decode
+            output = new String(encryptService.decrypt(Base64.decodeBase64(data), keyfile.getBytes()), "UTF-8");
+        }else {
+            output = new String(encryptService.decrypt(Hex.decodeHex(data), keyfile.getBytes()), "UTF-8");
         }
+
+        if (outputType == EncryptOutputType.FILE) {
+            return download(output);
+        }
+
+        model.addAttribute("decryptedData", output);
+        return "encrypt/tripledes-decrypt";
     }
 
     /**
      * Make user able to download file.
      * Force DELETE the file after downloading
+     *
      * @param filePath
      * @return
      */

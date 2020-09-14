@@ -21,4 +21,16 @@ public enum EncryptOutputType {
     public static EncryptOutputType getById(int id){
         return Stream.of(values()).filter(encryptOutputType -> encryptOutputType.id == id).findFirst().get();
     }
+
+    public int getId() {
+        return id;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }
