@@ -1,11 +1,8 @@
 package net.onlineutilities.controller;
 
-import com.google.common.io.Files;
-import net.onlineutilities.enums.EncryptOutputType;
+import net.onlineutilities.enums.EncryptConstants;
 import net.onlineutilities.services.encrypt.EncryptService;
 import org.apache.commons.codec.DecoderException;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -23,35 +20,13 @@ import java.io.IOException;
 import java.util.Date;
 
 @Controller
-public class EncryptionController {
+public class EncryptionController extends AbstractController {
     @Autowired
     EncryptService encryptService;
 
-
-    /**
-     * Retrieve full file-path of generated keyfile and make it downloadable.
-     * Before return the file to user, Delete that file to release server storage.
-     *
-     * @return application/octet-stream
-     */
-    @GetMapping("/tripledes/key-generator.html")
+    @GetMapping("/tripledes-key-generator.html")
     public ResponseEntity<ByteArrayResource> generate() {
-        try {
-            String secretKeyfilePath = encryptService.generateKeyFile();
-            File temp = new File(secretKeyfilePath);
-            temp.canRead();
-            byte[] res = Files.toByteArray(temp);
-            ByteArrayResource resource = new ByteArrayResource(res);
-            FileUtils.forceDelete(temp); // Delete file to release server resources
-            return ResponseEntity.ok()
-                    .contentLength(res.length)
-                    .header("Content-type", "application/octet-stream")
-                    .header("Content-disposition", "attachment; filename=\"tripledes-key-" + new Date().getTime() + ".key\"").body(resource);
-        } catch (IOException e) {
-            // TODO handle log and error message for exception
-        }
-
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+        return download(encryptService.generateKeyFile(), "tripledes-keyfile" + System.currentTimeMillis());
     }
 
 
@@ -60,100 +35,116 @@ public class EncryptionController {
      *
      * @return template mapping to tripledes-encrypt.html
      */
-    @GetMapping("/tripledes-encryptor.html")
+    @GetMapping("/tripledes-text-encryptor.html")
     public String encrypt() {
         return "encrypt/tripledes-encrypt";
     }
 
-    @GetMapping("/tripledes-decryptor.html")
-    public String decrypt() {
-        return "encrypt/tripledes-decrypt";
+    @GetMapping("/tripledes-file-encryptor.html")
+    public String encryptFile() {
+        return "encrypt/tripledes-file-encrypt";
     }
 
-    /**
-     * Process encrypt data, afterwards show the encrypted data to end-user
-     *
-     * @param file  uploaded key file
-     * @param data  origin data should be encrypted
-     * @param model Hold data to render in view.
-     * @return template mapping to tripledes-encrypt.html
-     * @throws IOException TODO need to handle exceptional cases.
-     */
-    @PostMapping("/tripledes-encryptor.html")
-    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("data") String data, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
-        EncryptOutputType outputType;
+    @PostMapping("/tripledes-text-encryptor.html")
+    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
+        EncryptConstants.Output outputType;
         if (outputTyp == null) {
-            outputType = EncryptOutputType.FILE;
+            outputType = EncryptConstants.Output.FILE;
         } else {
-            outputType = EncryptOutputType.getById(outputTyp);
+            outputType = EncryptConstants.Output.getById(outputTyp);
         }
 
+        String encryptedData = encryptService.encryptText(data, keyfile.getBytes(), outputType, null);
 
-        String encryptedData = null;
-        if (file != null) {
-            encryptedData = encryptService.encryptFile(file.getBytes(), keyfile.getBytes(), outputType);
-        } else {
-            encryptedData = encryptService.textBasedEncrypt(data, keyfile.getBytes(), outputType);
+        if (outputType == EncryptConstants.Output.FILE) {
+            return download(encryptedData, "tripledes-encrypted-" + System.currentTimeMillis());
         }
-
-        //
-        if (outputType == EncryptOutputType.FILE) {
-            return download(encryptedData);
-        }
-
         model.addAttribute("outputType", outputType.getDisplay());
         model.addAttribute("encryptedData", encryptedData);
         return "encrypt/tripledes-encrypt";
     }
 
-    @PostMapping("/tripledes-decryptor.html")
-    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("decodetype") Integer encodeType, @RequestParam("output") Integer outputTyp, Model model) throws IOException, DecoderException {
-
-        EncryptOutputType outputType;
+    @PostMapping("/tripledes-file-encryptor.html")
+    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
+        EncryptConstants.Output outputType;
         if (outputTyp == null) {
-            outputType = EncryptOutputType.FILE;
+            outputType = EncryptConstants.Output.FILE;
         } else {
-            outputType = EncryptOutputType.getById(outputTyp);
+            outputType = EncryptConstants.Output.getById(outputTyp);
         }
 
-        // Starting decode data before do decryption
-        String output;
-        if (encodeType == 0 ){
-            output = encryptService.decryptTextBased(data, keyfile.getBytes(), outputType);
-        }else if (encodeType == 1){ // Do BASE64 decode
-            output = new String(encryptService.decrypt(Base64.decodeBase64(data), keyfile.getBytes()), "UTF-8");
-        }else {
-            output = new String(encryptService.decrypt(Hex.decodeHex(data), keyfile.getBytes()), "UTF-8");
-        }
+        String encryptedData = encryptService.encryptFile(file.getBytes(), keyfile.getBytes(), outputType);
 
-        if (outputType == EncryptOutputType.FILE) {
-            return download(output);
+        if (outputType == EncryptConstants.Output.FILE) {
+            return download(encryptedData, "tripledes-encrypted-" + System.currentTimeMillis());
         }
+        model.addAttribute("outputType", outputType.getDisplay());
+        model.addAttribute("encryptedData", encryptedData);
+        return "encrypt/tripledes-file-encrypt";
+    }
 
-        model.addAttribute("decryptedData", output);
+    @GetMapping("/tripledes-text-decryptor.html")
+    public String decrypt() {
         return "encrypt/tripledes-decrypt";
     }
 
-    /**
-     * Make user able to download file.
-     * Force DELETE the file after downloading
-     *
-     * @param filePath
-     * @return
-     */
-    private ResponseEntity<ByteArrayResource> download(String filePath) {
-        try {
-            File temp = new File(filePath);
-            byte[] res = FileUtils.readFileToByteArray(temp);
-            ByteArrayResource resource = new ByteArrayResource(res);
-            FileUtils.forceDelete(temp);
-            return ResponseEntity.ok()
-                    .contentLength(res.length)
-                    .header("Content-type", "application/octet-stream")
-                    .header("Content-disposition", "attachment; filename=\"tripledes-encrypted-" + new Date().getTime() + ".txt\"").body(resource);
-        } catch (IOException e) {
-            // TODO handle log and error message for exception
-        }
-        return new ResponseEntity(HttpStatus.INTERNAL_SERVER_ERROR);
+    @GetMapping("/tripledes-file-decryptor.html")
+    public String decryptFile() {
+        return "encrypt/tripledes-file-decrypt";
     }
+
+    @PostMapping("/tripledes-text-decryptor.html")
+    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
+        EncryptConstants.EncodeSupport encodeSupport;
+        if (encodeType == 0) {
+            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
+        }else if(encodeType == 1){
+            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
+        }else {
+            encodeSupport = EncryptConstants.EncodeSupport.HEX;
+        }
+
+        EncryptConstants.Output outputType;
+        if (outputTyp == 1) {
+            outputType = EncryptConstants.Output.FILE;
+        } else {
+            outputType = EncryptConstants.Output.getById(outputTyp);
+        }
+
+        if (outputType == EncryptConstants.Output.FILE) {
+            return download(encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, "UTF-8"), "tripledes-encrypted-" + System.currentTimeMillis());
+        }
+        model.addAttribute("outputType", outputType.getDisplay());
+        model.addAttribute("decryptedData", encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, "UTF-8"));
+        return "encrypt/tripledes-decrypt";
+    }
+
+
+    @PostMapping("/tripledes-file-decryptor.html")
+    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
+        EncryptConstants.EncodeSupport encodeSupport;
+        if (encodeType == 0) {
+            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
+        }else if(encodeType == 1){
+            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
+        }else {
+            encodeSupport = EncryptConstants.EncodeSupport.HEX;
+        }
+
+        EncryptConstants.Output outputType;
+        if (outputTyp == 1) {
+            outputType = EncryptConstants.Output.FILE;
+        } else {
+            outputType = EncryptConstants.Output.getById(outputTyp);
+        }
+
+        if (outputType == EncryptConstants.Output.FILE) {
+            return download(encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType), "tripledes-encrypted-" + System.currentTimeMillis());
+        }
+        model.addAttribute("outputType", outputType.getDisplay());
+        model.addAttribute("decryptedData", encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType));
+        return "encrypt/tripledes-file-decrypt";
+    }
+
+
 }

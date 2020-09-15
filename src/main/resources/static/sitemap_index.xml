@@ -1,13 +1,42 @@
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
-    <!--  created with Free Online Sitemap Generator www.xml-sitemaps.com  -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
     <url>
         <loc>https://onlineutilities.net/</loc>
-        <lastmod>2020-08-22T15:19:48+00:00</lastmod>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
         <priority>1.00</priority>
     </url>
     <url>
-        <loc>https://onlineutilities.net/base64decode</loc>
-        <lastmod>2020-08-22T15:19:48+00:00</lastmod>
+        <loc>https://onlineutilities.net/base64decode.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://onlineutilities.net/tripledes-key-generator.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+    <url>
+        <loc>https://onlineutilities.net/tripledes-text-encryptor.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://onlineutilities.net/tripledes-file-encryptor.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://onlineutilities.net/tripledes-file-decryptor.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
+        <priority>0.80</priority>
+    </url>
+
+    <url>
+        <loc>https://onlineutilities.net/tripledes-text-decryptor.html</loc>
+        <lastmod>2020-09-15T15:19:48+00:00</lastmod>
         <priority>0.80</priority>
     </url>
 </urlset>
