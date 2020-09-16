@@ -23,6 +23,12 @@
         .service-section {
             padding-top: 25px;
         }
+
+        @media (max-width: 576px) {
+            .col:nth-child(0n+1){
+                padding-top: 3px;
+            }
+        }
     </style>
 </head>
 
@@ -42,9 +48,9 @@
             <h2>Tools we made</h2>
         </div>
         <div class="row">
-            <div class="col-sm-6 col-md-6 pt-md-3">
+            <div class="col-sm-12 col-md-6 pt-xs-5 pt-3 pt-sm-3">
                 <div class="list-group text-primary">
-                    <a href="#" class="list-group-item list-group-item-action">Encoding tools</a>
+                    <a href="#" class="list-group-item list-group-item-action font-weight-bold">MIME tools</a>
 
                     <a href="/base64decode.html" class="list-group-item">Base64 decode online</a>
                     <a href="#" class="list-group-item">Coming soon</a>
@@ -55,9 +61,9 @@
                     <a href="#" class="list-group-item">Coming soon</a>
                 </div>
             </div>
-            <div class="col-sm-6 col-md-6">
-                <div class="list-group pt-md-3" >
-                    <a href="#" class="list-group-item list-group-item-action">Encryption tools</a>
+            <div class="col-sm-12 col-md-6 pt-xs-5 pt-3 pt-sm-3">
+                <div class="list-group" >
+                    <a href="#" class="list-group-item list-group-item-action font-weight-bold">Encryption tools</a>
 
                     <a href="/tripledes-text-encryptor.html" class="list-group-item">Triple DES text-based encrypt online tool</a>
                     <a href="/tripledes-file-encryptor.html" class="list-group-item">Triple DES file encrypt online tool</a>
@@ -68,12 +74,10 @@
                     <a href="#" class="list-group-item">Coming soon</a>
                 </div>
             </div>
-        </div>
-        <br>
-        <div class="row">
-            <div class="col-sm-6 col-md-6">
-                <div class="list-group pt-md-3">
-                    <a href="#" class="list-group-item list-group-item-action">Hashing tools</a>
+
+            <div class="col-sm-12 col-md-6 pt-xs-5 pt-3 pt-sm-3">
+                <div class="list-group">
+                    <a href="#" class="list-group-item list-group-item-action font-weight-bold">Hashing tools</a>
 
                     <a href="#" class="list-group-item">MD5 hash</a>
                     <a href="#" class="list-group-item">SHA-1</a>
@@ -84,10 +88,9 @@
                     <a href="#" class="list-group-item">Coming soon</a>
                 </div>
             </div>
-
-            <div class="col-sm-6 col-md-6 pt-md-3">
+            <div class="col-sm-12 col-md-6 pt-xs-5 pt-3 pt-sm-3">
                 <div class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">Format tools</a>
+                    <a href="#" class="list-group-item list-group-item-action font-weight-bold">Format tools</a>
 
                     <a href="#" class="list-group-item">Base64 decode online</a>
                     <a href="#" class="list-group-item">Coming soon</a>

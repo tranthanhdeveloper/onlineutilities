@@ -50,6 +50,7 @@
                 <div class="container text-center">
                     <h5>Decode a base64 value to origin text value.</h5>
                 </div>
+                <div></div>
                 <div class="data-input-section">
                     <form action="/base64decode" method="post">
                         <div class="form-group">
@@ -69,12 +70,12 @@
                 </div>
                 <div class="navPadding" th:if="${encoded != null && !encoded.isEmpty()}">
                     <div class="form-group">
-                    <textarea class="form-control" th:text="${encoded}">
-                    </textarea>
+                        <div class="form-control" th:text="${encoded}"> </div>
                     </div>
                 </div>
+                <div></div>
                 <div class="blog-post">
-                    <h3>What is base64?</h3>
+                    <h3>What is base64? Why we need decode to base64?</h3>
                     <hr>
                     <p>Base64 is group of ASCII characters that represent to binary data. We present audio, video or any file in text format.
                         The term base64 originates from a specific <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
@@ -93,6 +94,9 @@
                         <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
                     </pre>
                 </div>
+            </div>
+            <div class="col-md-2">
+                <div></div>
             </div>
         </div>
     </div>
