@@ -1,5 +1,5 @@
 body {
-    height: 100vh;
+    min-height: 100%;
 }
 
 header {
@@ -20,4 +20,10 @@ section {
 
 .main-section {
     padding-top: 100px;
+}
+
+@media screen and (min-width: 768px) {
+  body {
+    background-color: lightgreen;
+  }
 }
