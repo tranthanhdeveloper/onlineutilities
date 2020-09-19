@@ -5,10 +5,8 @@
     <title>BASE64 FILE ENCODING ONLINE</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="base64 decode, decode base64 online, mime tools">
-    <meta name="description" content="Triple Encryption online tool">
+    <meta name="keyword" content="base64 file encode, encode base64 online, mime tools">
     <template th:replace="head::common-head"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
 </head>
 
 <body>
@@ -19,21 +17,23 @@
     <div class="container-fluid main-section bg-light">
         <div class="row"></div>
         <div class="row">
-            <div class="col-xs-12 col-md-2 col-ls-2 col-xl-2"></div>
-            <div class="col-xs-12 col-lg-8 col-md-8">
+            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3">
+            </div>
+            <div class="col-xs-12 col-lg-6 col-md-6  col-xl-6">
                 <div class="text-center">
-                    <h2>Encode file to base64 online and totally free.</h2>
+                    <h3>Encode file to base64 online and totally free.</h3>
                 </div>
                 <div class="alert alert-info">
                     IMPORTANT INFO: We do not store any kind of file or any file you have uploaded. All files are immediately deleted after completed processing.
                 </div>
-                <div>
-                    <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
-                        <ul th:each="error : ${errors}">
-                            <li th:text="${error}"></li>
-                        </ul>
-                    </div>
-                    <form action="/mime-tools/base64-file-encoder.html" method="post" enctype="multipart/form-data">
+                <div CLASS="mt-md-3 rounded">
+                    <div>
+                        <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
+                            <ul th:each="error : ${errors}">
+                                <li th:text="${error}"></li>
+                            </ul>
+                        </div>
+                        <form action="/mime-tools/base64-file-encoder.html" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="file">Upload your file</label>
                             <input type="file" class="form-control-file" name="file" id="file" placeholder="">
@@ -47,55 +47,81 @@
                         </div>
                         <button type="submit" class="btn btn-primary">Encode now</button>
                     </form>
-                </div>
-                <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-                    <h5 class="card-header">Encoded value</h5>
-                    <div class="card-body">
-                        <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
-<!--                        <a href="#" class="btn btn-primary">Select whole text</a>-->
-                        <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
                     </div>
                 </div>
-
-                <hr>
-                <div class="blog-post">
+                <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
+                    <div class="card-header">
+                        <div class="pull-right">
+                        <h5 class="card-header-text pull-left">Encoded value</h5>
+                            <div class="pull-left">
+                                <a href="#" class="btn btn-secondary btn-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</a>
+                                <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
+                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#encodeValueCollapse" aria-expanded="false" aria-controls="collapseExample">
+                                    Toggle value
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="encodeValueCollapse">
+                        <div class="card-body">
+                            <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="blog-post mt-5 mt-md-5">
                     <h3>What is base64? Why we need decode to base64?</h3>
                     <hr>
                     <p>Base64 is group of ASCII characters that represent to binary data. We present audio, video or any file in text format.
                         The term base64 originates from a specific <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
                     <h3>What is base64 used for?</h3>
-                    <hr>
                     <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
                     <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
                     <h3>Decode base64 to origin data for some programming languages</h3>
-                    <hr>
                     <p>Decode base64 in Java</p>
                     <pre>
-                    <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
-                </pre>
+                        <code class="language-java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
+                    </pre>
                     <p>Decode base64 in Javascript</p>
                     <pre>
-                    <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
-                </pre>
+                        <code class="language-javascript">atob('dGVzdCBiYXNlNjQ=')</code>
+                    </pre>
+
+                    <p>Decode base64 in Javascript</p>
+                    <pre>
+                        <code class="language-php">
+&#x3C;?php
+    $str = &#x27;This is an encoded string&#x27;;
+    echo base64_encode($str);
+?&#x3E;
+                        </code>
+                    </pre>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-2 col-xl-2">
+            <div class="col-xs-12 col-md-3 col-xl-3">
             </div>
         </div>
     </div>
 </section>
-
-<div th:replace="footer :: footer"></div>
-<div th:replace="scripts-include :: page-script"></div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
+<template th:replace="footer :: footer"/>
+<template th:replace="scripts-include :: page-script"/>
 <script th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-    hljs.initHighlightingOnLoad();
     $(document).ready(function (){
         $(".btn-download-file").on('click', function () {
             let encodedValue = $(".encoded-text-container").text()
             window.location = "data:application/octet-stream,"+encodedValue;
         })
+
+        var clipboard = new ClipboardJS('.btn-copy');
+        clipboard.on('success', function(e) {
+            $('#clipboardCopied').toast('show');
+        });
+
+        clipboard.on('error', function(e) {
+            $('#element').toast('show');
+        });
     });
+
+
 </script>
 </body>
 </html>

@@ -21,9 +21,3 @@ section {
 .main-section {
     padding-top: 100px;
 }
-
-@media screen and (min-width: 768px) {
-  body {
-    background-color: lightgreen;
-  }
-}

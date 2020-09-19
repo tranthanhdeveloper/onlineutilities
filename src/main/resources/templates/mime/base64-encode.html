@@ -5,10 +5,8 @@
     <title>BASE64 ENCODE ONLINE</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="base64 decode, decode base64 online, mime tools">
-    <meta name="description" content="Triple Encryption online tool">
+    <meta name="keyword" content="base64 encode, encode base64 online, encode text to base64, mime tools">
     <template th:replace="head::common-head"/>
-    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/styles/default.min.css">
 </head>
 
 <body>
@@ -19,8 +17,8 @@
     <div class="container-fluid main-section bg-light">
         <div class="row"></div>
         <div class="row">
-            <div class="col-xs-12 col-md-2 col-ls-2 col-xl-2"></div>
-            <div class="col-xs-12 col-lg-8 col-md-8">
+            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
+            <div class="col-xs-12 col-lg-6 col-md-8">
                 <div class="text-center">
                     <h2>Base64 encode online text-based data.</h2>
                 </div>
@@ -45,9 +43,8 @@
                         </div>
                         <div class="form-group">
                             <label for="data">String to encode</label>
-                            <small>By default, the web-browser does not allow pasting too large of text. Be noticed when pasting value to the field below.</small>
                             <textarea class="form-control" name="data" id="data" rows="5"></textarea>
-                            
+                            <small>By default, the web-browser does not allow pasting too large of text. Be noticed when pasting value to the this field.</small>
                         </div>
                         <div class="form-group">
                             <label for="outputType">Output type</label>
@@ -64,7 +61,7 @@
                     <div class="card-body">
                         <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
 <!--                        <a href="#" class="btn btn-primary">Select whole text</a>-->
-                        <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
+                        <a href="#" class="btn btn-primary btn-download-file" data-target-element=".encoded-text-container">Download as file</a>
                     </div>
                 </div>
                 <hr>
@@ -89,23 +86,13 @@
                 </pre>
                 </div>
             </div>
-            <div class="col-xs-12 col-md-2 col-xl-2">
+            <div class="col-xs-12 col-md-3 col-xl-3">
             </div>
         </div>
     </div>
 </section>
 
-<div th:replace="footer :: footer"></div>
-<div th:replace="scripts-include :: page-script"></div>
-<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.2/highlight.min.js"></script>
-<script th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-    $(document).ready(function (){
-        hljs.initHighlightingOnLoad();
-        $(".btn-download-file").on('click', function () {
-            let encodedValue = $(".encoded-text-container").text()
-            window.location = "data:application/octet-stream,"+encodedValue;
-        })
-    });
-</script>
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
 </body>
 </html>

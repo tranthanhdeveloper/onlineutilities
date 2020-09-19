@@ -80,10 +80,12 @@
                         <button type="submit" class="btn btn-primary pull-left">Encrypt now</button>
                     </form>
                 </div>
-                <div class="navPadding" th:if="${encryptedData != null && !encryptedData.isEmpty()}">
-                    <label th:text="'Encrypt data are represent in '+${outputType}"></label>
-                    <div class="form-group">
-                        <div id="encryptDataDisplay" th:text="${encryptedData}" style="word-wrap: break-word" class="bg-secondary text-white"></div>
+                <div class="card bg-light mt-5 mt-md-5" th:if="${ encryptedData != null && !encryptedData.isEmpty()}">
+                    <h5 class="card-header" th:text="'Encrypt data are represent in '+${outputType}">Encoded value</h5>
+                    <div class="card-body">
+                        <p class="card-text .text-selectable encoded-text-container" th:text="${encryptedData}"></p>
+                        <a href="#" class="btn btn-secondary btn-select-all">Select whole text</a>
+                        <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
                     </div>
                 </div>
             </div>
@@ -93,30 +95,6 @@
 
 <div th:replace="footer :: footer"></div>
 <div th:replace="scripts-include :: page-script"></div>
-<script>
-    $("#encryptDataDisplay").on("mouseup", function () {
-        var sel, range;
-        var el = $(this)[0];
-        if (window.getSelection && document.createRange) { //Browser compatibility
-            sel = window.getSelection();
-            if(sel.toString() === ''){ //no text selection
-                window.setTimeout(function(){
-                    range = document.createRange(); //range object
-                    range.selectNodeContents(el); //sets Range
-                    sel.removeAllRanges(); //remove all ranges from selection
-                    sel.addRange(range);//add Range to a Selection.
-                },1);
-            }
-        }else if (document.selection) { //older ie
-            sel = document.selection.createRange();
-            if (sel.text === '') { //no text selection
-                range = document.body.createTextRange();//Creates TextRange object
-                range.moveToElementText(el);//sets Range
-                range.select(); //make selection.
-            }
-        }
-    });
-</script>
 </body>
 
 </html>
