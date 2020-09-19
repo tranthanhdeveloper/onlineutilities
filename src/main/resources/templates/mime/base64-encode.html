@@ -60,8 +60,8 @@
                     <h5 class="card-header">Encoded value</h5>
                     <div class="card-body">
                         <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
-<!--                        <a href="#" class="btn btn-primary">Select whole text</a>-->
-                        <a href="#" class="btn btn-primary btn-download-file" data-target-element=".encoded-text-container">Download as file</a>
+                        <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
+                        <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
                     </div>
                 </div>
                 <hr>

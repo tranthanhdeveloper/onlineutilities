@@ -1,6 +1,7 @@
 hljs.initHighlightingOnLoad();
-
 $(document).ready(function () {
+    var clipboard = new ClipboardJS('.btn-clipboard-copy');
+
     $(".text-selectable").on('dblclick', function () {
         var sel, range;
         var el = $(this)[0];
@@ -24,10 +25,25 @@ $(document).ready(function () {
         }
     })
 
+    // Make downloadable for text value, using declarative model
     $('.btn-download-file').on('click', function (event) {
         event.preventDefault();
         let targetEl = $($(this).data("target-element"));
+        let filename = $(this).data("download-filename");
         let value = targetEl.text();
-        window.location = "data:application/octet-stream,"+value;
+
+        let element = document.createElement("a");
+        element.setAttribute("href", "data:text/plain;charset=utf-8,"+value);
+        element.setAttribute("download", filename);
+        element.click();
     })
+
+    $('.btn-copy-clipboard').on('click', function (event) {
+        event.preventDefault();
+        let targetEl = $($(this).data('target-element'));
+
+
+    })
+
+
 })

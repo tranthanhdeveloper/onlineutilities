@@ -54,15 +54,15 @@
                         <div class="pull-right">
                         <h5 class="card-header-text pull-left">Encoded value</h5>
                             <div class="pull-left">
-                                <a href="#" class="btn btn-secondary btn-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</a>
-                                <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
-                                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#encodeValueCollapse" aria-expanded="false" aria-controls="collapseExample">
-                                    Toggle value
+                                <button class="btn btn-sm btn-secondary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
+                                <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
+                                <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse" data-target="#encodeValueCollapse" aria-expanded="false" aria-controls="collapseExample">
+                                    Collapse value
                                 </button>
                             </div>
                         </div>
                     </div>
-                    <div class="collapse" id="encodeValueCollapse">
+                    <div class="collapse show" id="encodeValueCollapse">
                         <div class="card-body">
                             <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
                         </div>
@@ -104,24 +104,5 @@
 </section>
 <template th:replace="footer :: footer"/>
 <template th:replace="scripts-include :: page-script"/>
-<script th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-    $(document).ready(function (){
-        $(".btn-download-file").on('click', function () {
-            let encodedValue = $(".encoded-text-container").text()
-            window.location = "data:application/octet-stream,"+encodedValue;
-        })
-
-        var clipboard = new ClipboardJS('.btn-copy');
-        clipboard.on('success', function(e) {
-            $('#clipboardCopied').toast('show');
-        });
-
-        clipboard.on('error', function(e) {
-            $('#element').toast('show');
-        });
-    });
-
-
-</script>
 </body>
 </html>
