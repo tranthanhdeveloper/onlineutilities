@@ -1,6 +1,7 @@
 package net.onlineutilities.controller;
 
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.net.URLCodec;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +12,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,9 +21,24 @@ import java.util.List;
 @RequestMapping("mime-tools")
 public class MimeToolsController extends AbstractController {
 
+    @GetMapping("")
+    public String index(){
+        return "mime/mime-index";
+    }
+
     @GetMapping("base64-text-encoder.html")
     public String textBase64encode() {
         return "mime/base64-encode";
+    }
+
+    @GetMapping("url-encoder.html")
+    public String urlEncode() {
+        return "mime/url-encoder";
+    }
+
+    @GetMapping("url-decoder.html")
+    public String urlDecode() {
+        return "mime/url-decoder";
     }
 
     @GetMapping("base64-file-encoder.html")

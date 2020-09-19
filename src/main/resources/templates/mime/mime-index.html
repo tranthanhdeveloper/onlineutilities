@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Online utilities - MIME tools</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="An online platform that serves free online utilities and tools to increase working effectiveness.">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+<section class="bg-light padding-top-15">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <div>
+                    <h5>Base64 Text-encoder</h5>
+                    <p>
+                        Help you encode text value to base64. It support multiple charset of origin text source. Also, it supports download the encoded data as file or present it as text.
+                    </p>
+                    <a href="/mime-tools/base64-text-encoder.html" class="btn btn-primary">Encode now</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 pt-3 pt-md-3">
+                <div>
+                    <h5>Base64 File-encoder</h5>
+                    <p>Help you encode a file to base64. Support for multiple any file of files such as image, zip files. You can download the encoded data or view it on the web directly.</p>
+                    <a href="/mime-tools/base64-file-encoder.html" class="btn btn-primary">Encode now</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6">
+                <div>
+                    <h5>Base64 Text-decoder</h5>
+                    <p>
+                        Help you encode text value to base64. It support multiple charset of origin text source. Also, it supports download the encoded data as file or present it as text.
+                    </p>
+                    <a href="/mime-tools/base64-text-encoder.html" class="btn btn-primary">Encode now</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6  pt-3 pt-md-3">
+                <div>
+                    <h5>Base64 File-decoder</h5>
+                    <p>Help you encode a file to base64. Support for multiple any file of files such as image, zip files. You can download the encoded data or view it on the web directly.</p>
+                    <a href="/mime-tools/base64-file-encoder.html" class="btn btn-primary">Encode now</a>
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6 pt-3 pt-md-3">
+                <div>
+                    <h5>URL Decoder</h5>
+                    <p>Help you encode a file to base64. Support for multiple any file of files such as image, zip files. You can download the encoded data or view it on the web directly.</p>
+                    <a href="/mime-tools/url-decoder.html" class="btn btn-primary">Decode URL now</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 pt-3 pt-md-3">
+                <div>
+                    <h5>URL Encoder</h5>
+                    <p>
+                        Help you encode text value to base64. It support multiple charset of origin text source. Also, it supports download the encoded data as file or present it as text.
+                    </p>
+                    <a href="/mime-tools/url-encoder.html" class="btn btn-primary">Encode URL now</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="footer :: footer"></div>
+<div th:replace="scripts-include :: page-script"></div>
+</body>
+
+</html>
