@@ -85,12 +85,12 @@ public class DESEncryptionController extends AbstractController {
         return "encrypt/des-file-encrypt";
     }
 
-    @GetMapping("/3des-text-decryptor.html")
+    @GetMapping("/des-text-decryptor.html")
     public String decrypt() {
         return "encrypt/tripledes-decrypt";
     }
 
-    @GetMapping("/3des-file-decryptor.html")
+    @GetMapping("/des-file-decryptor.html")
     public String decryptFile() {
         return "encrypt/tripledes-file-decrypt";
     }

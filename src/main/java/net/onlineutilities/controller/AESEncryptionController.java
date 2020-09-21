@@ -85,12 +85,12 @@ public class AESEncryptionController extends AbstractController {
         return "encrypt/aes-file-encrypt";
     }
 
-    @GetMapping("/3des-text-decryptor.html")
+    @GetMapping("/aes-text-decryptor.html")
     public String decrypt() {
         return "encrypt/tripledes-decrypt";
     }
 
-    @GetMapping("/3des-file-decryptor.html")
+    @GetMapping("/aes-file-decryptor.html")
     public String decryptFile() {
         return "encrypt/tripledes-file-decrypt";
     }

@@ -85,12 +85,12 @@ public class BlowfishEncryptionController extends AbstractController {
         return "encrypt/blowfish-file-encrypt";
     }
 
-    @GetMapping("/3des-text-decryptor.html")
+    @GetMapping("/blowfish-text-decryptor.html")
     public String decrypt() {
         return "encrypt/tripledes-decrypt";
     }
 
-    @GetMapping("/3des-file-decryptor.html")
+    @GetMapping("/blowfish-file-decryptor.html")
     public String decryptFile() {
         return "encrypt/tripledes-file-decrypt";
     }
