@@ -63,13 +63,14 @@ footer .container p{
 /*--------------------------------------------------------------
 # Sections General
 --------------------------------------------------------------*/
-section {
-    /* padding: 60px 0; */
-    /* overflow: hidden; */
-}
-
 .section-bg {
     background-color: #f6f6f7;
+}
+
+@media (min-width: 768px) {
+	section .container .reverse-col-order{
+		flex-direction:column-reverse;
+	}
 }
 
 .section-title {

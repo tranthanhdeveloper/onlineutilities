@@ -18,10 +18,10 @@ import java.util.UUID;
 public class EncryptServiceImpl implements EncryptService {
 
     @Override
-    public byte[] encrypt(byte[] bytesToEncrypt, byte[] keyAsBytes) {
+    public byte[] encrypt(byte[] bytesToEncrypt, byte[] keyAsBytes, String algorithm) {
         Cipher ecipher;
         try {
-            ecipher = Cipher.getInstance("DESede");
+            ecipher = Cipher.getInstance(algorithm);
             ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes));
             return ecipher.doFinal(bytesToEncrypt);
         } catch (Exception e) {
@@ -32,9 +32,9 @@ public class EncryptServiceImpl implements EncryptService {
     }
 
     @Override
-    public byte[] decrypt(byte[] byteToDecrypt, byte[] keyAsBytes) {
+    public byte[] decrypt(byte[] byteToDecrypt, byte[] keyAsBytes, String algorithm) {
         try {
-            Cipher dcipher = Cipher.getInstance("DESede");
+            Cipher dcipher = Cipher.getInstance(algorithm);
             dcipher.init(Cipher.DECRYPT_MODE, createSecretKey(keyAsBytes));
             return dcipher.doFinal(byteToDecrypt);
         } catch (Exception e) {
@@ -44,36 +44,36 @@ public class EncryptServiceImpl implements EncryptService {
     }
 
     @Override
-    public String encryptFile(byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType) {
+    public String encryptFile(byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) {
         switch (outputType){
             case FILE:{
-                return saveAsTempFile(encrypt(bytesOfFile, keyfileBytes));
+                return saveAsTempFile(encrypt(bytesOfFile, keyfileBytes, algorithm));
             }case HEX:{
-                return Hex.encodeHexString(encrypt(bytesOfFile, keyfileBytes));
+                return Hex.encodeHexString(encrypt(bytesOfFile, keyfileBytes, algorithm));
             } default:{
-                return Base64.encodeBase64String(encrypt(bytesOfFile, keyfileBytes));
+                return Base64.encodeBase64String(encrypt(bytesOfFile, keyfileBytes, algorithm));
             }
         }
     }
 
     @Override
-    public String encryptText(String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset) throws UnsupportedEncodingException {
+    public String encryptText(String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws UnsupportedEncodingException {
         if (charset == null || charset.isEmpty()){
             charset = "UTF-8";
         }
         switch (outputType){
             case FILE:{
-                return saveAsTempFile(encrypt(data.getBytes(charset), keyfileBytes));
+                return saveAsTempFile(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             }case HEX:{
-                return Hex.encodeHexString(encrypt(data.getBytes(charset), keyfileBytes));
+                return Hex.encodeHexString(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             } default:{
-                return Base64.encodeBase64String(encrypt(data.getBytes(charset), keyfileBytes));
+                return Base64.encodeBase64String(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             }
         }
     }
 
     @Override
-    public String decryptFile(EncryptConstants.EncodeSupport encodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType) throws DecoderException {
+    public String decryptFile(EncryptConstants.EncodeSupport encodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws DecoderException {
 
         byte[] decodedData = new byte[0];
         // Check if we need perform decode.
@@ -87,13 +87,13 @@ public class EncryptServiceImpl implements EncryptService {
 
         // Checking for output type
         if (outputType == EncryptConstants.Output.FILE) {
-            return saveAsTempFile(decrypt(decodedData, keyfileBytes));
+            return saveAsTempFile(decrypt(decodedData, keyfileBytes, algorithm));
         }
-        return new String(decrypt(decodedData, keyfileBytes));
+        return new String(decrypt(decodedData, keyfileBytes, algorithm));
     }
 
     @Override
-    public String decryptText(EncryptConstants.EncodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset) throws DecoderException, UnsupportedEncodingException {
+    public String decryptText(EncryptConstants.EncodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws DecoderException, UnsupportedEncodingException {
 
         byte[] decodedData = new byte[0];
         // Check if we need perform decode.
@@ -105,9 +105,9 @@ public class EncryptServiceImpl implements EncryptService {
 
         // Checking for output type
         if (outputType == EncryptConstants.Output.FILE) {
-            return saveAsTempFile(decrypt(decodedData, keyfileBytes));
+            return saveAsTempFile(decrypt(decodedData, keyfileBytes, algorithm));
         }
-        return new String(decrypt(decodedData, keyfileBytes), charset);
+        return new String(decrypt(decodedData, keyfileBytes, algorithm), charset);
     }
 
     /**
@@ -116,13 +116,13 @@ public class EncryptServiceImpl implements EncryptService {
      * @return path
      */
     @Override
-    public String generateKeyFile() {
+    public String generateKeyFile(String algorithm) {
         String fullPath = null;
         try {
-            KeyGenerator desEdeGen = KeyGenerator.getInstance("DESede"); // Triple DES
+            KeyGenerator desEdeGen = KeyGenerator.getInstance(algorithm);
             SecretKey desEdeKey = desEdeGen.generateKey();
 
-            File tempKeyFile = File.createTempFile(UUID.randomUUID().toString(), ".deskey");
+            File tempKeyFile = File.createTempFile(UUID.randomUUID().toString(), ".key");
 
             byte[] keyBytes = desEdeKey.getEncoded();
             String keyString = new String(keyBytes);
