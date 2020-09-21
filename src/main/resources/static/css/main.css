@@ -6,14 +6,6 @@ body {
     margin-bottom: 60px; /* Margin bottom by footer height */
     background-color: #ffffff!important;
 }
-.footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 70px;
-
-}
-
 header {
     padding: 98px 0 32px;
 }
@@ -46,31 +38,34 @@ section {
     padding-top: 150px;
 }
 
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+}
+
+.span-section{
+    margin-top: 10px;
+}
+
 footer .container p{
     float: right;
     padding-right: 0;
 }
 
-/* Start copy from */
-
-/**
-* Template Name: Bethany - v2.1.0
-* Template URL: https://bootstrapmade.com/bethany-free-onepage-bootstrap-theme/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
 .section-bg {
     background-color: #f6f6f7;
 }
 
-@media (min-width: 768px) {
+@media screen and (max-width: 992px) {
 	section .container .reverse-col-order{
 		flex-direction:column-reverse;
-	}
+    }
+
+    .footer{
+        height: 90px;
+    }
 }
 
 .section-title {
