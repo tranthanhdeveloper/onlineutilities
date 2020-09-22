@@ -18,17 +18,59 @@ import net.onlineutilities.enums.EncryptConstants;
 import net.onlineutilities.services.encrypt.EncryptService;
 
 @Controller
-@RequestMapping("cryptographic-tools")
-public class DESEncryptionController extends AbstractController {
+public class DESEncryptionController extends CryptographicController {
 	
 	
     private static final String DES = "DES";
 	@Autowired
     EncryptService encryptService;
 
+
+    @GetMapping("secretkey-generator.html")
+    public String generateSecretKey(){
+        return "encrypt/secretkey-generator";
+    }
+
+    @PostMapping("secretkey-generator.html")
+    public ResponseEntity<ByteArrayResource> generateSecretKey(@RequestParam("keytype") int keytype){
+        String algorithms;
+        switch (keytype){
+            case 1:{
+                algorithms = EncryptConstants.SupportAlgorithms.TRIPLE_DES.getAlgorithm();
+                break;
+            }
+            case 2:{
+                algorithms  = EncryptConstants.SupportAlgorithms.AES.getAlgorithm();
+                break;
+            }
+
+            case 3:{
+                algorithms  = EncryptConstants.SupportAlgorithms.RSA.getAlgorithm();
+                break;
+            }
+
+            case 4:{
+                algorithms  = EncryptConstants.SupportAlgorithms.BLOWFISH.getAlgorithm();
+                break;
+            }
+            default:{
+                algorithms = EncryptConstants.SupportAlgorithms.DES.getAlgorithm();
+                break;
+            }
+
+        }
+
+        return download(encryptService.generateKeyFile(algorithms),algorithms.toLowerCase()+"-secretkey.key");
+    }
+
+	@GetMapping("")
+    public String index() {
+        return "encrypt/cryptographic-tools";
+    }
+
     @GetMapping("/des-key-generator.html")
     public ResponseEntity<ByteArrayResource> generate() {
-        return download(encryptService.generateKeyFile(DES), "des-keyfile" + System.currentTimeMillis());
+        return download(encryptService.generateKeyFile(DES), "des-keyfile.key");
     }
 
 
@@ -87,12 +129,12 @@ public class DESEncryptionController extends AbstractController {
 
     @GetMapping("/des-text-decryptor.html")
     public String decrypt() {
-        return "encrypt/tripledes-decrypt";
+        return "encrypt/des-decrypt";
     }
 
     @GetMapping("/des-file-decryptor.html")
     public String decryptFile() {
-        return "encrypt/tripledes-file-decrypt";
+        return "encrypt/des-file-decrypt";
     }
 
     @PostMapping("/des-text-decryptor.html")

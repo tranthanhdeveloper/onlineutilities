@@ -18,8 +18,7 @@ import net.onlineutilities.enums.EncryptConstants;
 import net.onlineutilities.services.encrypt.EncryptService;
 
 @Controller
-@RequestMapping("cryptographic-tools")
-public class AESEncryptionController extends AbstractController {
+public class AESEncryptionController extends CryptographicController {
 	
 	
     private static final String AES = "AES";

@@ -10,8 +10,15 @@ import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
+import javax.crypto.spec.DESKeySpec;
 import javax.crypto.spec.DESedeKeySpec;
+import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.security.spec.InvalidKeySpecException;
+import java.security.spec.KeySpec;
 import java.util.UUID;
 
 @Component
@@ -22,7 +29,7 @@ public class EncryptServiceImpl implements EncryptService {
         Cipher ecipher;
         try {
             ecipher = Cipher.getInstance(algorithm);
-            ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes));
+            ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
             return ecipher.doFinal(bytesToEncrypt);
         } catch (Exception e) {
             // TODO implement logic for exceptions and log to the system.
@@ -35,7 +42,7 @@ public class EncryptServiceImpl implements EncryptService {
     public byte[] decrypt(byte[] byteToDecrypt, byte[] keyAsBytes, String algorithm) {
         try {
             Cipher dcipher = Cipher.getInstance(algorithm);
-            dcipher.init(Cipher.DECRYPT_MODE, createSecretKey(keyAsBytes));
+            dcipher.init(Cipher.DECRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
             return dcipher.doFinal(byteToDecrypt);
         } catch (Exception e) {
             e.printStackTrace();
@@ -119,8 +126,8 @@ public class EncryptServiceImpl implements EncryptService {
     public String generateKeyFile(String algorithm) {
         String fullPath = null;
         try {
-            KeyGenerator desEdeGen = KeyGenerator.getInstance(algorithm);
-            SecretKey desEdeKey = desEdeGen.generateKey();
+            KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+            SecretKey desEdeKey = keyGenerator.generateKey();
 
             File tempKeyFile = File.createTempFile(UUID.randomUUID().toString(), ".key");
 
@@ -134,7 +141,7 @@ public class EncryptServiceImpl implements EncryptService {
 
             fullPath = tempKeyFile.getAbsolutePath();
         } catch (Exception e) {
-            // TODO implement log message here
+            e.printStackTrace();
         }
         return fullPath;
     }
@@ -147,15 +154,19 @@ public class EncryptServiceImpl implements EncryptService {
      * @param keyAsBytes bytes of key file
      * @return Generated @{@link SecretKey}
      */
-    private SecretKey createSecretKey(byte[] keyAsBytes) {
+    private SecretKey createSecretKey(byte[] keyAsBytes, String algorithms) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKey secretKey = null;
-        try {
-            SecretKeyFactory desEdeFactory = SecretKeyFactory.getInstance("DESede");
-            DESedeKeySpec keyspec = new DESedeKeySpec(keyAsBytes);
-            secretKey = desEdeFactory.generateSecret(keyspec);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        KeySpec keySpec = null;
+            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(algorithms);
+            if ("DES".equals(algorithms)){
+                keySpec = new DESKeySpec(keyAsBytes);
+                secretKey = secretKeyFactory.generateSecret(keySpec);
+            }else if ("DESede".equals(algorithms)){
+                keySpec = new DESedeKeySpec(keyAsBytes);
+                secretKey = secretKeyFactory.generateSecret(keySpec);
+            }else if ("Blowfish".equals(algorithms)){
+                secretKey = new SecretKeySpec(keyAsBytes, algorithms);
+            }
         return secretKey;
     }
 

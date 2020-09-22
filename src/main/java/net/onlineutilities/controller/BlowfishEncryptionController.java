@@ -18,8 +18,7 @@ import net.onlineutilities.enums.EncryptConstants;
 import net.onlineutilities.services.encrypt.EncryptService;
 
 @Controller
-@RequestMapping("cryptographic-tools")
-public class BlowfishEncryptionController extends AbstractController {
+public class BlowfishEncryptionController extends CryptographicController {
 	
 	
     private static final String BLOWFISH = "Blowfish";

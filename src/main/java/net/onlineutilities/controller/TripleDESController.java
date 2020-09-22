@@ -18,15 +18,12 @@ import net.onlineutilities.enums.EncryptConstants;
 import net.onlineutilities.services.encrypt.EncryptService;
 
 @Controller
-@RequestMapping("cryptographic-tools")
-public class TripleDESController extends AbstractController {
+public class TripleDESController extends CryptographicController {
 	
 	
-    private static final String DES = "DES";    
     private static final String TRIPLE_DES = "DESede";
-    private static final String AES = "AES";
-    private static final String BLOWFISH = "Blowfish";
-	@Autowired
+
+    @Autowired
     EncryptService encryptService;
 
     @GetMapping("/3des-key-generator.html")

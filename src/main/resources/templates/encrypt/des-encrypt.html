@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Encrypt DES online - Online utilities</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="encrypt des, des decrypt online tool, online">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+
+<section>
+    <div class="container-fluid main-section">
+
+        <div class="row">
+            <div class="col-md-3"></div>
+            <div class="col-xs-12 col-lg-6 col-md-6 pt-5">
+                <div class="text-center">
+                    <h5>Encrypt data with DES encryption</h5>
+                </div>
+                <div class="data-input-section pt-3">
+                    <form action="/cryptographic-tools/des-text-encryptor.html" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" class="form-control-file" name="keyfile" aria-describedby="fileHelpId" >
+                            <small id="fileHelpId" class="form-text text-muted">Choose your key file</small>
+                        </div>
+
+                        <div class="form-group"  id="encryptTextFormGrp">
+                            <label for="exampleFormControlTextarea1">Text data to encrypt</label>
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="data"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="outputType">Output type</label>
+                            <select class="form-control" name="outputtype" id="outputType">
+                                <option value="0">Downloadable file</option>
+                                <option value="1">Base64 encoded</option>
+                                <option value="2">HEX encoded</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary pull-left">Encrypt now</button>
+                    </form>
+                </div>
+                <div class="card bg-light mt-5 mt-md-5" th:if="${ encryptedData != null && !encryptedData.isEmpty()}">
+                    <h5 class="card-header" th:text="'Encrypt data are represent in '+${outputType}">Encoded value</h5>
+                    <div class="card-body">
+                        <p class="card-text .text-selectable encoded-text-container" th:text="${encryptedData}"></p>
+                        <a href="#" class="btn btn-secondary btn-select-all">Select whole text</a>
+                        <a href="#" class="btn btn-primary btn-download-file">Download as file</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6"></div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="footer :: footer"></div>
+<div th:replace="scripts-include :: page-script"></div>
+</body>
+
+</html>

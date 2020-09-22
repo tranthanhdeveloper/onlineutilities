@@ -39,4 +39,18 @@ public class EncryptConstants {
     public enum EncodeSupport{
         NOPE, BASE_64, HEX
     }
+
+    public enum SupportAlgorithms{
+        DES("Des"), TRIPLE_DES("DESede"), AES("AES"), BLOWFISH("Blowfish"), RSA("RSA");
+
+        private final String algorithm;
+
+        SupportAlgorithms(String algorithm) {
+            this.algorithm = algorithm;
+        }
+
+        public String getAlgorithm() {
+            return algorithm;
+        }
+    }
 }
