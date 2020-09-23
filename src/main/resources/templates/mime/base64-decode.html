@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>BASE64 DECODE ONLINE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="base64 decode, decode base64 online, decode text to base64, mime tools">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+
+<section>
+    <div class="container-fluid main-section bg-light">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
+            <div class="col-xs-12 col-md-6">
+                <div class="text-center">
+                    <h2>Base64 encode online text-based data.</h2>
+                </div>
+                <div>
+                    <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
+                        <ul th:each="error : ${errors}">
+                            <li th:text="${error}"></li>
+                        </ul>
+                    </div>
+                    <form th:action="@{/mime-tools/base64-text-decoder.html}" method="post">
+                        <div class="form-group">
+                            <label for="charsetSelect">Origin Charset</label>
+                            <select class="form-control" name="charset" id="charsetSelect">
+                                <option value="UTF-8">UTF-8</option>
+                                <option value="US-ASCII">US-ASCII</option>
+                                <option value="ISO-8859-1">ISO-8859-1</option>
+                                <option value="UTF-16BE">UTF-16BE</option>
+                                <option value="UTF-16LE">UTF-16LE</option>
+                                <option value="UTF-16">UTF-16</option>
+                            </select>
+                            <small id="sourceCharsetHelp" class="form-text text-muted">Provide charset of origin text. UTF-8 is used by default.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="data">String to decode</label>
+                            <textarea class="form-control" name="data" id="data" rows="5"></textarea>
+                            <small>By default, the web browser does not allow pasting too large of text. Be noticed when pasting value to this field.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="outputType">Output type</label>
+                            <select class="form-control" name="output" id="outputType">
+                                <option value="0">Text</option>
+                                <option value="1">File download</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Decode now</button>
+                    </form>
+                </div>
+                <div class="card bg-light mt-5 mt-md-5" th:if="${ datadecoded != null && !datadecoded.isEmpty()}">
+                    <h5 class="card-header">Encoded value</h5>
+                    <div class="card-body">
+                        <p class="card-text encoded-text-container" th:text="${datadecoded}"></p>
+                        <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
+                        <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3 col-xl-3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+</body>
+</html>

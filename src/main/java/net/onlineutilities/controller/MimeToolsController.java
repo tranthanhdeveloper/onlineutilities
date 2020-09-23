@@ -26,19 +26,10 @@ public class MimeToolsController extends AbstractController {
         return "mime/mime-index";
     }
 
+// Base64
     @GetMapping("base64-text-encoder.html")
     public String textBase64encode() {
         return "mime/base64-encode";
-    }
-
-    @GetMapping("url-encoder.html")
-    public String urlEncode() {
-        return "mime/url-encoder";
-    }
-
-    @GetMapping("url-decoder.html")
-    public String urlDecode() {
-        return "mime/url-decoder";
     }
 
     @GetMapping("base64-file-encoder.html")
@@ -76,4 +67,61 @@ public class MimeToolsController extends AbstractController {
         model.addAttribute("errors", error);
         return "mime/base64-file-encode";
     }
+
+
+    @GetMapping("base64-text-decoder.html")
+    public String textBase64decode() {
+        return "mime/base64-decode";
+    }
+
+    @GetMapping("base64-file-decoder.html")
+    public String fileBase64decode() {
+        return "mime/base64-file-decode";
+    }
+
+    @PostMapping("base64-text-decoder.html")
+    public Object doTextBase64decode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("output") int output, Model model) {
+        List<String> error = new ArrayList<>();
+        try {
+            model.addAttribute("datadecoded", new String(Base64.decodeBase64(data.getBytes()), charset));
+            if (output == 1){
+                return downloadBytesAsFile(new String(Base64.decodeBase64(data.getBytes()), charset).getBytes(), "base64-decode.txt");
+            }
+        } catch (UnsupportedEncodingException e) {
+            error.add("Charset not supported");
+        }
+
+        model.addAttribute("errors", error);
+        return "mime/base64-decode";
+    }
+
+    @PostMapping("base64-file-decoder.html")
+    public Object doFileBase64decode(@RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+        List<String> error = new ArrayList<>();
+        try {
+            model.addAttribute("data-decoded", Base64.decodeBase64(file.getBytes()));
+            if (output == 1){
+                return downloadBytesAsFile(Base64.decodeBase64(file.getBytes()), file.getName()+"base64-file-decoded.file");
+            }
+        } catch (IOException e) {
+            error.add("Can not decode uploaded file.");
+        }
+        model.addAttribute("errors", error);
+        return "mime/base64-file-decode";
+    }
+
+// HEX
+
+// URL
+
+    @GetMapping("url-encoder.html")
+    public String urlEncode() {
+        return "mime/url-encoder";
+    }
+
+    @GetMapping("url-decoder.html")
+    public String urlDecode() {
+        return "mime/url-decoder";
+    }
+
 }
