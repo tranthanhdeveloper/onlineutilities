@@ -2,10 +2,10 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>BASE64 ENCODE ONLINE</title>
+    <title>HEX ENCODE ONLINE</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="base64 encode, encode base64 online, encode text to base64, mime tools">
+    <meta name="keyword" content="hex encode, encode hex online, encode text to hex, mime tools">
     <template th:replace="head::common-head"/>
 </head>
 
@@ -20,7 +20,7 @@
             <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
             <div class="col-xs-12 col-lg-6 col-md-6">
                 <div class="text-center">
-                    <h2>Encode base64 online: Text and file</h2>
+                    <h2>Encode HEX online: Text and file</h2>
                 </div>
                 <div>
                     <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
@@ -28,7 +28,7 @@
                             <li th:text="${error}"></li>
                         </ul>
                     </div>
-                    <form th:action="@{/mime-tools/base64-encoder.html}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/mime-tools/hex-encoder.html}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="charsetSelect">Origin Charset</label>
                             <select class="form-control" name="charset" id="charsetSelect">
@@ -87,27 +87,6 @@
                             <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
                         </div>
                     </div>
-                </div>
-                <hr>
-                <div class="blog-post">
-                    <h3>What is base64? Why we need base64 encoding?</h3>
-                    <hr>
-                    <p>Base64 is group of ASCII characters that represent to binary data. We present audio, video or any file in text format.
-                        The term base64 originates from a specific <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
-                    <h3>What is base64 used for?</h3>
-                    <hr>
-                    <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
-                    <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
-                    <h3>How to encode base64?</h3>
-                    <hr>
-                    <p>Encode base64 in Java</p>
-                    <pre>
-                    <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
-                </pre>
-                    <p>Decode base64 in Javascript</p>
-                    <pre>
-                    <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
-                </pre>
                 </div>
             </div>
             <div class="col-xs-12 col-md-3 col-xl-3">
