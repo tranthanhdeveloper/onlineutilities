@@ -1,6 +1,8 @@
 package net.onlineutilities.controller;
 
+import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
+import org.apache.commons.codec.binary.Hex;
 import org.apache.commons.codec.net.URLCodec;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +12,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.CharArrayReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,90 +31,136 @@ public class MimeToolsController extends AbstractController {
     }
 
 // Base64
-    @GetMapping("base64-text-encoder.html")
-    public String textBase64encode() {
+    @GetMapping("base64-encoder.html")
+    public String base64encode() {
         return "mime/base64-encode";
     }
 
-    @GetMapping("base64-file-encoder.html")
-    public String fileBase64encode() {
-        return "mime/base64-file-encode";
-    }
-
-    @PostMapping("base64-text-encoder.html")
-    public Object doTextBase64encode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("output") int output, Model model) {
+    @PostMapping("base64-encoder.html")
+    public Object base64encode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
         List<String> error = new ArrayList<>();
-        try {
-            model.addAttribute("dataencoded", Base64.encodeBase64String(data.getBytes(charset)));
-            if (output == 1){
-                return downloadBytesAsFile(Base64.encodeBase64(data.getBytes(charset)), "base64-encode.txt");
+
+        byte[] bytesToEncode = new byte[0];
+        // First, text encode are high priority.
+        if(data != null && !data.isEmpty()){
+            try {
+                bytesToEncode = data.getBytes(charset);
+            } catch (UnsupportedEncodingException e) {
+                error.add("Charset not supported");
             }
-        } catch (UnsupportedEncodingException e) {
-            error.add("Charset not supported");
+        }else if (file != null){
+            try {
+                bytesToEncode = file.getBytes();
+            } catch (IOException e) {
+                error.add("We can not encode for your uploaded file.");
+            }
+        }
+
+        model.addAttribute("dataencoded", Base64.encodeBase64String(bytesToEncode));
+        if (output == 1){
+            return downloadBytesAsFile(Base64.encodeBase64(bytesToEncode), "base64-encode.txt");
         }
 
         model.addAttribute("errors", error);
         return "mime/base64-encode";
     }
 
-    @PostMapping("base64-file-encoder.html")
-    public Object doFileBase64encode(@RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
-        List<String> error = new ArrayList<>();
-        try {
-            model.addAttribute("dataencoded", Base64.encodeBase64String(file.getBytes()));
-            if (output == 1){
-                return downloadBytesAsFile(Base64.encodeBase64String(file.getBytes()).getBytes(), "base64-file-encode.txt");
-            }
-        } catch (IOException e) {
-            error.add("Can not encode uploaded file.");
-        }
-        model.addAttribute("errors", error);
-        return "mime/base64-file-encode";
-    }
-
-
-    @GetMapping("base64-text-decoder.html")
-    public String textBase64decode() {
+    @GetMapping("base64-decoder.html")
+    public String base64decode() {
         return "mime/base64-decode";
     }
 
-    @GetMapping("base64-file-decoder.html")
-    public String fileBase64decode() {
-        return "mime/base64-file-decode";
-    }
-
-    @PostMapping("base64-text-decoder.html")
-    public Object doTextBase64decode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("output") int output, Model model) {
+    @PostMapping("base64-decoder.html")
+    public Object base64decode(@RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
         List<String> error = new ArrayList<>();
-        try {
-            model.addAttribute("datadecoded", new String(Base64.decodeBase64(data.getBytes()), charset));
-            if (output == 1){
-                return downloadBytesAsFile(new String(Base64.decodeBase64(data.getBytes()), charset).getBytes(), "base64-decode.txt");
+        byte[] bytesToEncode = new byte[0];
+
+        if(data != null && !data.isEmpty()){
+            bytesToEncode = data.getBytes(StandardCharsets.US_ASCII);
+        }else if (file != null){
+            try {
+                bytesToEncode = file.getBytes();
+            } catch (IOException e) {
+                error.add("We can not decode for your uploaded file.");
             }
-        } catch (UnsupportedEncodingException e) {
-            error.add("Charset not supported");
+        }
+
+        model.addAttribute("datadecoded", new String(Base64.decodeBase64(bytesToEncode), StandardCharsets.UTF_8));
+        if (output == 1){
+            return downloadBytesAsFile(Base64.decodeBase64(bytesToEncode), "base64-decode.txt");
         }
 
         model.addAttribute("errors", error);
         return "mime/base64-decode";
-    }
-
-    @PostMapping("base64-file-decoder.html")
-    public Object doFileBase64decode(@RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
-        List<String> error = new ArrayList<>();
-        try {
-            model.addAttribute("data-decoded", Base64.decodeBase64(file.getBytes()));
-            if (output == 1){
-                return downloadBytesAsFile(Base64.decodeBase64(file.getBytes()), file.getName()+"base64-file-decoded.file");
-            }
-        } catch (IOException e) {
-            error.add("Can not decode uploaded file.");
-        }
-        model.addAttribute("errors", error);
-        return "mime/base64-file-decode";
     }
 
 // HEX
+
+    @GetMapping("hex-encoder.html")
+    public String hexEncode() {
+        return "mime/hex-encode";
+    }
+
+    @PostMapping("hex-encoder.html")
+    public Object hexEncode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+        List<String> error = new ArrayList<>();
+
+        byte[] bytesToEncode = new byte[0];
+        // First, text encode are high priority.
+        if(data != null && !data.isEmpty()){
+            try {
+                bytesToEncode = data.getBytes(charset);
+            } catch (UnsupportedEncodingException e) {
+                error.add("Charset not supported");
+            }
+        }else if (file != null){
+            try {
+                bytesToEncode = file.getBytes();
+            } catch (IOException e) {
+                error.add("We can not encode for your uploaded file.");
+            }
+        }
+
+        model.addAttribute("dataencoded", Hex.encodeHexString(bytesToEncode));
+        if (output == 1){
+            return downloadBytesAsFile(Hex.encodeHexString(bytesToEncode).getBytes(), "hex-encode.txt");
+        }
+
+        model.addAttribute("errors", error);
+        return "mime/hex-encode";
+    }
+
+    @GetMapping("hex-decoder.html")
+    public String hexDecode() {
+        return "mime/hex-decode";
+    }
+
+    @PostMapping("hex-decoder.html")
+    public Object hexDecode(@RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+        List<String> error = new ArrayList<>();
+        char[] dataToDecode = new char[0];
+
+        if(data != null && !data.isEmpty()){
+            dataToDecode = data.toCharArray();
+        }else if (file != null){
+            try {
+                dataToDecode = new String(file.getBytes()).toCharArray();
+            } catch (IOException e) {
+                error.add("We can not decode for your uploaded file.");
+            }
+        }
+
+        try {
+            model.addAttribute("datadecoded", new String(Hex.decodeHex(dataToDecode), StandardCharsets.UTF_8));
+            if (output == 1){
+                return downloadBytesAsFile(Hex.decodeHex(dataToDecode), "hex-decode.txt");
+            }
+        } catch (DecoderException e) {
+            error.add("We can not decode for your data.");
+        }
+        model.addAttribute("errors", error);
+        return "mime/hex-decode";
+    }
 
 // URL
 

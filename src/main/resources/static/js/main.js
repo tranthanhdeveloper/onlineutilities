@@ -1,6 +1,7 @@
 hljs.initHighlightingOnLoad();
 $(document).ready(function () {
     var clipboard = new ClipboardJS('.btn-clipboard-copy');
+    $('.hide-by-default').hide();
 
     $(".text-selectable").on('dblclick', function () {
         var sel, range;
@@ -41,8 +42,23 @@ $(document).ready(function () {
     $('.btn-copy-clipboard').on('click', function (event) {
         event.preventDefault();
         let targetEl = $($(this).data('target-element'));
+    })
 
-
+    $(document).on('click', '.file-upload-option', function (event) {
+        let targetEl = $(event.target);
+        if(targetEl.is('input')){
+            let elToShow = $(targetEl.data("show-element"));
+            let elToHide = $(targetEl.data("hide-element"))
+            if (targetEl.prop('checked') === true){
+                elToHide.hide();
+                elToShow.show();
+            }else {
+                // Reset the element
+                elToShow.hide();
+                elToHide.show();
+            }
+        }
+        
     })
 
 

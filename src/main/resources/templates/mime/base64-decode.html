@@ -14,13 +14,13 @@
 <div th:replace="header::header"></div>
 
 <section>
-    <div class="container-fluid main-section bg-light">
+    <div class="container-fluid main-section">
         <div class="row"></div>
         <div class="row">
             <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
             <div class="col-xs-12 col-md-6">
                 <div class="text-center">
-                    <h2>Base64 encode online text-based data.</h2>
+                    <h2>Base64 decode online: Text and File.</h2>
                 </div>
                 <div>
                     <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
@@ -28,22 +28,23 @@
                             <li th:text="${error}"></li>
                         </ul>
                     </div>
-                    <form th:action="@{/mime-tools/base64-text-decoder.html}" method="post">
-                        <div class="form-group">
-                            <label for="charsetSelect">Origin Charset</label>
-                            <select class="form-control" name="charset" id="charsetSelect">
-                                <option value="UTF-8">UTF-8</option>
-                                <option value="US-ASCII">US-ASCII</option>
-                                <option value="ISO-8859-1">ISO-8859-1</option>
-                                <option value="UTF-16BE">UTF-16BE</option>
-                                <option value="UTF-16LE">UTF-16LE</option>
-                                <option value="UTF-16">UTF-16</option>
-                            </select>
-                            <small id="sourceCharsetHelp" class="form-text text-muted">Provide charset of origin text. UTF-8 is used by default.</small>
+                    <form th:action="@{/mime-tools/base64-decoder.html}" method="post" enctype="multipart/form-data">
+                        <div class="form-check file-upload-option">
+                            <label class="form-check-label">
+                                <input type="checkbox" class="form-check-input " name="" id="" data-show-element="#fileUploadFormGrp" data-hide-element="#textareaFormGroup">
+                                Encode for file
+                            </label>
                         </div>
-                        <div class="form-group">
+
+                        <div class="form-group hide-by-default" id="fileUploadFormGrp">
+                            <label for="">Upload file</label>
+                            <input type="file" class="form-control-file" name="file" placeholder="" aria-describedby="fileUploadHelp">
+                            <small id="fileUploadHelp" class="form-text text-muted">Max file size: 5MB</small>
+                        </div>
+
+                        <div class="form-group" id="textareaFormGroup">
                             <label for="data">String to decode</label>
-                            <textarea class="form-control" name="data" id="data" rows="5"></textarea>
+                            <textarea class="form-control" name="data" id="data" rows="5" autofocus></textarea>
                             <small>By default, the web browser does not allow pasting too large of text. Be noticed when pasting value to this field.</small>
                         </div>
                         <div class="form-group">
@@ -57,11 +58,22 @@
                     </form>
                 </div>
                 <div class="card bg-light mt-5 mt-md-5" th:if="${ datadecoded != null && !datadecoded.isEmpty()}">
-                    <h5 class="card-header">Encoded value</h5>
+                    <div class="card-header container-fluid">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5 class="w-75 p-3">Decoded value</h5>
+                            </div>
+                            <div class="col-md-6 float-right">
+                                <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
+                                <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
+                                <button class="btn btn-sm btn-secondary" type="button" data-toggle="collapse" data-target="#dataCollapse" aria-expanded="false" aria-controls="dataCollapse">Toggle result</button>
+                            </div>
+                        </div>
+                    </div>
                     <div class="card-body">
-                        <p class="card-text encoded-text-container" th:text="${datadecoded}"></p>
-                        <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
-                        <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
+                        <div class="collapse show" id="dataCollapse">
+                            <p class="card-text encoded-text-container" th:text="${datadecoded}"></p>
+                        </div>
                     </div>
                 </div>
             </div>
