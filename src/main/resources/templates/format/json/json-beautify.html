@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>BASE64 ENCODE ONLINE</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="base64 encode, encode base64 online, encode text to base64, mime tools">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+
+<section>
+    <div class="container-fluid main-section bg-light">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
+            <div class="col-xs-12 col-lg-6 col-md-8">
+                <div class="text-center">
+                    <h2>Format Json to beautify online.</h2>
+                </div>
+                <div>
+                    <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
+                        <ul th:each="error : ${errors}">
+                            <li th:text="${error}"></li>
+                        </ul>
+                    </div>
+                    <form action="/format/format-json-beautify.html" method="post" th:object="${jsonObject}">
+                        <div class="form-group">
+                            <label for="data">Json to beautify</label>
+                            <textarea class="form-control" name="jsonData" id="jsonData" rows="5" th:field="*{jsonData}"></textarea>
+                            <small>By default, the web-browser does not allow pasting too large of text. Be noticed when pasting value to the this field.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="outputType">Output</label>
+                            <textarea class="form-control" name="result" id="result" rows="5" th:field="*{result}">
+                            </textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Format now</button>
+                    </form>
+                </div>
+                <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
+                    <h5 class="card-header">Encoded value</h5>
+                    <div class="card-body">
+                        <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
+                        <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
+                        <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
+                    </div>
+                </div>
+                <hr>
+                <div class="blog-post">
+                    <h3>xxxxxxxxxxxxxxxxxx</h3>
+                    <hr>
+                    <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
+                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
+                    <h3>What is base64 used for?</h3>
+                    <hr>
+                    <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
+                    <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
+                    <h3>How to encode base64?</h3>
+                    <hr>
+                    <p>Encode base64 in Java</p>
+                    <pre>
+                    <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
+                </pre>
+                    <p>Decode base64 in Javascript</p>
+                    <pre>
+                    <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
+                </pre>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3 col-xl-3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+</body>
+</html>
