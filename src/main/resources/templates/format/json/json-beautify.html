@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keyword" content="base64 encode, encode base64 online, encode text to base64, mime tools">
     <template th:replace="head::common-head"/>
+    
+    <link href="/jsoneditor/jsoneditor.css" rel="stylesheet" type="text/css">
+    <script src="/jsoneditor/jsoneditor.js"></script>
 </head>
 
 <body>
 
 <div th:replace="header::header"></div>
-
 <section>
     <div class="container-fluid main-section bg-light">
         <div class="row"></div>
@@ -28,7 +30,8 @@
                             <li th:text="${error}"></li>
                         </ul>
                     </div>
-                    <form action="/format/format-json-beautify.html" method="post" th:object="${jsonObject}">
+                    
+                   <!--  <form action="/format/format-json-beautify.html" method="post" th:object="${jsonObject}">
                         <div class="form-group">
                             <label for="data">Json to beautify</label>
                             <textarea class="form-control" name="jsonData" id="jsonData" rows="5" th:field="*{jsonData}"></textarea>
@@ -40,36 +43,30 @@
                             </textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Format now</button>
-                    </form>
+                    </form> -->
                 </div>
-                <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
+                <!-- <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
                     <h5 class="card-header">Encoded value</h5>
                     <div class="card-body">
                         <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
                         <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
                         <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
                     </div>
-                </div>
+                </div> -->
+                
+                <div id="jsoneditor1" style="width: 800px; height: 900px;"></div>
                 <hr>
                 <div class="blog-post">
-                    <h3>xxxxxxxxxxxxxxxxxx</h3>
+                    <h3>About JSONFormatter</h3>
                     <hr>
-                    <p>xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.
-                        xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
-                    <h3>What is base64 used for?</h3>
+                    <p>JSONFormatter.io is the #1 online tool to format, parse, view, validate, edit, and beautify JSON data in real time. The powerful, feature rich, and user friendly JSON editor gives you a native editing experience.
+                    <br/>To format JSON, type or paste your JSON data in the first editor and click on the format/validate button to validate and format the entered JSON. You can view the parsed and beautified JSON in the second editor.
+                    </p>
+                    <h3>JSON beautify/prettify online</h3>
                     <hr>
-                    <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
-                    <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
-                    <h3>How to encode base64?</h3>
-                    <hr>
-                    <p>Encode base64 in Java</p>
+                    <p>You can use the tool as a simple JSON prettifier/beautifier. The tool prettifies your JSON with proper indentation and outputs the prettified data in the right hand side editor. You can click copy on the right side editor to copy the beautified JSON.</p>
                     <pre>
-                    <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
-                </pre>
-                    <p>Decode base64 in Javascript</p>
-                    <pre>
-                    <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
-                </pre>
+                    </pre>
                 </div>
             </div>
             <div class="col-xs-12 col-md-3 col-xl-3">
@@ -80,5 +77,16 @@
 
 <div th:replace="~{footer :: footer}"></div>
 <div th:replace="~{scripts-include :: page-script}"></div>
+<script>
+	$(document).ready(function() {
+		const container1 = document.getElementById('jsoneditor1');
+		const options = {
+		  modes: ['text', 'code', 'tree', 'form', 'view'],
+		  mode: 'text',
+		  ace: ace
+		}
+		const editor = new JSONEditor(container1, options);
+	});
+</script>
 </body>
 </html>
