@@ -58,8 +58,17 @@ $(document).ready(function () {
                 elToHide.show();
             }
         }
-        
     })
+
+    tinymce.init({
+        selector: 'textarea.tinymce-editor',
+        branding: false,
+        elementpath: false,
+        menubar:false,
+        statusbar: false,
+        toolbar:false,
+        entity_encoding : "raw"
+    });
 
 
 })
