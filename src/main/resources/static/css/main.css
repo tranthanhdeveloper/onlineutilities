@@ -92,6 +92,14 @@ footer .container p{
     left: 0;
 }
 
+.ou-overflow-scroll{
+    overflow-y: scroll;
+}
+
+.ou-h-px-450{
+    max-height: 450px;
+}
+
 .section-title p {
     margin-bottom: 0;
 }
