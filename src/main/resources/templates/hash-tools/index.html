@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Online utilities - cryptographic hashing tools</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description"
+          content="An online platform that serves free online utilities and tools to increase working effectiveness.">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+<section class="padding-top-15 pb-md-5">
+    <div class="container">
+        <div class="row pt-3">
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">MD2 hashing</h5>
+                        <p class="card-text">The 128-bit hash value of any message is formed by padding it to a multiple
+                            of the block length (128 bits or 16 bytes) and adding a 16-byte checksum to it.</p>
+                        <a th:href="@{/message-digest-tools/md2-hash-generator.html}" class="btn btn-primary">MD2 hash
+                            now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">MD5 hashing</h5>
+                        <p class="card-text">The MD5 message-digest algorithm is a widely used hash function producing a
+                            128-bit hash value.</p>
+                        <a th:href="@{/message-digest-tools/md5-hash-generator.html}" class="btn btn-primary">MD5 hash
+                            now</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA-1 hashing</h5>
+                        <p class="card-text">SHA-1 is a cryptographic hash function which takes an input and produces a
+                            160-bit (20-byte) hash value known as a message digest – typically rendered as a hexadecimal
+                            number, 40 digits long</p>
+                        <a th:href="@{/message-digest-tools/sha1-hash-generator.html}" class="btn btn-primary">SHA-1
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA3/224 hashing</h5>
+                        <p class="card-text">Hash data with SHA3/224.</p>
+                        <a th:href="@{/message-digest-tools/sha3_224-hash-generator.html}" class="btn btn-primary">SHA3/224
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA3/256 hashing</h5>
+                        <p class="card-text">Hash data with SHA3/256.</p>
+                        <a th:href="@{/message-digest-tools/sha3_256-hash-generator.html}" class="btn btn-primary">SHA3/256
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA3/384 hashing</h5>
+                        <p class="card-text">Hash data with SHA3/384.</p>
+                        <a th:href="@{/message-digest-tools/sha3_384-hash-generator.html}" class="btn btn-primary">SHA3/384
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA3/512 hashing</h5>
+                        <p class="card-text">Hash data with SHA3/512.</p>
+                        <a th:href="@{/message-digest-tools/sha3_512-hash-generator.html}" class="btn btn-primary">SHA3/512
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA384 hashing</h5>
+                        <p class="card-text">Hash data with SHA384.</p>
+                        <a th:href="@{/message-digest-tools/sha384-hash-generator.html}" class="btn btn-primary">SHA384
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA512 hashing</h5>
+                        <p class="card-text">Hash data with SHA512.</p>
+                        <a th:href="@{/message-digest-tools/sha512-hash-generator.html}" class="btn btn-primary">SHA512
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row pt-3">
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA512/224 hashing</h5>
+                        <p class="card-text">Hash data with SHA512/224.</p>
+                        <a th:href="@{/message-digest-tools/sha512_224-hash-generator.html}" class="btn btn-primary">SHA512/244
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-md-4">
+                <div class="card">
+                    <div class="card-body fluid">
+                        <h5 class="card-title">SHA512/256 hashing</h5>
+                        <p class="card-text">Hash data with SHA512/256.</p>
+                        <a th:href="@{/message-digest-tools/sha512_256-hash-generator.html}" class="btn btn-primary">SHA512/256
+                            hash now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="footer :: footer"></div>
+<div th:replace="scripts-include :: page-script"></div>
+</body>
+
+</html>
