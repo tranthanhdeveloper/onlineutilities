@@ -108,6 +108,7 @@ footer .container p{
     max-height: 252px;
     height: 252px;
     overflow: auto;
+    overflow-x: scroll;
 }
 
 .section-title p {

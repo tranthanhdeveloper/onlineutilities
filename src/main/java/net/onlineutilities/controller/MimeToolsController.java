@@ -37,7 +37,7 @@ public class MimeToolsController extends AbstractController {
     }
 
     @PostMapping("base64-encoder.html")
-    public Object base64encode(@RequestParam("charset") String charset, @RequestParam(value = "data", required = false) String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+    public Object base64encode(@RequestParam(value = "charset", required = false) String charset, @RequestParam(value = "data", required = false) String data, @RequestParam(value = "file", required = false) MultipartFile file, @RequestParam("output") int output, Model model) {
         List<String> error = new ArrayList<>();
 
         byte[] bytesToEncode = new byte[0];

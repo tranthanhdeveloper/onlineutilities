@@ -13,104 +13,110 @@
 
 <div th:replace="header::header"></div>
 
+
 <section>
     <div class="container-fluid main-section">
-        <div class="row"></div>
         <div class="row">
-            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
-            <div class="col-xs-12 col-lg-6 col-md-6">
+            <div class="col-xs-12 col-md-12">
                 <div class="text-center">
-                    <h2>Encode base64 online: Text and file</h2>
+                    <h3>BASE64 ONLINE ENCODER</h3>
                 </div>
-                <div>
-                    <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
-                        <ul th:each="error : ${errors}">
-                            <li th:text="${error}"></li>
-                        </ul>
-                    </div>
-                    <form th:action="@{/mime-tools/base64-encoder.html}" method="post" enctype="multipart/form-data">
-                        <div class="form-group">
-                            <label for="charsetSelect">Origin Charset</label>
-                            <select class="form-control" name="charset" id="charsetSelect">
-                                <option value="UTF-8">UTF-8</option>
-                                <option value="US-ASCII">US-ASCII</option>
-                                <option value="ISO-8859-1">ISO-8859-1</option>
-                                <option value="UTF-16BE">UTF-16BE</option>
-                                <option value="UTF-16LE">UTF-16LE</option>
-                                <option value="UTF-16">UTF-16</option>
-                            </select>
-                            <small id="sourceCharsetHelp" class="form-text text-muted">Provide charset of origin text. UTF-8 is used by default.</small>
-                        </div>
-                        <div class="form-check file-upload-option">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input " name="" id="" data-show-element="#fileUploadFormGrp" data-hide-element="#textareaFormGroup">
-                                Encode for file
-                            </label>
-                        </div>
+                <div class="row">
+                    <div class="col-md-6 flex-column border-right">
+                        <div class="container m-0">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="text-decode" data-toggle="tab" href="#textdecode"
+                                       role="tab" aria-controls="text-decode" aria-selected="true">Text encoder</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" id="file-decode" data-toggle="tab" href="#filedecode"
+                                       role="tab" aria-controls="file-decode" aria-selected="false">File encoder</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="textdecode" role="tabpanel" aria-labelledby="text-decode"
+                                     class="tab-pane fade show active">
+                                    <div class="mt-3">
+                                        <form th:action="@{/mime-tools/base64-encoder.html}" method="post" enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <label for="charsetSelect">Origin Charset</label>
+                                                <select class="form-control" name="charset" id="charsetSelect">
+                                                    <option value="UTF-8">UTF-8</option>
+                                                    <option value="US-ASCII">US-ASCII</option>
+                                                    <option value="ISO-8859-1">ISO-8859-1</option>
+                                                    <option value="UTF-16BE">UTF-16BE</option>
+                                                    <option value="UTF-16LE">UTF-16LE</option>
+                                                    <option value="UTF-16">UTF-16</option>
+                                                </select>
+                                                <small id="sourceCharsetHelp" class="form-text text-muted">Provide charset of origin text. UTF-8 is used by default.</small>
+                                            </div>
 
-                        <div class="form-group hide-by-default" id="fileUploadFormGrp">
-                            <label for="">Upload file</label>
-                            <input type="file" class="form-control-file" name="file" placeholder="" aria-describedby="fileUploadHelp">
-                            <small id="fileUploadHelp" class="form-text text-muted">Max file size: 5MB</small>
-                        </div>
-
-                        <div class="form-group" id="textareaFormGroup">
-                            <label for="data">String to encode</label>
-                            <textarea class="form-control" name="data" id="data" rows="5"></textarea>
-                            <small>By default, the web-browser does not allow pasting too large of text. Be noticed when pasting value to the this field.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="outputType">Output type</label>
-                            <select class="form-control" name="output" id="outputType">
-                                <option value="0">Text</option>
-                                <option value="1">File download</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Encode now</button>
-                    </form>
-                </div>
-                <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-                    <div class="card-header container-fluid">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <h5 class="w-75 p-3">Encoded value</h5>
-                            </div>
-                            <div class="col-md-6 float-right">
-                                <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
-                                <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
-                                <button class="btn btn-sm btn-secondary" type="button" data-toggle="collapse" data-target="#dataCollapse" aria-expanded="false" aria-controls="dataCollapse">Toggle result</button>
+                                            <div class="form-group" id="textareaFormGroup">
+                                                <textarea class="form-control h-100" name="data" id="data" rows="10"
+                                                          placeholder="Paste text data here." autofocus></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="outputType">Get result by</label>
+                                                <select class="form-control" name="output" id="outputType">
+                                                    <option value="0">Text</option>
+                                                    <option value="1">File download</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Encode now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="filedecode" class="tab-pane fade">
+                                    <div class="mt-3">
+                                        <form th:action="@{/mime-tools/base64-encoder.html}" method="post"
+                                              enctype="multipart/form-data">
+                                            <div class="form-group">
+                                                <input type="file" class="form-control-file" name="file"
+                                                       aria-describedby="fileUploadHelp">
+                                                <small id="fileUploadHelp" class="form-text text-muted">Max file
+                                                    size: 5MB</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="outputType">Output type</label>
+                                                <select class="form-control" name="output">
+                                                    <option value="0">Text</option>
+                                                    <option value="1">File download</option>
+                                                </select>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary">Encode now</button>
+                                        </form>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card-body">
-                        <div class="collapse show" id="dataCollapse">
-                            <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
+                    <div class="col-md-6 flex-column">
+                        <div class="container m-0 border-bottom">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h3>Encoded result</h3>
+                                </div>
+                                <div class="col-md-6 d-flex justify-content-end">
+                                    <button class="btn btn-sm btn-primary btn-clipboard-copy m-1"
+                                            data-clipboard-target=".encoded-text-container">
+                                        <i class="fas fa-copy"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary btn-download-file m-1"
+                                            data-target-element=".encoded-text-container"
+                                            data-download-filename="base64-decoded">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card ou-mt-18">
+                            <div class="card-body card-block">
+                                <div class="card-text encoded-text-container" th:text="${dataencoded}">Result goes here.</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <hr>
-                <div class="blog-post">
-                    <h3>What is base64? Why we need base64 encoding?</h3>
-                    <hr>
-                    <p>Base64 is group of ASCII characters that represent to binary data. We present audio, video or any file in text format.
-                        The term base64 originates from a specific <a href="https://en.wikipedia.org/wiki/MIME#Content-Transfer-Encoding">MIME content transfer encoding</a></p>
-                    <h3>What is base64 used for?</h3>
-                    <hr>
-                    <p>Most commonly used cases of Base64 is help us to sent file with in multiple format through a system which only supports for text data or ASCII text. You can see the usage of base64 when inspect web element for <code>img</code> tag in some websites.</p>
-                    <p>With base64, we can easily embedded images or videos in HTML without file-server to host those files.</p>
-                    <h3>How to encode base64?</h3>
-                    <hr>
-                    <p>Encode base64 in Java</p>
-                    <pre>
-                    <code class="java">byte[] bytes = "dGVzdCBiYXNlNjQ=".getBytes();<br/>org.apache.tomcat.util.codec.binary.Base64.decodeBase64(bytes);</code>
-                </pre>
-                    <p>Decode base64 in Javascript</p>
-                    <pre>
-                    <code class="javascript">atob('dGVzdCBiYXNlNjQ=')</code>
-                </pre>
-                </div>
-            </div>
-            <div class="col-xs-12 col-md-3 col-xl-3">
             </div>
         </div>
     </div>
