@@ -176,7 +176,7 @@
                     <h2>Cryptographic tools</h2>
                     <p>Encrypt and Decrypt tool DES, Triple DES(3DES), AES, RSA and Blowfish</p>
                     <br>
-                    <a class="btn btn-primary" th:href="@{/cryptographic-tools/}">Browse all cryptographic tools</a>
+                    <a class="btn btn-primary" th:href="@{/cryptographic-tools/}">Browse all cryptographic encryption tools</a>
                 </div>
             </div>
         </div>
@@ -190,13 +190,15 @@
                 <div class="section-title aos-init aos-animate" data-aos="fade-right">
                     <h2>Hashing Tool</h2>
                     <p>Check hash and do hashing for you.</p>
+                    <br>
+                    <a class="btn btn-primary" th:href="@{/message-digest-tools/}">Browse all cryptographic hash functions</a>
                 </div>
             </div>
             <div class="col-lg-8">
                 <div class="row">
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
-                            <h4><a href="#">MD5 Hash Algorithm</a></h4>
+                            <h4><a th:href="@{/message-digest-tools/md5-hash.html}">MD5 Hash Algorithm</a></h4>
                             <p>Hash your data with MD5 algorithms.</p>
                             <p>Coming soon</p>
                         </div>
@@ -204,7 +206,7 @@
 
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
-                            <h4><a href="#">SHA-1 Hash Algorithm</a></h4>
+                            <h4><a th:href="@{/message-digest-tools/sha1-hash-generator.html}">SHA-1 Hash Algorithm</a></h4>
                             <p>Hash your data with SHA-1 algorithms.</p>
                             <p>Coming soon</p>
                         </div>
@@ -212,7 +214,7 @@
 
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="300">
-                            <h4><a href="">SHA-256 Hash Algorithm</a></h4>
+                            <h4><a th:href="@{/message-digest-tools/sha256-hash-generator.html}">SHA-256 Hash Algorithm</a></h4>
                             <p>Hash your data with SHA-256 algorithms.</p>
                             <p>Coming soon</p>
                         </div>
