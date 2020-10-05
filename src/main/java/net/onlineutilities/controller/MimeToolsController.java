@@ -102,7 +102,7 @@ public class MimeToolsController extends AbstractController {
     }
 
     @PostMapping("hex-encoder.html")
-    public Object hexEncode(@RequestParam("charset") String charset, @RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+    public Object hexEncode(@RequestParam(value = "charset" , required = false) String charset, @RequestParam(value = "data" , required = false) String data, @RequestParam(value = "file" , required = false) MultipartFile file, @RequestParam("output") int output, Model model) {
         List<String> error = new ArrayList<>();
 
         byte[] bytesToEncode = new byte[0];
@@ -136,7 +136,7 @@ public class MimeToolsController extends AbstractController {
     }
 
     @PostMapping("hex-decoder.html")
-    public Object hexDecode(@RequestParam("data") String data, @RequestParam("file") MultipartFile file, @RequestParam("output") int output, Model model) {
+    public Object hexDecode(@RequestParam(value = "data" , required = false) String data, @RequestParam(value = "file" , required = false) MultipartFile file, @RequestParam("output") int output, Model model) {
         List<String> error = new ArrayList<>();
         char[] dataToDecode = new char[0];
 
@@ -151,7 +151,7 @@ public class MimeToolsController extends AbstractController {
         }
 
         try {
-            model.addAttribute("datadecoded", new String(Hex.decodeHex(dataToDecode), StandardCharsets.UTF_8));
+            model.addAttribute("datadecoded", new String(Hex.decodeHex(dataToDecode)));
             if (output == 1){
                 return downloadBytesAsFile(Hex.decodeHex(dataToDecode), "hex-decode.txt");
             }
