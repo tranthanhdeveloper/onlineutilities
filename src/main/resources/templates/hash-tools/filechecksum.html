@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>File checksum integrity generator online - online utilities</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="hash md5 online, md5 generator, md5 hashing, one-way encryption">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+
+<section>
+    <div class="container-fluid main-section">
+        <div class="row"></div>
+        <div class="row">
+            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
+            <div class="col-xs-12 col-lg-6 col-md-8">
+                <div class="text-center">
+                    <h2>File checksum generator: CRC-32, CRC-64, SHA-1, SHA-256</h2>
+                </div>
+                <div>
+                    <form th:action="@{/message-digest-tools/file-checksum-generator.html}" method="post" enctype="multipart/form-data">
+                        <div class="form-group">
+                          <label for="checksumAlgorithm">Algorithm:</label>
+                          <select class="form-control form-control-sm" name="algorithm" id="checksumAlgorithm">
+                            <option value="CRC-32">CRC-32</option>
+                            <option value="SHA-1">SHA-1</option>
+                            <option value="SHA-256">SHA-256</option>
+                            <option value="*">*</option>                            
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="fileInput">File:</label>
+                          <input type="file" class="form-control-file" name="file" id="fileInput" placeholder="" aria-describedby="fileHelpId">
+                          <small id="fileHelpId" class="form-text text-muted">Upload your file</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Generate checksum now</button>
+                    </form>
+                </div>
+                <div th:if="${ result != null}">
+                    <table class="table">
+                        <tbody>
+                            <tr th:each="item : ${result.keySet()}">
+                                <td th:text="${item}" colspan="1"></td>
+                                <td th:text="${result.get(item)}"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-3 col-xl-3">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+</body>
+</html>
