@@ -111,6 +111,11 @@ footer .container p{
     overflow-x: scroll;
 }
 
+.card .card-block.no-overflow {
+    overflow: initial;
+    overflow-x: inherit;
+}
+
 .section-title p {
     margin-bottom: 0;
 }

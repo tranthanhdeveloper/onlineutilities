@@ -208,7 +208,6 @@
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="200">
                             <h4><a th:href="@{/message-digest-tools/sha1-hash-generator.html}">SHA-1 Hash Algorithm</a></h4>
                             <p>Hash your data with SHA-1 algorithms.</p>
-                            <p>Coming soon</p>
                         </div>
                     </div>
 
@@ -222,7 +221,7 @@
 
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">SHA-2 Hash Algorithm</a></h4>
+                            <h4><a th:href="@{/message-digest-tools/sha384-hash-generator.html}">SHA384 hashing Algorithm</a></h4>
                             <p>Hash your data with SHA-2 algorithms.</p>
                             <p>Coming soon</p>
                         </div>
@@ -233,6 +232,13 @@
                             <h4><a href="">Bcrypt Hash Algorithm</a></h4>
                             <p>Generate hash value using Bcrypt algorithm. Bcrypt comparing</p>
                             <p>Coming soon</p>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
+                            <h4><a th:href="@{/cryptographic-checksums/file-checksum-generator.html}">File checksum</a></h4>
+                            <p>Generate checksum for a file. Support for CRC-32, MD5, SHA-1, SHA-256</p>
                         </div>
                     </div>
                 </div>
