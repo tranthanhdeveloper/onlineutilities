@@ -2,14 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>BASE64 ENCODE ONLINE</title>
+    <title>Online JSON format - Online utilities</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="base64 encode, encode base64 online, encode text to base64, mime tools">
+    <meta name="keyword" content="format json online, json tree view, json online editor">
     <template th:replace="head::common-head"/>
     
-    <link href="/jsoneditor/jsoneditor.css" rel="stylesheet" type="text/css">
-    <script src="/jsoneditor/jsoneditor.js"></script>
+    <link th:href="@{/jsoneditor/jsoneditor.css}" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
@@ -24,37 +23,7 @@
                 <div class="text-center">
                     <h2>Format Json to beautify online.</h2>
                 </div>
-                <div>
-                    <div class="alert alert-danger" role="alert" th:if="${errors != null && !errors.isEmpty()}">
-                        <ul th:each="error : ${errors}">
-                            <li th:text="${error}"></li>
-                        </ul>
-                    </div>
-                    
-                   <!--  <form action="/format/format-json-beautify.html" method="post" th:object="${jsonObject}">
-                        <div class="form-group">
-                            <label for="data">Json to beautify</label>
-                            <textarea class="form-control" name="jsonData" id="jsonData" rows="5" th:field="*{jsonData}"></textarea>
-                            <small>By default, the web-browser does not allow pasting too large of text. Be noticed when pasting value to the this field.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="outputType">Output</label>
-                            <textarea class="form-control" name="result" id="result" rows="5" th:field="*{result}">
-                            </textarea>
-                        </div>
-                        <button type="submit" class="btn btn-primary">Format now</button>
-                    </form> -->
-                </div>
-                <!-- <div class="card bg-light mt-5 mt-md-5" th:if="${ dataencoded != null && !dataencoded.isEmpty()}">
-                    <h5 class="card-header">Encoded value</h5>
-                    <div class="card-body">
-                        <p class="card-text encoded-text-container" th:text="${dataencoded}"></p>
-                        <button class="btn btn-sm btn-primary btn-clipboard-copy" data-clipboard-target=".encoded-text-container">Copy to clipboard</button>
-                        <button class="btn btn-sm btn-primary btn-download-file" data-target-element=".encoded-text-container" data-download-filename="base64-encoded">Download as file</button>
-                    </div>
-                </div> -->
-                
-                <div id="jsoneditor1" style="width: 800px; height: 900px;"></div>
+                <div id="jsoneditor" style="height: 500px;"></div>
                 <hr>
                 <div class="blog-post">
                     <h3>About JSONFormatter</h3>
@@ -77,9 +46,10 @@
 
 <div th:replace="~{footer :: footer}"></div>
 <div th:replace="~{scripts-include :: page-script}"></div>
+<script th:src="@{/jsoneditor/jsoneditor.js}"></script>
 <script>
 	$(document).ready(function() {
-		const container1 = document.getElementById('jsoneditor1');
+		const container1 = document.getElementById('jsoneditor');
 		const options = {
 		  modes: ['text', 'code', 'tree', 'form', 'view'],
 		  mode: 'text',
