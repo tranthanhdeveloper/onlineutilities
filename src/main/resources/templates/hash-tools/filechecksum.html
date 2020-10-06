@@ -5,7 +5,7 @@
     <title>File checksum integrity generator online - online utilities</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="hash md5 online, md5 generator, md5 hashing, one-way encryption">
+    <meta name="keyword" content="file checksum generator, file checksum md5 generator, file checksum crc-32 generator, file checksum sha-1 generator, file checksum sha-256 generator">
     <template th:replace="head::common-head"/>
 </head>
 
@@ -20,17 +20,18 @@
             <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
             <div class="col-xs-12 col-lg-6 col-md-8">
                 <div class="text-center">
-                    <h2>File checksum generator: CRC-32, CRC-64, SHA-1, SHA-256</h2>
+                    <h2>File checksum generator: MD5, CRC-32, SHA-1, SHA-256</h2>
                 </div>
                 <div>
-                    <form th:action="@{/message-digest-tools/file-checksum-generator.html}" method="post" enctype="multipart/form-data">
+                    <form th:action="@{/cryptographic-checksums/file-checksum-generator.html}" method="post" enctype="multipart/form-data">
                         <div class="form-group">
                           <label for="checksumAlgorithm">Algorithm:</label>
                           <select class="form-control form-control-sm" name="algorithm" id="checksumAlgorithm">
-                            <option value="CRC-32">CRC-32</option>
-                            <option value="SHA-1">SHA-1</option>
-                            <option value="SHA-256">SHA-256</option>
-                            <option value="*">*</option>                            
+                              <option value="MD5">MD5</option>
+                              <option value="CRC-32">CRC-32</option>
+                              <option value="SHA-1">SHA-1</option>
+                              <option value="SHA-256">SHA-256</option>
+                              <option value="*">*</option>
                           </select>
                         </div>
                         <div class="form-group">
@@ -38,18 +39,64 @@
                           <input type="file" class="form-control-file" name="file" id="fileInput" placeholder="" aria-describedby="fileHelpId">
                           <small id="fileHelpId" class="form-text text-muted">Upload your file</small>
                         </div>
-                        <button type="submit" class="btn btn-primary">Generate checksum now</button>
+                        <button type="submit" class="btn btn-sm btn-primary">Generate checksum now</button>
                     </form>
                 </div>
-                <div th:if="${ result != null}">
+
+                <div th:if="${ result != null}" class="pt-md-3">
                     <table class="table">
                         <tbody>
-                            <tr th:each="item : ${result.keySet()}">
-                                <td th:text="${item}" colspan="1"></td>
-                                <td th:text="${result.get(item)}"></td>
+                            <tr th:if="${result.get('filename') != null}">
+                                <th>File name</th>
+                                <td th:text="${result.get('filename')}"></td>
+                            </tr>
+
+                            <tr th:if="${result.get('filesize') != null}">
+                                <th>File size</th>
+                                <td th:text="${result.get('filesize')}+ ' bytes'"></td>
+                            </tr>
+
+                            <tr th:if="${result.get('MD5') != null}">
+                                <th>MD5</th>
+                                <td th:text="${result.get('MD5')}"></td>
+                            </tr>
+
+                            <tr th:if="${result.get('CRC32') != null}">
+                                <th>CRC-32</th>
+                                <td th:text="${result.get('CRC32')}"></td>
+                            </tr>
+                            <tr th:if="${result.get('SHA1') != null}">
+                                <th>SHA-1</th>
+                                <td th:text="${result.get('SHA1')}"></td>
+                            </tr>
+                            <tr th:if="${result.get('SHA256') != null}">
+                                <th>SHA-256</th>
+                                <td th:text="${result.get('SHA256')}"></td>
                             </tr>
                         </tbody>
                     </table>
+
+                </div>
+                <div class="blog-post pt-md-5">
+                    <hr>
+                    <h2 class="blog-post-title">Cryptographic Checksums</h2>
+                    <p>In contrast to meta properties, cryptographic checksums (also called hashes or digests) act like digital fingerprints. It is extremely unlikely for two different files to have the same cryptographic checksum values. The most common cryptographic checksum algorithms are:</p>
+                    <ul>
+                        <li><b>MD5:</b> The Message-Digest Algorithm 5 (MD5) generates a 128-bit digest of the file. The hash is typically written as 32 alphanumeric (hexidecimal) values.</li>
+                        <li><b>SHA1:</b> The Secure Hash Algorithm Version 1 (written SHA1 or SHA-1) is similar to MD5, but it generates a 160-bit hash value. Compared to MD5, SHA1's longer hash size and alternate computation method lowers the likelihood of a hash-collision, where two different files generate the same hash value.</li>
+                        <li><b>SHA256:</b> The Secure Hash Algorithm Version 2 (SHA2) was designed to replace SHA1 due to a theoretical mathematical weakness. Unlike SHA1, SHA2 defines a family of functions that vary by bitsize: 224, 256, 384 or 512 bits. Each function is identified by the bit length. For example, SHA256 is the 256-bit SHA2 hash function. Along with SHA2 is SHA3, which defines even longer hash sizes.</li>
+                    </ul>
+                    <p>With cryptographic checksums, a single file will always generate the same hash value. Any minor change to the file will cause a significantly different result. Even if the files have the same size and appearance, a single byte change will alter the digest. Moreover, the cryptographic complexity means that it is virtually impossible for someone to fiddle with the bytes in order to match the original checksum.</p>
+                    <p>These digests can be used to detect tampering. By verifying a file's hash value, an analyst can confirm that they are evaluating the correct file. If the hashes differ, then it is either the wrong file or the evidence has been altered. A different hash value means that at least one byte was changed, but it does not idenitfy what was changed, who changed it, or when the change occurred.</p>
+                    <p>Although hash collisions are technically possible, it is extremely unlikely for two image files to contain similar pictures, have valid file formats, and generate the same cryptographic checksum values. When using multiple digests to confirm a digital picture (e.g., using both MD5 and SHA1, or SHA1 and file size to identify a valid JPEG), it becomes effectively impossible to have a hash collision.</p>
+                    <p>These digests can be used to detect tampering. By verifying a file's hash value, an analyst can confirm that they are evaluating the correct file. If the hashes differ, then it is either the wrong file or the evidence has been altered. A different hash value means that at least one byte was changed, but it does not idenitfy what was changed, who changed it, or when the change occurred.</p>
+                    <p>Although hash collisions are technically possible, it is extremely unlikely for two image files to contain similar pictures, have valid file formats, and generate the same cryptographic checksum values. When using multiple digests to confirm a digital picture (e.g., using both MD5 and SHA1, or SHA1 and file size to identify a valid JPEG), it becomes effectively impossible to have a hash collision.</p>
+                    <p>In general, MD5 and SHA1 are commonly used for file checksums. SHA1 is more robust than MD5, but MD5 is typically complex enough for hashing pictures. The SHA2 family of functions are better suited to security-sensitive applications, such as digital signatures for encrypted data streams. While less common, SHA256 has been used as a checksum for authenticating sensitive evidence files.</p>
+                    <h3>Other Digests</h3>
+                    <p>There are many other types of checksums. Some, like CRC-16 and CRC-32, are used for quickly checking consistency. However, these cyclic redundancy check (CRC) hashes are not unique and have frequent collisions. Detecting the same CRC-32 value on two files is not an indication that the files are the same. However, different CRC values does denote a difference in the files.</p>
+                    <p>Even among cryptographic hash function, there are a wide variety of algorithms and hash size. For example, MD4 is a much weaker alternative to MD5, and most of the SHA family of algorithms, such as SHA2's SHA-384 and SHA3's SHA3-512, are uncommon outside of strong cryptographic systems.</p>
+                    <hr>
+                    <p>This description copied from: <a href="http://fotoforensics.com/tutorial-digest.php">FotoForensics</a></p>
                 </div>
             </div>
             <div class="col-xs-12 col-md-3 col-xl-3">
