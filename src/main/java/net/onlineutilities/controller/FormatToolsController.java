@@ -33,8 +33,7 @@ public class FormatToolsController extends AbstractController {
     }
 
     @PostMapping("format-json-beautify.html")
-    public Object doJsonBeautify(@ModelAttribute(value = "jsonObject") JsonBeautify jsonObject, Model model) 
-    		throws JsonMappingException, JsonProcessingException {
+    public Object doJsonBeautify(@ModelAttribute(value = "jsonObject") JsonBeautify jsonObject, Model model) throws JsonProcessingException {
         jsonObject.setResult(jsonService.formatJsonBeautify(jsonObject.getJsonData()));
         model.addAttribute("jsonObject", jsonObject);
         return "format/json/json-beautify";
