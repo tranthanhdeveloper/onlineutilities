@@ -23,17 +23,14 @@
                 <div class="text-center">
                     <h2>Format Json to beautify online.</h2>
                 </div>
-                <div id="jsoneditor" style="height: 500px;"></div>
+                <div id="jsoneditor" style="height: 700px;"></div>
                 <hr>
                 <div class="blog-post">
-                    <h3>About JSONFormatter</h3>
+                    <h3>About JSON Beauty</h3>
                     <hr>
-                    <p>JSONFormatter.io is the #1 online tool to format, parse, view, validate, edit, and beautify JSON data in real time. The powerful, feature rich, and user friendly JSON editor gives you a native editing experience.
-                    <br/>To format JSON, type or paste your JSON data in the first editor and click on the format/validate button to validate and format the entered JSON. You can view the parsed and beautified JSON in the second editor.
+                    <p>JSON Beauty is one of the most #1 online tool to format, parse, view, validate, edit, and beautify JSON data in real time. The powerful, feature rich, and user friendly JSON editor gives you a native editing experience.
+                    <br/>To format JSON, type or paste your JSON data in the first editor and click on the Text/Code/Tree/Fomr/View button to validate and format the entered JSON. You can view the parsed and beautified JSON.
                     </p>
-                    <h3>JSON beautify/prettify online</h3>
-                    <hr>
-                    <p>You can use the tool as a simple JSON prettifier/beautifier. The tool prettifies your JSON with proper indentation and outputs the prettified data in the right hand side editor. You can click copy on the right side editor to copy the beautified JSON.</p>
                     <pre>
                     </pre>
                 </div>
@@ -46,17 +43,7 @@
 
 <div th:replace="~{footer :: footer}"></div>
 <div th:replace="~{scripts-include :: page-script}"></div>
-<script th:src="@{/jsoneditor/jsoneditor.js}"></script>
-<script>
-	$(document).ready(function() {
-		const container1 = document.getElementById('jsoneditor');
-		const options = {
-		  modes: ['text', 'code', 'tree', 'form', 'view'],
-		  mode: 'text',
-		  ace: ace
-		}
-		const editor = new JSONEditor(container1, options);
-	});
-</script>
+<script th:src="@{/jsoneditor/jsoneditor.min.js}"></script>
+<script th:src="@{/js/json-beautify.js}"></script>
 </body>
 </html>
