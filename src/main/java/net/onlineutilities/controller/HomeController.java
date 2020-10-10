@@ -21,4 +21,14 @@ public class HomeController {
         return "contact_us";
     }
 
+    @GetMapping("privacy-policy.html")
+    public String privacy(){
+        return "privacy";
+    }
+
+    @GetMapping("term-and-conditions.html")
+    public String term(){
+        return "term-and-conditions";
+    }
+
 }
