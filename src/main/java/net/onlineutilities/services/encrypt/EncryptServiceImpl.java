@@ -4,6 +4,8 @@ import net.onlineutilities.enums.EncryptConstants;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.Cipher;
@@ -16,13 +18,13 @@ import javax.crypto.spec.SecretKeySpec;
 import java.io.*;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.UUID;
 
 @Component
 public class EncryptServiceImpl implements EncryptService {
+    Logger logger = LoggerFactory.getLogger(EncryptServiceImpl.class);
 
     @Override
     public byte[] encrypt(byte[] bytesToEncrypt, byte[] keyAsBytes, String algorithm) {
@@ -32,8 +34,7 @@ public class EncryptServiceImpl implements EncryptService {
             ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
             return ecipher.doFinal(bytesToEncrypt);
         } catch (Exception e) {
-            // TODO implement logic for exceptions and log to the system.
-            e.printStackTrace();
+            logger.info("Error occurred during encrypting data"+ e.getMessage());
             return new byte[0];
         }
     }
@@ -73,20 +74,22 @@ public class EncryptServiceImpl implements EncryptService {
                 return saveAsTempFile(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             }case HEX:{
                 return Hex.encodeHexString(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
-            } default:{
+            }case BASE64:{
                 return Base64.encodeBase64String(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
+            } default:{
+                return new String(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             }
         }
     }
 
     @Override
-    public String decryptFile(EncryptConstants.EncodeSupport encodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws DecoderException {
+    public String decryptFile(EncryptConstants.DecodeSupport decodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws DecoderException {
 
-        byte[] decodedData = new byte[0];
+        byte[] decodedData;
         // Check if we need perform decode.
-        if(encodeSupport == EncryptConstants.EncodeSupport.BASE_64){
+        if(decodeSupport == EncryptConstants.DecodeSupport.BASE_64){
             decodedData = Base64.decodeBase64(bytesOfFile);
-        }else if (encodeSupport == EncryptConstants.EncodeSupport.HEX){
+        }else if (decodeSupport == EncryptConstants.DecodeSupport.HEX){
             decodedData = Hex.decodeHex(new String(bytesOfFile));
         }else {
             decodedData = bytesOfFile;
@@ -100,13 +103,13 @@ public class EncryptServiceImpl implements EncryptService {
     }
 
     @Override
-    public String decryptText(EncryptConstants.EncodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws DecoderException, UnsupportedEncodingException {
+    public String decryptText(EncryptConstants.DecodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws DecoderException, UnsupportedEncodingException {
 
         byte[] decodedData = new byte[0];
         // Check if we need perform decode.
-        if(encodeSupport == EncryptConstants.EncodeSupport.BASE_64){
+        if(encodeSupport == EncryptConstants.DecodeSupport.BASE_64){
             decodedData = Base64.decodeBase64(data);
-        }else if (encodeSupport == EncryptConstants.EncodeSupport.HEX){
+        }else if (encodeSupport == EncryptConstants.DecodeSupport.HEX){
             decodedData = Hex.decodeHex(data);
         }
 
@@ -158,15 +161,19 @@ public class EncryptServiceImpl implements EncryptService {
         SecretKey secretKey = null;
         KeySpec keySpec = null;
             SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(algorithms);
-            if ("DES".equals(algorithms)){
+        switch (algorithms) {
+            case "DES":
                 keySpec = new DESKeySpec(keyAsBytes);
                 secretKey = secretKeyFactory.generateSecret(keySpec);
-            }else if ("DESede".equals(algorithms)){
+                break;
+            case "DESede":
                 keySpec = new DESedeKeySpec(keyAsBytes);
                 secretKey = secretKeyFactory.generateSecret(keySpec);
-            }else if ("Blowfish".equals(algorithms)){
+                break;
+            case "Blowfish":
                 secretKey = new SecretKeySpec(keyAsBytes, algorithms);
-            }
+                break;
+        }
         return secretKey;
     }
 

@@ -12,8 +12,8 @@ public interface EncryptService {
 	String encryptFile(byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm);
 	String encryptText(String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset , String algorithm) throws UnsupportedEncodingException;
 
-	String decryptFile(EncryptConstants.EncodeSupport encodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType , String algorithm) throws DecoderException;
-	String decryptText(EncryptConstants.EncodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws UnsupportedEncodingException, DecoderException;
+	String decryptFile(EncryptConstants.DecodeSupport encodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType , String algorithm) throws DecoderException;
+	String decryptText(EncryptConstants.DecodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws UnsupportedEncodingException, DecoderException;
 
 	String generateKeyFile(String algorithm);
 

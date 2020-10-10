@@ -1,6 +1,7 @@
 package net.onlineutilities.controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 import org.apache.commons.codec.DecoderException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,51 +19,51 @@ import net.onlineutilities.services.encrypt.EncryptService;
 
 @Controller
 public class DESEncryptionController extends CryptographicController {
-	
-	
+
+
     private static final String DES = "DES";
-	@Autowired
+    @Autowired
     EncryptService encryptService;
 
 
     @GetMapping("secretkey-generator.html")
-    public String generateSecretKey(){
+    public String generateSecretKey() {
         return "encrypt/secretkey-generator";
     }
 
     @PostMapping("secretkey-generator.html")
-    public ResponseEntity<ByteArrayResource> generateSecretKey(@RequestParam("keytype") int keytype){
+    public ResponseEntity<ByteArrayResource> generateSecretKey(@RequestParam("keytype") int keytype) {
         String algorithms;
-        switch (keytype){
-            case 1:{
+        switch (keytype) {
+            case 1: {
                 algorithms = EncryptConstants.SupportAlgorithms.TRIPLE_DES.getAlgorithm();
                 break;
             }
-            case 2:{
-                algorithms  = EncryptConstants.SupportAlgorithms.AES.getAlgorithm();
+            case 2: {
+                algorithms = EncryptConstants.SupportAlgorithms.AES.getAlgorithm();
                 break;
             }
 
-            case 3:{
-                algorithms  = EncryptConstants.SupportAlgorithms.RSA.getAlgorithm();
+            case 3: {
+                algorithms = EncryptConstants.SupportAlgorithms.RSA.getAlgorithm();
                 break;
             }
 
-            case 4:{
-                algorithms  = EncryptConstants.SupportAlgorithms.BLOWFISH.getAlgorithm();
+            case 4: {
+                algorithms = EncryptConstants.SupportAlgorithms.BLOWFISH.getAlgorithm();
                 break;
             }
-            default:{
+            default: {
                 algorithms = EncryptConstants.SupportAlgorithms.DES.getAlgorithm();
                 break;
             }
 
         }
 
-        return download(encryptService.generateKeyFile(algorithms),algorithms.toLowerCase()+"-secretkey.key");
+        return download(encryptService.generateKeyFile(algorithms), algorithms.toLowerCase() + "-secretkey.key");
     }
 
-	@GetMapping("")
+    @GetMapping("")
     public String index() {
         return "encrypt/cryptographic-tools";
     }
@@ -73,32 +73,28 @@ public class DESEncryptionController extends CryptographicController {
         return download(encryptService.generateKeyFile(DES), "des-keyfile.key");
     }
 
-
-    /**
-     * First view of Triple DES encryption
-     *
-     * @return template mapping to tripledes-encrypt.html
-     */
-    @GetMapping("/des-text-encryptor.html")
+    @GetMapping("/des-encryptor.html")
     public String encrypt() {
         return "encrypt/des-encrypt";
     }
 
-    @GetMapping("/des-file-encryptor.html")
-    public String encryptFile() {
-        return "encrypt/des-file-encrypt";
-    }
+    @PostMapping("/des-encryptor.html")
+    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile,
+                          @RequestParam(value = "file", required = false) MultipartFile file,
+                          @RequestParam(value = "data", required = false) String data,
+                          @RequestParam("output") Integer outputTyp,
+                          Model model) throws IOException {
 
-    @PostMapping("/des-text-encryptor.html")
-    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
-        EncryptConstants.Output outputType;
-        if (outputTyp == null) {
-            outputType = EncryptConstants.Output.FILE;
+        EncryptConstants.Output outputType = EncryptConstants.Output.getById(outputTyp);
+        String encryptedData;
+        // Case user sends text
+        if (data != null) {
+            encryptedData = encryptService.encryptText(data, keyfile.getBytes(), outputType, StandardCharsets.UTF_8.name(), DES);
+
+        // Case user sends file
         } else {
-            outputType = EncryptConstants.Output.getById(outputTyp);
+            encryptedData = encryptService.encryptFile(file.getBytes(), keyfile.getBytes(), outputType, DES);
         }
-
-        String encryptedData = encryptService.encryptText(data, keyfile.getBytes(), outputType, null, DES);
 
         if (outputType == EncryptConstants.Output.FILE) {
             return download(encryptedData, "des-encrypted-" + System.currentTimeMillis());
@@ -108,87 +104,47 @@ public class DESEncryptionController extends CryptographicController {
         return "encrypt/des-encrypt";
     }
 
-    @PostMapping("/des-file-encryptor.html")
-    public Object encrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("outputtype") Integer outputTyp, Model model) throws IOException {
-        EncryptConstants.Output outputType;
-        if (outputTyp == null) {
-            outputType = EncryptConstants.Output.FILE;
-        } else {
-            outputType = EncryptConstants.Output.getById(outputTyp);
-        }
-
-        String encryptedData = encryptService.encryptFile(file.getBytes(), keyfile.getBytes(), outputType, DES);
-
-        if (outputType == EncryptConstants.Output.FILE) {
-            return download(encryptedData, "des-encrypted-" + System.currentTimeMillis());
-        }
-        model.addAttribute("outputType", outputType.getDisplay());
-        model.addAttribute("encryptedData", encryptedData);
-        return "encrypt/des-file-encrypt";
-    }
-
-    @GetMapping("/des-text-decryptor.html")
+    @GetMapping("/des-decryptor.html")
     public String decrypt() {
         return "encrypt/des-decrypt";
     }
 
-    @GetMapping("/des-file-decryptor.html")
-    public String decryptFile() {
-        return "encrypt/des-file-decrypt";
-    }
+    @PostMapping("/des-decryptor.html")
+    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile,
+                          @RequestParam(value = "data", required = false) String data,
+                          @RequestParam(value = "file", required = false) MultipartFile file,
+                          @RequestParam("decodetype") int decodeType,
+                          @RequestParam("output") int outputTyp,
+                          Model model) throws IOException, DecoderException {
 
-    @PostMapping("/des-text-decryptor.html")
-    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
-        EncryptConstants.EncodeSupport encodeSupport;
-        if (encodeType == 0) {
-            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
-        }else if(encodeType == 1){
-            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
-        }else {
-            encodeSupport = EncryptConstants.EncodeSupport.HEX;
-        }
-
-        EncryptConstants.Output outputType;
-        if (outputTyp == 1) {
-            outputType = EncryptConstants.Output.FILE;
-        } else {
-            outputType = EncryptConstants.Output.getById(outputTyp);
-        }
+        EncryptConstants.Output outputType = EncryptConstants.Output.getById(outputTyp);
+        EncryptConstants.DecodeSupport encodeSupport = obtainDecodeSupport(decodeType);
 
         if (outputType == EncryptConstants.Output.FILE) {
-            return download(encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, "UTF-8", DES), "des-encrypted-" + System.currentTimeMillis());
+            if (data != null && !data.isEmpty()) {
+                return download(encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, "UTF-8", DES), "des-encrypted-" + System.currentTimeMillis());
+            }
+            return download(encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType, DES), "des-encrypted-" + System.currentTimeMillis());
+        } else {
+            model.addAttribute("outputType", outputType.getDisplay());
+            if (data != null && !data.isEmpty()) {
+                model.addAttribute("decryptedData", encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, StandardCharsets.UTF_8.displayName(), DES));
+            } else {
+                model.addAttribute("decryptedData", encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType, DES));
+            }
+
         }
-        model.addAttribute("outputType", outputType.getDisplay());
-        model.addAttribute("decryptedData", encryptService.decryptText(encodeSupport, data, keyfile.getBytes(), outputType, "UTF-8", DES));
+
         return "encrypt/des-decrypt";
     }
 
-
-    @PostMapping("/des-file-decryptor.html")
-    public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
-        EncryptConstants.EncodeSupport encodeSupport;
-        if (encodeType == 0) {
-            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
-        }else if(encodeType == 1){
-            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
-        }else {
-            encodeSupport = EncryptConstants.EncodeSupport.HEX;
+    private EncryptConstants.DecodeSupport obtainDecodeSupport(int decodeId) {
+        if (decodeId == 0) {
+            return EncryptConstants.DecodeSupport.NOPE;
         }
-
-        EncryptConstants.Output outputType;
-        if (outputTyp == 1) {
-            outputType = EncryptConstants.Output.FILE;
-        } else {
-            outputType = EncryptConstants.Output.getById(outputTyp);
+        if (decodeId == 1) {
+            return EncryptConstants.DecodeSupport.BASE_64;
         }
-
-        if (outputType == EncryptConstants.Output.FILE) {
-            return download(encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType, DES), "des-encrypted-" + System.currentTimeMillis());
-        }
-        model.addAttribute("outputType", outputType.getDisplay());
-        model.addAttribute("decryptedData", encryptService.decryptFile(encodeSupport, file.getBytes(), keyfile.getBytes(), outputType, DES));
-        return "encrypt/des-file-decrypt";
+        return EncryptConstants.DecodeSupport.HEX;
     }
-
-
 }

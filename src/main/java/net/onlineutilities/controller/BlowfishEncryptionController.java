@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -96,13 +95,13 @@ public class BlowfishEncryptionController extends CryptographicController {
 
     @PostMapping("/blowfish-text-decryptor.html")
     public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("data") String data, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
-        EncryptConstants.EncodeSupport encodeSupport;
+        EncryptConstants.DecodeSupport encodeSupport;
         if (encodeType == 0) {
-            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
+            encodeSupport = EncryptConstants.DecodeSupport.NOPE;
         }else if(encodeType == 1){
-            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
+            encodeSupport = EncryptConstants.DecodeSupport.BASE_64;
         }else {
-            encodeSupport = EncryptConstants.EncodeSupport.HEX;
+            encodeSupport = EncryptConstants.DecodeSupport.HEX;
         }
 
         EncryptConstants.Output outputType;
@@ -123,13 +122,13 @@ public class BlowfishEncryptionController extends CryptographicController {
 
     @PostMapping("/blowfish-file-decryptor.html")
     public Object decrypt(@RequestParam("keyfile") MultipartFile keyfile, @RequestParam("file") MultipartFile file, @RequestParam("decodetype") int encodeType, @RequestParam("output") int outputTyp, Model model) throws IOException, DecoderException {
-        EncryptConstants.EncodeSupport encodeSupport;
+        EncryptConstants.DecodeSupport encodeSupport;
         if (encodeType == 0) {
-            encodeSupport = EncryptConstants.EncodeSupport.NOPE;
+            encodeSupport = EncryptConstants.DecodeSupport.NOPE;
         }else if(encodeType == 1){
-            encodeSupport = EncryptConstants.EncodeSupport.BASE_64;
+            encodeSupport = EncryptConstants.DecodeSupport.BASE_64;
         }else {
-            encodeSupport = EncryptConstants.EncodeSupport.HEX;
+            encodeSupport = EncryptConstants.DecodeSupport.HEX;
         }
 
         EncryptConstants.Output outputType;

@@ -2,10 +2,12 @@ html {
     position: relative;
     min-height: 100%;
 }
+
 body {
     margin-bottom: 60px; /* Margin bottom by footer height */
-    background-color: #ffffff!important;
+    background-color: #ffffff !important;
 }
+
 header {
     padding: 98px 0 32px;
 }
@@ -34,7 +36,7 @@ section {
     padding-top: 100px;
 }
 
-.padding-top-15{
+.padding-top-15 {
     padding-top: 150px;
 }
 
@@ -45,11 +47,11 @@ section {
     height: 90px;
 }
 
-.span-section{
+.span-section {
     margin-top: 10px;
 }
 
-footer .container p{
+footer .container p {
     float: right;
     padding-right: 0;
 }
@@ -59,11 +61,11 @@ footer .container p{
 }
 
 @media screen and (max-width: 992px) {
-	section .container .reverse-col-order{
-		flex-direction:column-reverse;
+    section .container .reverse-col-order {
+        flex-direction: column-reverse;
     }
 
-    .footer{
+    .footer {
         height: 90px;
     }
 }
@@ -92,23 +94,42 @@ footer .container p{
     left: 0;
 }
 
-.ou-overflow-scroll{
+.ou-overflow-scroll {
     overflow-y: scroll;
 }
 
-.ou-h-px-450{
+.ou-h-px-450 {
     max-height: 450px;
 }
 
-.ou-mt-18{
+.ou-mt-18 {
     margin-top: 18px;
 }
 
-.card .card-block {
-    max-height: 252px;
-    height: 252px;
+.card-block{
     overflow: auto;
-    overflow-x: scroll;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    overflow-wrap: anywhere;
+    height: 500px;
+}
+::-webkit-scrollbar {
+    width: 5px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+
+}
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 
 .card .card-block.no-overflow {
@@ -119,6 +140,7 @@ footer .container p{
 .section-title p {
     margin-bottom: 0;
 }
+
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
@@ -178,4 +200,68 @@ footer .container p{
     color: #fff;
     background: #009970;
 }
+
 /* End copy from */
+
+
+/* START for file drag and drop*/
+.files-drag-drop input {
+    outline: 1px dashed #072124;
+    outline-offset: -5px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    padding: 50px 0 100px 35%;
+    text-align: center !important;
+    margin: 0;
+    width: 100% !important;
+}
+
+.files-drag-drop input:focus {
+    outline: 2px dashed #92b0b3;
+    outline-offset: -10px;
+    -webkit-transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    transition: outline-offset .15s ease-in-out, background-color .15s linear;
+    border: 1px solid #92b0b3;
+}
+
+.files-drag-drop {
+    position: relative
+}
+
+.files-drag-drop:after {
+    pointer-events: none;
+    position: absolute;
+    top: 60px;
+    left: 0;
+    width: 50px;
+    right: 0;
+    height: 56px;
+    content: "";
+    display: block;
+    margin: 0 auto;
+    background-size: 100%;
+    background-repeat: no-repeat;
+}
+
+.color-warning input{
+    background-color: #ffffab;
+}
+
+.files-drag-drop:before {
+    position: absolute;
+    bottom: 10px;
+    left: 0;
+    pointer-events: none;
+    width: 100%;
+    right: 0;
+    height: 57px;
+    content: " or drag it here.";
+    display: block;
+    margin: 0 auto;
+    color: #2ea591;
+    font-weight: 600;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+/* END for file drag and drop*/
