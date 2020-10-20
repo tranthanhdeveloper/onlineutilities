@@ -59,4 +59,11 @@ $(document).ready(function () {
             }
         }
     })
+
+	// Fix custom-file-input file name displaying
+    $('.custom-file-input').on('change',function(){
+        var fileName = $(this)[0].files[0].name
+		console.log(fileName);
+        $(this).next('.custom-file-label').html(fileName);
+    })
 })
