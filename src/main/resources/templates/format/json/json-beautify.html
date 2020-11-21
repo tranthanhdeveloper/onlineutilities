@@ -16,24 +16,332 @@
 <div th:replace="header::header"></div>
 <section>
     <div class="container-fluid main-section bg-light">
-        <div class="row"></div>
         <div class="row">
             <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
             <div class="col-xs-12 col-lg-6 col-md-8">
-                <div class="text-center">
-                    <h2>Format Json to beautify online.</h2>
+                <div class="text-center align-middle">
+                    <h2>Format JSON online with amazing JSON formatter</h2>
                 </div>
                 <div id="jsoneditor" style="height: 500px;"></div>
                 <hr>
                 <div class="blog-post">
-                    <h3>About JSON Beauty</h3>
+                    <h3>About JSON Beautifier</h3>
                     <hr>
-                    <p>JSON Beauty is one of the most #1 online tool to format, parse, view, validate, edit, and beautify JSON data in real time. The powerful, feature rich, and user friendly JSON editor gives you a native editing experience.
-                    <br/>To format JSON, type or paste your JSON data in the first editor and click on the Text/Code/Tree/Fomr/View button to validate and format the entered JSON. You can view the parsed and beautified JSON.
-                    </p>
-                    <pre>
-                    </pre>
-                </div>
+                    <p>We really thank Josdejong for developing this great JSON editor.<p>
+                    <p>Origin source code: https://github.com/josdejong/jsoneditor</p>
+                    <hr>
+                    <p>We distributed the JSON editor in our site that aims to help more people and developers can be access this tools.</p>
+                    <h4>JSON Editor features</h4>
+                    <p>JSONEditor has various modes, with the following features.</p>
+                    <h5>Tree mode</h5>
+                    <ul>
+						<li>Change, add, move, remove, and duplicate fields and values.</li>
+						<li>Sort arrays and objects.</li>
+						<li>Transform JSON using <a href="http://jmespath.org/" rel="nofollow">JMESPath</a> queries.</li>
+						<li>Colorized code.</li>
+						<li>Color picker.</li>
+						<li>Search &amp; highlight text in the tree view.</li>
+						<li>Undo and redo all actions.</li>
+						<li>JSON schema validation (powered by <a href="https://github.com/epoberezkin/ajv">ajv</a>).</li>
+					</ul>
+					<h5>Code mode</h5>
+					<ul>
+						<li>Colorized code (powered by <a href="https://ace.c9.io" rel="nofollow">Ace</a>).</li>
+						<li>Inspect JSON (powered by <a href="https://ace.c9.io" rel="nofollow">Ace</a>).</li>
+						<li>Format and compact JSON.</li>
+						<li>Repair JSON.</li>
+						<li>JSON schema validation (powered by <a href="https://github.com/epoberezkin/ajv">ajv</a>).</li>
+					</ul>
+					<h5>Text mode</h5>
+					<ul>
+						<li>Format and compact JSON.</li>
+						<li>Repair JSON.</li>
+						<li>JSON schema validation (powered by <a href="https://github.com/epoberezkin/ajv">ajv</a>).</li>
+					</ul>
+					<h5>Preview mode</h5>
+					<ul>
+						<li>Handle large JSON documents up to 500 MiB.</li>
+						<li>Transform JSON using <a href="http://jmespath.org/" rel="nofollow">JMESPath</a> queries.</li>
+						<li>Format and compact JSON.</li>
+						<li>Repair JSON.</li>
+						<li>JSON schema validation (powered by <a href="https://github.com/epoberezkin/ajv">ajv</a>).</li>
+					</ul>
+					<hr>
+					<h4>Useful shortcuts to boost your productive</h4>
+					<table class="table table-sm table-bordered">
+						<thead>
+							<tr>
+								<th>Key</th>
+								<th>Description</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Alt+Arrows</td>
+								<td>Move the caret up/down/left/right between fields</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Shift+Arrow Up/Down</td>
+								<td>Select multiple fields</td>
+							</tr>
+							<tr>
+								<td>Shift+Alt+Arrows</td>
+								<td>Move current field or selected fields
+									up/down/left/right</td>
+							</tr>
+							<tr>
+								<td>Ctrl+D</td>
+								<td>Duplicate field</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Del</td>
+								<td>Remove field</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Enter</td>
+								<td>Open link when on a field containing an url</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Ins</td>
+								<td>Insert a new field with type auto</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Shift+Ins</td>
+								<td>Append a new field with type auto</td>
+							</tr>
+							<tr>
+								<td>Ctrl+E</td>
+								<td>Expand or collapse field</td>
+							</tr>
+							<tr>
+								<td>Alt+End</td>
+								<td>Move the caret to the last field</td>
+							</tr>
+							<tr>
+								<td>Ctrl+F</td>
+								<td>Find</td>
+							</tr>
+							<tr>
+								<td>F3, Ctrl+G</td>
+								<td>Find next</td>
+							</tr>
+							<tr>
+								<td>Shift+F3, Ctrl+Shift+G</td>
+								<td>Find previous</td>
+							</tr>
+							<tr>
+								<td>Alt+Home</td>
+								<td>Move the caret to the first field</td>
+							</tr>
+							<tr>
+								<td>Ctrl+M</td>
+								<td>Show actions menu</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Z</td>
+								<td>Undo last action</td>
+							</tr>
+							<tr>
+								<td>Ctrl+Shift+Z</td>
+								<td>Redo</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<h5>Find/Replace</h5>
+					<table role="table" class="table table-sm table-bordered">
+						<thead>
+							<tr>
+								<th align="left">Windows/Linux</th>
+								<th align="left">Mac</th>
+								<th align="left">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left">Ctrl-F</td>
+								<td align="left">Command-F</td>
+								<td align="left">Find</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-H</td>
+								<td align="left">Command-Option-F</td>
+								<td align="left">Replace</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-K</td>
+								<td align="left">Command-G</td>
+								<td align="left">Find next</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-K</td>
+								<td align="left">Command-Shift-G</td>
+								<td align="left">Find previous</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<h5>Line Operations</h5>
+					<table role="table" class="table table-sm table-bordered">
+						<thead>
+							<tr>
+								<th align="left">Windows/Linux</th>
+								<th align="left">Mac</th>
+								<th align="left">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left">Ctrl-D</td>
+								<td align="left">Command-D</td>
+								<td align="left">Remove line</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Shift-Down</td>
+								<td align="left">Command-Option-Down</td>
+								<td align="left">Copy lines down</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Shift-Up</td>
+								<td align="left">Command-Option-Up</td>
+								<td align="left">Copy lines up</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Down</td>
+								<td align="left">Option-Down</td>
+								<td align="left">Move lines down</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Up</td>
+								<td align="left">Option-Up</td>
+								<td align="left">Move lines up</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Delete</td>
+								<td align="left">Ctrl-K</td>
+								<td align="left">Remove to line end</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Backspace</td>
+								<td align="left">Command-Backspace</td>
+								<td align="left">Remove to linestart</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Backspace</td>
+								<td align="left">Option-Backspace, Ctrl-Option-Backspace</td>
+								<td align="left">Remove word left</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Delete</td>
+								<td align="left">Option-Delete</td>
+								<td align="left">Remove word right</td>
+							</tr>
+							<tr>
+								<td align="left">---</td>
+								<td align="left">Ctrl-O</td>
+								<td align="left">Split line</td>
+							</tr>
+						</tbody>
+					</table>
+					<hr>
+					<h5>Selection</h5>
+					<table role="table" class="table table-sm table-bordered">
+						<thead>
+							<tr>
+								<th align="left">Windows/Linux</th>
+								<th align="left">Mac</th>
+								<th align="left">Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td align="left">Ctrl-A</td>
+								<td align="left">Command-A</td>
+								<td align="left">Select all</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-Left</td>
+								<td align="left">Shift-Left</td>
+								<td align="left">Select left</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-Right</td>
+								<td align="left">Shift-Right</td>
+								<td align="left">Select right</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-Left</td>
+								<td align="left">Option-Shift-Left</td>
+								<td align="left">Select word left</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-Right</td>
+								<td align="left">Option-Shift-Right</td>
+								<td align="left">Select word right</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-Home</td>
+								<td align="left">Shift-Home</td>
+								<td align="left">Select line start</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-End</td>
+								<td align="left">Shift-End</td>
+								<td align="left">Select line end</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Shift-Right</td>
+								<td align="left">Command-Shift-Right</td>
+								<td align="left">Select to line end</td>
+							</tr>
+							<tr>
+								<td align="left">Alt-Shift-Left</td>
+								<td align="left">Command-Shift-Left</td>
+								<td align="left">Select to line start</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-Up</td>
+								<td align="left">Shift-Up</td>
+								<td align="left">Select up</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-Down</td>
+								<td align="left">Shift-Down</td>
+								<td align="left">Select down</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-PageUp</td>
+								<td align="left">Shift-PageUp</td>
+								<td align="left">Select page up</td>
+							</tr>
+							<tr>
+								<td align="left">Shift-PageDown</td>
+								<td align="left">Shift-PageDown</td>
+								<td align="left">Select page down</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-Home</td>
+								<td align="left">Command-Shift-Up</td>
+								<td align="left">Select to start</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-End</td>
+								<td align="left">Command-Shift-Down</td>
+								<td align="left">Select to end</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-D</td>
+								<td align="left">Command-Shift-D</td>
+								<td align="left">Duplicate selection</td>
+							</tr>
+							<tr>
+								<td align="left">Ctrl-Shift-P</td>
+								<td align="left">---</td>
+								<td align="left">Select to matching bracket</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>    
             </div>
             <div class="col-xs-12 col-md-3 col-xl-3">
             </div>
