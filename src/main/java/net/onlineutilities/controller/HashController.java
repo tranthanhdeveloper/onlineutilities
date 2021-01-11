@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 public class HashController extends AbstractController {
     Logger logger = LoggerFactory.getLogger(HashController.class);
 
-    @GetMapping()
+    @GetMapping("/")
     public String index(){
         return "hash-tools/index";
     }
