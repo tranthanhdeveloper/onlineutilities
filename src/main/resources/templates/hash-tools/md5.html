@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
@@ -23,7 +24,7 @@
                     <h2>MD5 hash online generator</h2>
                 </div>
                 <div>
-                    <form th:action="@{/message-digest-tools/md5-hash.html}" method="post">
+                    <form th:action="@{/message-digest-tools/md5-hash-generator.html}" method="post">
                         <div class="form-group">
                             <label for="data">Value to encode</label>
                             <textarea class="form-control" name="data" id="data" rows="5" autofocus></textarea>
