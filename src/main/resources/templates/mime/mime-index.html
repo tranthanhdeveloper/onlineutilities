@@ -68,8 +68,27 @@
                 </div>
             </div>
         </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-12 col-md-6 col-lg-6 pt-3 pt-md-3">
+                <div>
+                    <h5>HTML escape</h5>
+                    <p>Turn special characters into HTML character references. Handles complete character set defined in HTML 4.01 recommendation. Escapes all special characters to their corresponding entity reference (e.g. &lt;)</p>
+                    <a href="/mime-tools/html-encode-online.html" class="btn btn-primary">Escape HTML now</a>
+                </div>
+            </div>
+            <div class="col-xs-12 col-md-6 col-lg-6 pt-3 pt-md-3">
+                <div>
+                    <h5>HTML unescape</h5>
+                    <p>Turn HTML character references into their plain text UNICODE equivalent.
+                        Handles complete character set defined in HTML 4.01 recommendation and all reference types (decimal, hex, and entity)</p>
+                    <a href="/mime-tools/html-decode-online.html" class="btn btn-primary">Unescape HTML now</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<section class="section-bg span-section"></section>
 <div th:replace="footer :: footer"></div>
 <div th:replace="scripts-include :: page-script"></div>
 </body>

@@ -19,8 +19,8 @@ import net.onlineutilities.services.encrypt.EncryptService;
 @Controller
 public class BlowfishEncryptionController extends CryptographicController {
 	
+	private static final String BLOWFISH = "Blowfish";
 	
-    private static final String BLOWFISH = "Blowfish";
 	@Autowired
     EncryptService encryptService;
 

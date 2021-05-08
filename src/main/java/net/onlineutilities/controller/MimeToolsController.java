@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.HtmlUtils;
 
 import java.io.CharArrayReader;
 import java.io.IOException;
@@ -172,6 +173,30 @@ public class MimeToolsController extends AbstractController {
     @GetMapping("url-decoder.html")
     public String urlDecode() {
         return "mime/url-decoder";
+    }
+
+    @GetMapping("html-encode-online.html")
+    public String htmlEncode() {
+        return "mime/html_encode";
+    }
+
+    @PostMapping("html-encode-online.html")
+    public String htmlEncode(@RequestParam(value = "data", defaultValue = "") String data,  Model model) {
+        model.addAttribute("data",data);
+        model.addAttribute("EscapedHTML", HtmlUtils.htmlEscape(data));
+        return "mime/html_encode";
+    }
+
+    @GetMapping("html-decode-online.html")
+    public String htmlDecode() {
+        return "mime/html_decode";
+    }
+
+    @PostMapping("html-decode-online.html")
+    public String htmlDecode(@RequestParam(value = "data", defaultValue = "") String data,  Model model) {
+        model.addAttribute("data",data);
+        model.addAttribute("UnescapedHTML", HtmlUtils.htmlUnescape(data));
+        return "mime/html_decode";
     }
 
 }
