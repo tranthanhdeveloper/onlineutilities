@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("message-digest-tools")
-public class HashController extends AbstractController {
+public class HashController extends BaseController {
     Logger logger = LoggerFactory.getLogger(HashController.class);
 
     @GetMapping("/")

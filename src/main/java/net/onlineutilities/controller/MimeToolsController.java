@@ -20,7 +20,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("mime-tools")
-public class MimeToolsController extends AbstractController {
+public class MimeToolsController extends BaseController {
 
     @GetMapping("")
     public String index(){

@@ -5,5 +5,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("cryptographic-tools")
-public class CryptographicController extends AbstractController{
+public class CryptographicController extends BaseController {
 }

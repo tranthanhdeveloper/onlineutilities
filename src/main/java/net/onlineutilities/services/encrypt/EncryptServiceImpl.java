@@ -20,11 +20,13 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Component
 public class EncryptServiceImpl implements EncryptService {
-    Logger logger = LoggerFactory.getLogger(EncryptServiceImpl.class);
+    public static final byte[] EMPTY_BYTES = new byte[0];
+    Logger LOGGER = LoggerFactory.getLogger(EncryptServiceImpl.class);
 
     @Override
     public byte[] encrypt(byte[] bytesToEncrypt, byte[] keyAsBytes, String algorithm) {
@@ -34,8 +36,8 @@ public class EncryptServiceImpl implements EncryptService {
             ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
             return ecipher.doFinal(bytesToEncrypt);
         } catch (Exception e) {
-            logger.info("Error occurred during encrypting data"+ e.getMessage());
-            return new byte[0];
+            LOGGER.info("Error occurred during encrypting data"+ e.getMessage());
+            return EMPTY_BYTES;
         }
     }
 
@@ -47,7 +49,7 @@ public class EncryptServiceImpl implements EncryptService {
             return dcipher.doFinal(byteToDecrypt);
         } catch (Exception e) {
             e.printStackTrace();
-            return new byte[0];
+            return EMPTY_BYTES;
         }
     }
 
@@ -144,7 +146,7 @@ public class EncryptServiceImpl implements EncryptService {
 
             fullPath = tempKeyFile.getAbsolutePath();
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error occurred during generate key file. message {}", Arrays.toString(e.getStackTrace()));
         }
         return fullPath;
     }
@@ -187,6 +189,7 @@ public class EncryptServiceImpl implements EncryptService {
             outputStream.close(); // Close writer resources
             fullPath = tempKeyFile.getAbsolutePath();
         }catch (Exception e){
+            LOGGER.error("Error occurred during saving temporary key file. message {}", Arrays.toString(e.getStackTrace()));
             return null;
         }
 

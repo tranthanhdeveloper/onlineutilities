@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("format")
-public class FormatToolsController extends AbstractController {
+public class FormatToolsController extends BaseController {
 
 	@GetMapping("json-beautify.html")
     public String formatJsonBeautify(Model model) {
