@@ -1,6 +1,7 @@
 package net.onlineutilities.services.encrypt;
 
 import net.onlineutilities.enums.EncryptConstants;
+import net.onlineutilities.exceptions.FileSavingException;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -30,13 +31,13 @@ public class EncryptServiceImpl implements EncryptService {
 
     @Override
     public byte[] encrypt(byte[] bytesToEncrypt, byte[] keyAsBytes, String algorithm) {
-        Cipher ecipher;
+        final Cipher eCipher;
         try {
-            ecipher = Cipher.getInstance(algorithm);
-            ecipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
-            return ecipher.doFinal(bytesToEncrypt);
+            eCipher = Cipher.getInstance(algorithm);
+            eCipher.init(Cipher.ENCRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
+            return eCipher.doFinal(bytesToEncrypt);
         } catch (Exception e) {
-            LOGGER.info("Error occurred during encrypting data"+ e.getMessage());
+            LOGGER.error("Error occurred during encrypting data" + e.getMessage());
             return EMPTY_BYTES;
         }
     }
@@ -44,56 +45,61 @@ public class EncryptServiceImpl implements EncryptService {
     @Override
     public byte[] decrypt(byte[] byteToDecrypt, byte[] keyAsBytes, String algorithm) {
         try {
-            Cipher dcipher = Cipher.getInstance(algorithm);
-            dcipher.init(Cipher.DECRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
-            return dcipher.doFinal(byteToDecrypt);
+            final Cipher dCipher = Cipher.getInstance(algorithm);
+            dCipher.init(Cipher.DECRYPT_MODE, createSecretKey(keyAsBytes, algorithm));
+            return dCipher.doFinal(byteToDecrypt);
         } catch (Exception e) {
-            e.printStackTrace();
+            LOGGER.error("Error occurred during encrypting data" + e.getMessage());
             return EMPTY_BYTES;
         }
     }
 
     @Override
-    public String encryptFile(byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) {
-        switch (outputType){
-            case FILE:{
+    public String encryptFile(byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws FileSavingException {
+        switch (outputType) {
+            case FILE: {
                 return saveAsTempFile(encrypt(bytesOfFile, keyfileBytes, algorithm));
-            }case HEX:{
+            }
+            case HEX: {
                 return Hex.encodeHexString(encrypt(bytesOfFile, keyfileBytes, algorithm));
-            } default:{
+            }
+            default: {
                 return Base64.encodeBase64String(encrypt(bytesOfFile, keyfileBytes, algorithm));
             }
         }
     }
 
     @Override
-    public String encryptText(String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws UnsupportedEncodingException {
-        if (charset == null || charset.isEmpty()){
+    public String encryptText(String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws UnsupportedEncodingException, FileSavingException {
+        if (charset == null || charset.isEmpty()) {
             charset = "UTF-8";
         }
-        switch (outputType){
-            case FILE:{
+        switch (outputType) {
+            case FILE: {
                 return saveAsTempFile(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
-            }case HEX:{
+            }
+            case HEX: {
                 return Hex.encodeHexString(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
-            }case BASE64:{
+            }
+            case BASE64: {
                 return Base64.encodeBase64String(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
-            } default:{
+            }
+            default: {
                 return new String(encrypt(data.getBytes(charset), keyfileBytes, algorithm));
             }
         }
     }
 
     @Override
-    public String decryptFile(EncryptConstants.DecodeSupport decodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws DecoderException {
+    public String decryptFile(EncryptConstants.DecodeSupport decodeSupport, byte[] bytesOfFile, byte[] keyfileBytes, EncryptConstants.Output outputType, String algorithm) throws DecoderException, FileSavingException {
 
         byte[] decodedData;
         // Check if we need perform decode.
-        if(decodeSupport == EncryptConstants.DecodeSupport.BASE_64){
+        if (decodeSupport == EncryptConstants.DecodeSupport.BASE_64) {
             decodedData = Base64.decodeBase64(bytesOfFile);
-        }else if (decodeSupport == EncryptConstants.DecodeSupport.HEX){
+        } else if (decodeSupport == EncryptConstants.DecodeSupport.HEX) {
             decodedData = Hex.decodeHex(new String(bytesOfFile));
-        }else {
+        } else {
             decodedData = bytesOfFile;
         }
 
@@ -105,13 +111,13 @@ public class EncryptServiceImpl implements EncryptService {
     }
 
     @Override
-    public String decryptText(EncryptConstants.DecodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws DecoderException, UnsupportedEncodingException {
+    public String decryptText(EncryptConstants.DecodeSupport encodeSupport, String data, byte[] keyfileBytes, EncryptConstants.Output outputType, String charset, String algorithm) throws DecoderException, UnsupportedEncodingException, FileSavingException {
 
         byte[] decodedData = new byte[0];
         // Check if we need perform decode.
-        if(encodeSupport == EncryptConstants.DecodeSupport.BASE_64){
+        if (encodeSupport == EncryptConstants.DecodeSupport.BASE_64) {
             decodedData = Base64.decodeBase64(data);
-        }else if (encodeSupport == EncryptConstants.DecodeSupport.HEX){
+        } else if (encodeSupport == EncryptConstants.DecodeSupport.HEX) {
             decodedData = Hex.decodeHex(data);
         }
 
@@ -132,6 +138,9 @@ public class EncryptServiceImpl implements EncryptService {
         String fullPath = null;
         try {
             KeyGenerator keyGenerator = KeyGenerator.getInstance(algorithm);
+            if ("Blowfish".equals(algorithm)) {
+                keyGenerator.init(128);
+            }
             SecretKey desEdeKey = keyGenerator.generateKey();
 
             File tempKeyFile = File.createTempFile(UUID.randomUUID().toString(), ".key");
@@ -162,35 +171,37 @@ public class EncryptServiceImpl implements EncryptService {
     private SecretKey createSecretKey(byte[] keyAsBytes, String algorithms) throws InvalidKeyException, NoSuchAlgorithmException, InvalidKeySpecException {
         SecretKey secretKey = null;
         KeySpec keySpec = null;
-            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance(algorithms);
-        switch (algorithms) {
+        switch (algorithms.toUpperCase()) {
             case "DES":
                 keySpec = new DESKeySpec(keyAsBytes);
-                secretKey = secretKeyFactory.generateSecret(keySpec);
+                secretKey = SecretKeyFactory.getInstance("DES").generateSecret(keySpec);
                 break;
-            case "DESede":
+            case "AES":
+                secretKey = new SecretKeySpec(keyAsBytes, "AES");
+                break;
+            case "DESEDE":
                 keySpec = new DESedeKeySpec(keyAsBytes);
-                secretKey = secretKeyFactory.generateSecret(keySpec);
+                secretKey = SecretKeyFactory.getInstance("DESede").generateSecret(keySpec);
                 break;
-            case "Blowfish":
-                secretKey = new SecretKeySpec(keyAsBytes, algorithms);
+            case "BLOWFISH":
+                secretKey = new SecretKeySpec(keyAsBytes, "Blowfish");
                 break;
         }
         return secretKey;
     }
 
     @Override
-    public String saveAsTempFile(byte[] bytesToSaved) {
+    public String saveAsTempFile(byte[] bytesToSaved) throws FileSavingException {
         String fullPath;
-        try{
+        try {
             File tempKeyFile = File.createTempFile(UUID.randomUUID().toString(), null);
             OutputStream outputStream = new FileOutputStream(tempKeyFile);
             outputStream.write(bytesToSaved);
             outputStream.close(); // Close writer resources
             fullPath = tempKeyFile.getAbsolutePath();
-        }catch (Exception e){
+        } catch (Exception e) {
             LOGGER.error("Error occurred during saving temporary key file. message {}", Arrays.toString(e.getStackTrace()));
-            return null;
+            throw new FileSavingException(e.getMessage(), e);
         }
 
         return fullPath;

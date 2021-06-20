@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${algorithm+ ' decryption online - Online utilities'}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" th:content="${algorithm+' decrypt online, '+algorithm+' decryption'}">
+    <meta name="description" th:content="${'Help to decrypt encrypted data using '+algorithm+' algorithm online.'}">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+
+<div th:replace="header::header"></div>
+
+<section class="pb-5">
+    <div class="container-fluid main-section">
+        <div class="row">
+            <div class="col-md-2"></div>
+            <div class="col-xs-12 col-md-8">
+                <div class="row d-flex">
+                    <div class="col-md-6 flex-column border-right">
+                        <div class="container m-0">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="text-decode" data-toggle="tab" href="#textdecode"
+                                       role="tab" aria-controls="text-decode" aria-selected="true">Text decryption</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="textdecode" role="tabpanel" aria-labelledby="text-decode"
+                                     class="tab-pane fade show active">
+                                    <div class="mt-3">
+                                        <form th:action="@{'/cryptographic-tools/'+${algorithm}+'-text-decryption.html'}" method="post" enctype="multipart/form-data">
+                                            <div class="form-group files-drag-drop  color-warning">
+                                                <label>Upload secret key file</label>
+                                                <input type="file" class="form-control" name="keyfile">
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="decodetypetext">Data decoder: </label>
+                                                <select class="form-control" name="decodeAgl" id="decodetypetext">
+                                                    <option value="0">Don't encode</option>
+                                                    <option value="1">Do Base64 decoding before decrypting</option>
+                                                    <option value="2">Do HEX decoding before decrypting</option>
+                                                </select>
+                                                <small>If the encrypted data was encoded using BASE-64 or HEX please choose the correct decode type.</small>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="origindata">Encrypted data</label>
+                                                <textarea class="form-control" id="origindata" rows="3" name="data"></textarea>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="outputTyp">Represent decrypted data as: </label>
+                                                <select class="form-control" name="output" id="outputTyp">
+                                                    <option value="1">Downloadable file</option>
+                                                    <option value="2">Display text</option>
+                                                </select>
+                                                <small>Please manually change the file extension to the origin after downloading</small>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary pull-left">Do decrypt now</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 flex-column">
+                        <div class="container">
+                            <div class="row d-flex flex-row">
+                                <div class="justify-md-content-start ">
+                                    <h3>Decrypted result</h3>
+                                </div>
+                                <div class="justify-md-content-end">
+                                    <button class="btn btn-sm btn-primary btn-clipboard-copy m-1" data-clipboard-target=".decoded-text-container">
+                                        <i class="fas fa-copy" aria-hidden="true"></i>
+                                    </button>
+                                    <button class="btn btn-sm btn-primary btn-download-file m-1" data-target-element=".decoded-text-container" data-download-filename="base64-decoded">
+                                        <i class="fas fa-download" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="row card">
+                                <div class="card-body card-block decoded-text-container" th:text="${decryptedData}"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-5"></div>
+                <div class="row">
+                    <div class="col-md-6 p-3 blog-post">
+                        <div th:replace="fragments/about :: 'about-'+ ${algorithm}"></div>
+                    </div>
+                    <div th:replace="fragments/crypto-related-tool:: crypto-related-tools"></div>
+                </div>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+</section>
+
+<div th:replace="footer :: footer"></div>
+<div th:replace="scripts-include :: page-script"></div>
+</body>
+</html>

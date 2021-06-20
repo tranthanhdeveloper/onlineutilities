@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:fragment="file-encrypt(algorithm, url)" class="col-xs-12 col-md-3 py-2">
+    <div class="card tool-component h-100">
+        <h5 class="card-header" th:text="${algorithm + ' file encryption'}"></h5>
+        <div class="card-body">
+            <p th:text="${'Encrypt file with '+algorithm + ' algorithm by provided secret-key.'}"></p>
+            <a th:href="@{${url}}" class="btn btn-primary">Encrypt now</a>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="text-encrypt(algorithm, url)" class="col-xs-12 col-md-3 py-2">
+    <div class="card tool-component h-100">
+        <h5 class="card-header" th:text="${algorithm + ' text encryption'}"></h5>
+        <div class="card-body">
+            <p th:text="${'Encrypt plaintext with '+algorithm + ' algorithm by provided secret-key.'}"></p>
+            <a th:href="@{${url}}" class="btn btn-primary">Encrypt now</a>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="text-decrypt(algorithm, url)" class="col-xs-12 col-md-3 py-2">
+    <div class="card tool-component h-100">
+        <h5 class="card-header" th:text="${algorithm + ' text decryption'}"></h5>
+        <div class="card-body">
+            <p th:text="${'Decrypt plaintext with '+algorithm + ' algorithm by provided secret-key.'}"></p>
+            <a th:href="@{${url}}" class="btn btn-primary">Decrypt now</a>
+        </div>
+    </div>
+</div>
+
+<div th:fragment="file-decrypt(algorithm, url)" class="col-xs-12 col-md-3 py-2">
+    <div class="card tool-component h-100">
+        <h5 class="card-header" th:text="${algorithm + ' file decryption'}"></h5>
+        <div class="card-body">
+            <p th:text="${'Decrypt encrypted file using '+algorithm + ' algorithm by provided secret-key.'}"></p>
+            <a th:href="@{${url}}" class="btn btn-primary">Decrypt now</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

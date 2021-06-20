@@ -255,7 +255,7 @@ footer .container p {
     width: 100%;
     right: 0;
     height: 57px;
-    content: " or drag it here.";
+    content: "Drag file here.";
     display: block;
     margin: 0 auto;
     color: #2ea591;
@@ -265,3 +265,15 @@ footer .container p {
 }
 
 /* END for file drag and drop*/
+
+/* tool component */
+.tool-component:hover {
+    box-shadow: 0 0 25px 0 rgba(20, 27, 201, .05);
+    cursor: pointer;
+    background-image: linear-gradient(-45deg, #34b5bf 0%, #210c59 100%)
+}
+
+.tool-component:hover h5,
+.tool-component:hover p {
+    color: #fff
+}
