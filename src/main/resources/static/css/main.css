@@ -1,3 +1,4 @@
+html, body{height:100%;}
 html {
     position: relative;
     min-height: 100%;
@@ -13,7 +14,7 @@ header {
 }
 
 section {
-    padding: 150px 0;
+    padding: 56px 0;
 }
 
 .service-section {
@@ -28,12 +29,8 @@ section {
     background-color: #24303e !important;
 }
 
-section {
-    padding: 10px 0;
-}
-
 .main-section {
-    padding-top: 100px;
+    padding-top: 70px;
 }
 
 .padding-top-15 {
@@ -41,10 +38,10 @@ section {
 }
 
 .footer {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100%;
-    height: 90px;
+    height: 75px;
 }
 
 .span-section {
@@ -150,6 +147,9 @@ footer .container p {
     transition: all ease-in-out 0.3s;
     background: #fff;
     width: 100%;
+}
+section.services {
+    height: auto;
 }
 
 .services .icon-box .icon {
