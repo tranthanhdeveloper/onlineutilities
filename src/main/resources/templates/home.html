@@ -123,42 +123,29 @@
 
                     <div class="col-md-4 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">AES encryptor</a></h4>
-                            <p>Coming soon</p>
+                            <h4><a th:href="@{/cryptographic-tools/blowfish-file-decryption.html}">AES file encryptor</a></h4>
+                            <p>Help to encrypt your file with AES algorithm</p>
                         </div>
                     </div>
 
                     <div class="col-md-4 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">AES decryptor</a></h4>
-                            <p>Coming soon</p>
+                            <h4><a th:href="@{/cryptographic-tools/blowfish-text-decryption.html}">AES plaintext encryptor</a></h4>
+                            <p>Help to encrypt text-based with AES algorithm</p>
                         </div>
                     </div>
 
                     <div class="col-md-4 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">RSA encryptor</a></h4>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
-                    <div class="col-md-4 d-flex align-items-stretch mt-4">
-                        <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">RSA decryptor</a></h4>
-                            <p>Coming soon</p>
+                            <h4><a th:href="@{/cryptographic-tools/blowfish-text-decryption.html}">Blowfish text decryption</a></h4>
+                            <p>Help to decrypt encrypted data might represented in Base64 or Hex.</p>
                         </div>
                     </div>
 
                     <div class="col-md-4 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a th:href="@{/cryptographic-tools/3des-decryptor.html}">Blowfish encryptor</a></h4>
-                            <p>Coming soon</p>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4 d-flex align-items-stretch mt-4">
-                        <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="400">
-                            <h4><a href="">Blowfish decryptor</a></h4>
-                            <p>Coming soon</p>
+                            <h4><a th:href="@{/cryptographic-tools/blowfish-file-decryption.html}">Blowfish file decryption</a></h4>
+                            <p>Help to decrypt encrypted file back to origin.</p>
                         </div>
                     </div>
                 </div>
@@ -251,8 +238,13 @@
                     <div class="col-md-6 d-flex align-items-stretch mt-4">
                         <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
                             <h4><a th:href="@{/format/json-beautify.html}">JSON Beautify</a></h4>
-                            <p>JSON Beautifier</p>
                             <p>Our JSON beautifier aims to help you quickly format JSON-representation text. It's also have Tree View mode and more...</p>
+                        </div>
+                    </div>
+                    <div class="col-md-6 d-flex align-items-stretch mt-4">
+                        <div class="icon-box aos-init aos-animate" data-aos="zoom-in" data-aos-delay="100">
+                            <h4><a th:href="@{/xml-format-online.html}">XML formatter</a></h4>
+                            <p>Help to format xml, html, xhtml or htmlmixed(html contain javascript, css)</p>
                         </div>
                     </div>
                 </div>
@@ -260,8 +252,7 @@
         </div>
     </div>
 </section>
-
-<section class="section-bg span-section"></section>
+<div class="span-section"></div>
 <div th:replace="footer :: footer"></div>
 <div th:replace="scripts-include :: page-script"></div>
 </body>
