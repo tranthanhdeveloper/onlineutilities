@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title>XML format online - Online utilities</title>
+    <title>CSS format online - Online utilities</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="keyword" content="xml, format, beautify, online, free">
-    <meta name="description" content="Help to format xml online just for one click, is online and totally free.">
+    <meta name="keyword" content="css, format, beautify, online, free">
+    <meta name="description" content="Help to format css online just for one click, is online and totally free.">
     <template th:replace="head::common-head"/>
     <style>
         .CodeMirror {
@@ -21,11 +21,7 @@
     </script>
     <script src="/vendor/codemirror/lib/codemirror.js"></script>
     <script src="/vendor/codemirror/lib/utils/formatting.js"></script>
-    <script src="/vendor/codemirror/addon/fold/xml-fold.js"></script>
-    <script src="/vendor/codemirror/mode/xml/xml.js"></script>
     <script src="/vendor/codemirror/mode/css/css.js"></script>
-    <script src="/vendor/codemirror/mode/javascript/javascript.js"></script>
-    <script src="/vendor/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 
 
 </head>
@@ -39,7 +35,7 @@
         <div class="col-xs-12 col-md-12 col-lg-8">
             <div>
                 <div class="text-center align-middle">
-                    <h3 class="pb-3">Online XML formatter</h3>
+                    <h3 class="pb-3">Online CSS formatter</h3>
                 </div>
                 <div>
                     <div class="pb-1">
@@ -68,7 +64,7 @@
                                 onclick="javascript:commentSelection(true)">Comment Selected
                         </button>
                     </div>
-                    <textarea class="form-control" name="" id="xml-format" rows="30"></textarea>
+                    <textarea class="form-control" name="" id="css-format" rows="30"></textarea>
 
                 </div>
             </div>
@@ -94,9 +90,9 @@
 <div th:replace="~{footer :: footer}"></div>
 <div th:replace="~{scripts-include :: page-script}"></div>
 <script>
-    var editor = CodeMirror.fromTextArea(document.getElementById("xml-format"), {
+    var editor = CodeMirror.fromTextArea(document.getElementById("css-format"), {
         lineNumbers: true,
-        mode: "htmlmixed",
+        mode: "css",
         matchBrackets: true
     });
 
@@ -126,9 +122,10 @@
         }).done(function (xmlData) {
             $('#importModal').modal('hide');
             editor.setValue(xmlData);
-        }).fail(function (e) {
+        }).fail(function () {
             alert("Error occurred during import data")
         });
+
     })
 
     $(document).on('change', '#fileSelect', function (event) {
