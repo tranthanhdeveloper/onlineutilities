@@ -7,20 +7,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="keyword" content="format json online, json tree view, json online editor">
     <template th:replace="head::common-head"/>
-    
-    <link th:href="@{/jsoneditor/jsoneditor.min.css}" rel="stylesheet" type="text/css"/>
+    <link th:href="@{/vendor/jsoneditor/jsoneditor.min.css}" rel="stylesheet" type="text/css"/>
 </head>
 
 <body>
 
 <div th:replace="header::header"></div>
-<section>
-    <div class="container-fluid main-section bg-light">
-        <div class="row">
-            <div class="col-xs-12 col-md-3 col-ls-3 col-xl-3"></div>
-            <div class="col-xs-12 col-lg-6 col-md-8">
+<section class="container-fluid main-section">
+        <div class="row flex-xl-nowrap">
+			<div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+				<div class="list-group">
+					<a href="#" class="list-group-item active">
+						Related tools
+					</a>
+					<a th:href="@{~/mime-tools/escape-json.html}" class="list-group-item">escape/unescape JSON special characters</a>
+					<a th:href="@{~/xml-format-online.html}" class="list-group-item">XML format</a>
+					<a th:href="@{~/css-format-online.html}" class="list-group-item">CSS format</a>
+				</div>
+			</div>
+			<div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+            <div class="col-xs-12 col-md-12 col-lg-8">
                 <div class="text-center align-middle">
-                    <h2>Format JSON online with amazing JSON formatter</h2>
+                    <h3 class="pb-3">Format JSON online with amazing JSON formatter</h3>
                 </div>
                 <div id="jsoneditor" style="height: 500px;"></div>
                 <hr>
@@ -343,15 +351,21 @@
 					</table>
 				</div>    
             </div>
-            <div class="col-xs-12 col-md-3 col-xl-3">
             </div>
         </div>
     </div>
 </section>
 
 <div th:replace="~{footer :: footer}"></div>
+<script th:src="@{/vendor/jsoneditor/jsoneditor.min.js}"></script>
 <div th:replace="~{scripts-include :: page-script}"></div>
-<script th:src="@{/jsoneditor/jsoneditor.min.js}"></script>
-<script th:src="@{/js/json-beautify.js}"></script>
+<script>
+	$.jsonEditor = new JSONEditor(document.getElementById('jsoneditor'), {
+		modes: ['text', 'code', 'tree', 'form', 'view'],
+		mode: 'code',
+		ace: ace
+	});
+	$.jsonEditor.setText("");
+</script>
 </body>
 </html>

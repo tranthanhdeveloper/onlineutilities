@@ -18,6 +18,7 @@ https://onlineutilities.net/cryptographic-tools/blowfish-file-encryption.html
 https://onlineutilities.net/cryptographic-tools/des-file-encryption.html
 https://onlineutilities.net/cryptographic-checksums/file-checksum-generator.html
 https://onlineutilities.net/mime-tools/hex-encoder.html
+https://onlineutilities.net/mime-tools/escape-json.html
 https://onlineutilities.net/format/json-beautify.html
 https://onlineutilities.net/xml-format-online.html
 https://onlineutilities.net/css-format-online.html

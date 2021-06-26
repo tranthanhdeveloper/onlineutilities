@@ -1,0 +1,28 @@
+/*Apply for Pixel XL and smaller screen*/
+@media screen and (max-height: 900px) {
+
+    .related-tool div{
+        margin-top: auto;
+        margin-bottom: 10px;
+    }
+
+    .related-tool div .list-group-item {
+        padding: 3px 10px
+    }
+
+    section .container .reverse-col-order {
+        flex-direction: column-reverse;
+    }
+
+    .footer {
+        position: relative;
+        bottom: 0;
+        width: 100%;
+        height: 115px;
+        box-sizing: unset;
+    }
+
+    .jsoneditor-poweredBy{
+        display: none;
+    }
+}

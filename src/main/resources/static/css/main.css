@@ -37,6 +37,14 @@ div.related-tool{
     order: 0;
 }
 
+.related-tool div{
+    margin-top: 55px;
+}
+
+.related-tool div .list-group-item {
+    padding: 8px 10px;
+}
+
 div.on-ads{
     order: 1;
 }
@@ -59,19 +67,6 @@ div.on-ads{
 footer .container p {
     float: right;
     padding-right: 0;
-}
-
-@media screen and (max-height: 900px) {
-    section .container .reverse-col-order {
-        flex-direction: column-reverse;
-    }
-
-    .footer {
-        position: relative;
-        bottom: 0;
-        width: 100%;
-        height: 95px;
-    }
 }
 
 .section-bg {

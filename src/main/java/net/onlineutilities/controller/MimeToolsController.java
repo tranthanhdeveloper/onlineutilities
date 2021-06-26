@@ -195,4 +195,9 @@ public class MimeToolsController extends BaseController {
         return "mime/html_decode";
     }
 
+    @GetMapping("escape-json.html")
+    public String escapeJSON() {
+        return "mime/json-escape.html";
+    }
+
 }

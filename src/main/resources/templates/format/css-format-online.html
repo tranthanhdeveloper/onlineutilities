@@ -30,7 +30,16 @@
 <div th:replace="header::header"></div>
 <section class="container-fluid main-section">
     <div class="row row flex-xl-nowrap">
-        <div class="col-xs-12 col-md-12 col-lg-2 related-tool"></div>
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    Related tools
+                </a>
+                <a th:href="@{~/format/json-beautify.html}" class="list-group-item">JSON beautifier</a>
+                <a th:href="@{~/xml-format-online.html}" class="list-group-item">XML format</a>
+                <a th:href="@{~/mime-tools/escape-json.html}" class="list-group-item">Escape/Unescape special characters</a>
+            </div>
+        </div>
         <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
         <div class="col-xs-12 col-md-12 col-lg-8">
             <div>

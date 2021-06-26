@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Escape/Unescape JSON - Online utilities</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="json Escape,online,free,MIME Escape">
+    <meta name="description" content="Help to escape text put in JSON online just for one click, is online and totally free.">
+    <template th:replace="head::common-head"/>
+    <style>
+        .CodeMirror {
+            border: 1px solid #eee;
+            height: 650px !important;
+        }
+        .CodeMirror-gutters {
+            z-index: 0!important;
+        }
+    </style>
+    <link rel=stylesheet th:href="@{~/vendor/codemirror/lib/codemirror.css}">
+    </script>
+    <script src="/vendor/codemirror/lib/codemirror.js"></script>
+</head>
+
+<body>
+<div th:replace="header::header"></div>
+<section class="container-fluid main-section">
+    <div class="row flex-xl-nowrap">
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    Related tools
+                </a>
+                <a th:href="@{~/format/json-beautify.html}" class="list-group-item">JSON beautifier</a>
+                <a th:href="@{~/xml-format-online.html}" class="list-group-item">XML format</a>
+                <a th:href="@{~/css-format-online.html}" class="list-group-item">CSS format</a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+        <div class="col-xs-12 col-md-12 col-lg-8">
+            <div>
+                <div class="text-center align-middle">
+                    <h3 class="pb-3">Escape/Unescape JSON special character online</h3>
+                </div>
+                <div>
+                    <div class="pb-1">
+                        <button type="button" class="btn btn-outline-primary btn-sm" id="doEscape">Escape now
+                        </button>
+                        <button type="button" class="btn btn-outline-primary btn-sm" id="doUnescape">Unescape now
+                        </button>
+                    </div>
+                    <textarea class="form-control" name="" id="jsonEscape" rows="30"></textarea>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById("jsonEscape"), {
+        lineNumbers: true,
+        matchBrackets: true
+    });
+
+    $(document).on('click', "#doEscape", function (event) {
+        let escapedJson = $(this).escapeJSON(editor.getValue());
+        editor.setValue(escapedJson);
+    });
+    $(document).on('click', "#doUnescape", function (event) {
+        let escapedJson = $(this).unescapeJSON(editor.getValue());
+        editor.setValue(escapedJson);
+    });
+
+</script>
+</body>
+</html>
