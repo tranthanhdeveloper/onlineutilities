@@ -22,6 +22,7 @@ https://onlineutilities.net/mime-tools/escape-json.html
 https://onlineutilities.net/format/json-beautify.html
 https://onlineutilities.net/xml-format-online.html
 https://onlineutilities.net/css-format-online.html
+https://onlineutilities.net/sql-format-online.html
 https://onlineutilities.net/mime-tools/
 https://onlineutilities.net/message-digest-tools/
 https://onlineutilities.net/privacy-policy.html

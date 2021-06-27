@@ -13,10 +13,6 @@
             border: 1px solid #eee;
             height: 650px !important;
         }
-
-        .CodeMirror-gutters {
-            z-index: 0 !important;
-        }
     </style>
     <link rel=stylesheet th:href="@{~/vendor/codemirror/lib/codemirror.css}">
     </script>
@@ -42,6 +38,7 @@
                 </a>
                 <a th:href="@{~/format/json-beautify.html}" class="list-group-item">JSON beautifier</a>
                 <a th:href="@{~/css-format-online.html}" class="list-group-item">CSS format</a>
+                <a th:href="@{~/sql-format-online.html}" class="list-group-item">SQL format</a>
                 <a th:href="@{~/mime-tools/escape-json.html}" class="list-group-item">Escape/Unescape special
                     characters</a>
             </div>

@@ -283,3 +283,8 @@ section.services {
 .tool-component:hover p {
     color: #fff
 }
+
+
+.CodeMirror-hscrollbar {
+    height: 10px;
+}
