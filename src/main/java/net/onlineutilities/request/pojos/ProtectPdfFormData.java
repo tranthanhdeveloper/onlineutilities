@@ -1,14 +1,41 @@
 package net.onlineutilities.request.pojos;
 
-public class PdfPermission {
+import org.springframework.web.multipart.MultipartFile;
+
+public class ProtectPdfFormData {
+    private MultipartFile file;
+    private String ownerPwd;
+    private String userPwd;
     private boolean canAssembleDocument;
     private boolean canExtractContent;
-    private boolean canExtractForAccessibility;
     private boolean canFillInForm;
     private boolean canModify;
-    private boolean canModifyAnnotations;
     private boolean canPrint;
     private boolean canPrintDegraded;
+
+    public MultipartFile getFile() {
+        return file;
+    }
+
+    public void setFile(MultipartFile file) {
+        this.file = file;
+    }
+
+    public String getOwnerPwd() {
+        return ownerPwd;
+    }
+
+    public void setOwnerPwd(String ownerPwd) {
+        this.ownerPwd = ownerPwd;
+    }
+
+    public String getUserPwd() {
+        return userPwd;
+    }
+
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
+    }
 
     public boolean isCanAssembleDocument() {
         return canAssembleDocument;
@@ -26,14 +53,6 @@ public class PdfPermission {
         this.canExtractContent = canExtractContent;
     }
 
-    public boolean isCanExtractForAccessibility() {
-        return canExtractForAccessibility;
-    }
-
-    public void setCanExtractForAccessibility(boolean canExtractForAccessibility) {
-        this.canExtractForAccessibility = canExtractForAccessibility;
-    }
-
     public boolean isCanFillInForm() {
         return canFillInForm;
     }
@@ -48,14 +67,6 @@ public class PdfPermission {
 
     public void setCanModify(boolean canModify) {
         this.canModify = canModify;
-    }
-
-    public boolean isCanModifyAnnotations() {
-        return canModifyAnnotations;
-    }
-
-    public void setCanModifyAnnotations(boolean canModifyAnnotations) {
-        this.canModifyAnnotations = canModifyAnnotations;
     }
 
     public boolean isCanPrint() {
