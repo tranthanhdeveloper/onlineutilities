@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Protect PDF with password - Online utilities</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="Protect PDF with password, pdf, protect, set password, pdf password">
+    <meta name="description"
+          content="Protect PDF with password. This site helps to protect your PDF by setting password.">
+    <template th:replace="head::common-head"/>
+
+</head>
+
+<body>
+<div th:replace="header::header"></div>
+<section class="container-fluid main-section">
+    <div class="row row flex-xl-nowrap">
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">
+                    Related tools
+                </a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+        <div class="col-xs-12 col-md-12 col-lg-8 ">
+            <div class="container">
+                <div class="text-center">
+                    <h2> PDF merger - Online Utilities </h2></div>
+
+                <form name="pdf" method="post" th:action="@{/merge-pdf-online.html}" enctype="multipart/form-data">
+                    <div th:if="${error != null && !error.isEmpty()}" class="alert alert-danger"
+                         role="alert" th:text="${error}">
+                    </div>
+                    <div class="input-group form-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01">Upload PDF</span>
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" name="files" class="custom-file-input" id="inputFile"
+                                   aria-describedby="inputGroupFileAddon01" accept="application/pdf"
+                                   required="true" multiple>
+                            <label class="custom-file-label" for="inputFile">Choose PDF file</label>
+                        </div>
+                    </div>
+                    <div class="form-group d-none" id="selectedFileList">
+                        <ul class="list-group">
+                        </ul>
+                    </div>
+                    <div class="d-flex justify-content-left">
+                        <button type="submit" class="btn btn-primary">Upload file and merge</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+<script>
+    $('#inputFile').change(function () {
+        let fileListEl = $('#selectedFileList');
+        let chosenFiles = $('#inputFile')[0].files;
+        if (chosenFiles && chosenFiles.length > 0) {
+            for (let i = 0; i < chosenFiles.length; i++) {
+                fileListEl.children("ul").append('<li class="list-group-item">' + chosenFiles[i].name + '</li>')
+                fileListEl.removeClass('d-none');
+            }
+        } else {
+            fileListEl.removeClass('d-none');
+            fileListEl.addClass('d-none')
+        }
+    });
+</script>
+</body>
+</html>

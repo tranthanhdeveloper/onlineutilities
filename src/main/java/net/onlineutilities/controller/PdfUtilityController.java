@@ -9,17 +9,27 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 public class PdfUtilityController extends BaseController{
     private final Logger LOGGER = LoggerFactory.getLogger(PdfUtilityController.class);
     private final String PROTECTED_FILE_PREFIX = "protected-";
+    private final String MERGED_FILE_PREFIX = "merged-";
 
     @GetMapping("protect-pdf-online.html")
     public String protectPDF(){
         return "pdf/protect-pdf.html";
+    }
+
+    @GetMapping("merge-pdf-online.html")
+    public String mergePDF(){
+        return "pdf/merge-pdf.html";
     }
 
     @PostMapping("protect-pdf-online.html")
@@ -41,5 +51,18 @@ public class PdfUtilityController extends BaseController{
             model.addAttribute("error", "Error occurred during protect user pdf with password");
         }
         return "pdf/protect-pdf.html";
+    }
+
+    @PostMapping("merge-pdf-online.html")
+    public Object mergePDF(MultipartFile[] files, Model model){
+        try {
+            File mergedPdf = PdfUtil.merge(files);
+            String mergedTime = new SimpleDateFormat("yyyy-MM-dd-HH-mm").format(new Date().getTime()).concat(".pdf");
+            return download(mergedPdf.getAbsolutePath(), MERGED_FILE_PREFIX.concat(mergedTime));
+        } catch (Exception exception) {
+            LOGGER.error("Error occurred during merging yours pdf files, error: {}", exception.getMessage());
+            model.addAttribute("error", "Error occurred during merging yours pdf files");
+        }
+        return "pdf/merge-pdf.html";
     }
 }
