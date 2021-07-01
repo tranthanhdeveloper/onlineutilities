@@ -1,5 +1,11 @@
 hljs.initHighlightingOnLoad();
 $(document).ready(function () {
+    $.gdprcookie.init({
+        title: "Accept cookies & privacy policy?",
+        message: "There are no cookies used on this site, but if there were this message could be customized to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action… <a href=/privacy-policy.html>Example privacy link</a>",
+        acceptBtnLabel: "Accept cookies",
+    });
+
     var clipboard = new ClipboardJS('.btn-clipboard-copy');
     $('.hide-by-default').hide();
 
