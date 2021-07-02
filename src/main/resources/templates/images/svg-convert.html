@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title th:text="${'SVG to '+targetFmt+' - OnlineUtilities'}"></title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keyword" content="svg, convert to png, convert to jpeg, convert to TIFF, convert svg online, free">
+    <meta name="description"
+          content="Convert SVG(Scalable Vector Graphics) to other format like PNG, JPEG, TIFF. It's totally free and no sign-in require.">
+    <template th:replace="head::common-head"/>
+</head>
+
+<body>
+<div th:replace="header::header"></div>
+<section class="container-fluid main-section">
+    <div class="row row flex-xl-nowrap">
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+            <div class="list-group">
+                <a href="#" class="list-group-item active">Related tools</a>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+        <div class="col-xs-12 col-md-12 col-lg-8">
+
+
+            <form th:action="@{'#'}" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <label>Upload your SVG image</label>
+                    <input type="file" class="form-control beauty" name="keyfile">
+                </div>
+                <button type="submit" class="btn btn-primary">Convert</button>
+            </form>
+        </div>
+    </div>
+</section>
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+</body>
+</html>
