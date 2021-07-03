@@ -47,6 +47,19 @@ div.related-tool{
     padding: 8px 10px;
 }
 
+.related-tool ul{
+    margin-top: 55px;
+}
+
+.related-tool div .list-group-item{
+    padding: 8px 10px;
+}
+
+.list-group-item{
+    word-wrap: break-word;
+}
+
+
 div.on-ads{
     order: 1;
 }
@@ -63,7 +76,7 @@ div.on-ads{
 }
 
 .span-section {
-    margin-top: 10px;
+    padding-top: 75px;
 }
 
 footer .container p {
@@ -263,15 +276,16 @@ section.services {
 input[type="file"].beauty {
     display: inline-block;
     width: 100%;
-    padding: 120px 0 0 0;
-    height: 100px;
+    padding: 200px 0 0 0;
+    height: 200px;
     overflow: hidden;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
     background: url('https://storage.googleapis.com/onlineutilities_static/images/svg-upload.png') center center no-repeat #e4e4e4;
     border-radius: 20px;
-    background-size: 60px 60px;
+    content:"Drag file here";
+    background-size: 100px 100px;
 }
 
 .files-drag-drop:before {
@@ -336,4 +350,15 @@ input[type="radio"], input[type="checkbox"] {
     width: 1rem;
     height: 1.25rem;
     opacity: 0;
+}
+
+.color-red{
+ color: #ff0000;
+}
+
+.color-orange{
+    color: #f68e1c;
+}
+svg {
+    fill: currentColor;
 }

@@ -31,4 +31,12 @@
     .footer{
         position: unset;
     }
+
+    div.workarea{
+       margin-top: 0.75rem;
+    }
+
+    .span-section {
+        padding-top: 0px;
+    }
 }

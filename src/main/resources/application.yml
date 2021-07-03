@@ -1,0 +1,23 @@
+server:
+  compression:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+spring:
+  datasource:
+    driverClassName: org.h2.Driver
+    password: nm>C^e+79$898gHN
+    url: jdbc:h2:mem:onlineutilites
+    username: sa
+  h2:
+    console:
+      enabled: false
+      settings:
+        web-admin-password: nm>C^e+79$898gHN
+        web-allow-others: true
+      path: /h2consoleonlineutilitesjsdfhlgjshfdgdfjghlhsdfhgldfsjhfljsghldfjhglsjdfhlgsfhdl
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 15MB

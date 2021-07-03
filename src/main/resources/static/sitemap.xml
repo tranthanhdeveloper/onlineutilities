@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+  <loc>https://onlineutilities.net/</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/contact-us</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/base64-encoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/base64-decoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/url-encoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/url-decoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/hex-encoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/hex-decoder.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/symmetric-key-generation.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/des-text-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/des-file-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/3des-text-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/3des-file-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/blowfish-file-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/blowfish-text-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/md5.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA-1.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA-256.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA3-384.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/bcrypt-hash-generation.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-checksums/file-checksum-generator.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/format/json-beautify.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/xml-format-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/css-format-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/sql-format-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/protect-pdf-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/merge-pdf-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/convert-svg-to-jpeg</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/convert-svg-to-png</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/convert-svg-to-tiff</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/privacy-policy.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/term-and-conditions.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/sitemap.htm</loc>
+  <lastmod>1980-01-01T00:00:01+00:00</lastmod>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/html-encode-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/html-decode-online.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/aes-text-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/aes-file-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/blowfish-text-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/blowfish-file-encryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/des-text-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/des-file-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/3des-text-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/3des-file-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/aes-text-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/cryptographic-tools/aes-file-decryption.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/md2.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-1.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-224.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-256.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-384.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-512.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-512-224.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/sha-512-256.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA3-224.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA3-256.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/message-digest-tools/SHA3-512.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/mime-tools/escape-json.html</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://onlineutilities.net/convert-svg-to-PNG</loc>
+  <lastmod>2021-07-03T16:26:29+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+
+
+</urlset>

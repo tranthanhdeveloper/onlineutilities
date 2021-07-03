@@ -104,4 +104,18 @@ $(document).ready(function () {
             return string;
         }
     });
+
+    $('#inputFile[data-showlistfile="true"]').change(function () {
+        let fileListEl = $('#selectedFileList');
+        let chosenFiles = $('#inputFile')[0].files;
+        if (chosenFiles && chosenFiles.length > 0) {
+            for (let i = 0; i < chosenFiles.length; i++) {
+                fileListEl.children("ul").append('<li class="list-group-item">' + chosenFiles[i].name + '</li>')
+                fileListEl.removeClass('d-none');
+            }
+        } else {
+            fileListEl.removeClass('d-none');
+            fileListEl.addClass('d-none')
+        }
+    });
 })
