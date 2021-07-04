@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-    <title th:text="${'SVG to '+targetFmt+' - OnlineUtilities'}"></title>
+    <title th:text="${'Convert SVG to '+targetFmt+' - OnlineUtilities'}"></title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keyword" content="svg, convert to png, convert to jpeg, convert to TIFF, convert svg online, free">
@@ -16,21 +16,49 @@
 <section class="container-fluid main-section">
     <div class="row row flex-xl-nowrap">
         <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
-            <div class="list-group">
-                <a href="#" class="list-group-item active">Related tools</a>
-            </div>
+            <ul class="list-group">
+                <li href="#" class="list-group-item font-weight-bold">Related tools</li>
+                <a th:href="@{/convert-svg-to-PNG}" class="list-group-item">Convert SVG to PNG</a>
+                <a th:href="@{/convert-svg-to-jpeg}" class="list-group-item">Convert SVG to JPEG</a>
+                <a th:href="@{/convert-svg-to-tiff}" class="list-group-item">Convert SVG to TIFF</a>
+            </ul>
         </div>
         <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
-        <div class="col-xs-12 col-md-12 col-lg-8">
-
-
-            <form th:action="@{'#'}" method="post" enctype="multipart/form-data">
-                <div class="form-group">
-                    <label>Upload your SVG image</label>
-                    <input type="file" class="form-control beauty" name="keyfile">
+        <div class="col-xs-12 col-md-12 col-lg-8 workarea">
+            <div class="text-center">
+                <h1 th:text="${'Convert SVG to '+targetFmt+' online'}"></h1>
+                <p>This convert aim to convert SVG(Scalable Vector Graphics) format file to bitmap images like PNG, JPEG, TIFF. Hopefully our tools is useful to you.</p>
+            </div>
+            <div class="border-top">
+                <form method="post" enctype="multipart/form-data">
+                    <div class="form-group pt-3 mb-0">
+                        <label>Upload your SVG image(<i>Click or drag file to section below to upload</i>)</label>
+                        <input type="file" class="form-control beauty" id="inputFile" data-showlistfile="true" name="file">
+                    </div>
+                    <div class="form-group d-none" id="selectedFileList">
+                        <label>Chosen file: </label>
+                        <ul class="list-group">
+                        </ul>
+                    </div>
+                    <div class="form-group d-flex justify-content-center">
+                        <button type="submit" class="btn btn-outline-primary">Convert now
+                            <svg class="color-orange" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" width="16"
+                                 height="16">
+                                <path fill-rule="evenodd"
+                                      d="M8 2.5a5.487 5.487 0 00-4.131 1.869l1.204 1.204A.25.25 0 014.896 6H1.25A.25.25 0 011 5.75V2.104a.25.25 0 01.427-.177l1.38 1.38A7.001 7.001 0 0114.95 7.16a.75.75 0 11-1.49.178A5.501 5.501 0 008 2.5zM1.705 8.005a.75.75 0 01.834.656 5.501 5.501 0 009.592 2.97l-1.204-1.204a.25.25 0 01.177-.427h3.646a.25.25 0 01.25.25v3.646a.25.25 0 01-.427.177l-1.38-1.38A7.001 7.001 0 011.05 8.84a.75.75 0 01.656-.834z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div th:if="${modelSource != null && !modelSource.isEmpty()}">
+                <div class="alert alert-primary" role="alert">
+                    Converted file is  ready. <a th:href="@{${downloadLink}}">Click here</a> to download.
                 </div>
-                <button type="submit" class="btn btn-primary">Convert</button>
-            </form>
+                <div class="alert alert-warning" role="alert">
+                   All of your file is automatically delete after 15 minutes.
+                </div>
+            </div>
         </div>
     </div>
 </section>

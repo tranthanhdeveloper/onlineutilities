@@ -2,7 +2,7 @@ hljs.initHighlightingOnLoad();
 $(document).ready(function () {
     $.gdprcookie.init({
         title: "Accept cookies & privacy policy?",
-        message: "There are no cookies used on this site, but if there were this message could be customized to provide more details. Click the <strong>accept</strong> button below to see the optional callback in action… <a href=/privacy-policy.html>Example privacy link</a>",
+        message: "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it. Click the <strong>accept</strong> button below to confirm your acceptation. Learn more about our privacy here <a href=/privacy-policy.html>OnlineUtilities' privacy link</a>",
         acceptBtnLabel: "Accept cookies",
     });
 

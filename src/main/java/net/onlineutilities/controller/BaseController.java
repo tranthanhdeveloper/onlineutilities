@@ -33,4 +33,11 @@ public class BaseController {
                 .header("Content-type", "application/octet-stream")
                 .header("Content-disposition", "attachment; filename=\"" + filename + "\"").body(resource);
     }
+
+    protected String buildDownloadLink(String token, String downloadName){
+        StringBuilder builder = new StringBuilder("file-download?")
+                .append("token=").append(token)
+                .append("&n=").append(downloadName);
+        return builder.toString();
+    }
 }
