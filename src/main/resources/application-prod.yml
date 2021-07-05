@@ -1,0 +1,28 @@
+server:
+  compression:
+    enabled: true
+  error:
+    whitelabel:
+      enabled: false
+  port: 5000
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    password: ${RDS_PASSWORD}
+    url: jdbc:mysql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}
+    username: ${RDS_USERNAME}
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 15MB
+  jpa:
+    database-platform: org.hibernate.dialect.MySQLDialect
+    show-sql: true
+    hibernate:
+      ddl-auto: create
+  sql:
+    init:
+      mode: always
+      encoding: UTF-8
+      continue-on-error: false
+      schema-locations: classpath:data/schema.sql
