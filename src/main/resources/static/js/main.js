@@ -107,6 +107,7 @@ $(document).ready(function () {
 
     $('#inputFile[data-showlistfile="true"]').change(function () {
         let fileListEl = $('#selectedFileList');
+        fileListEl.children("ul").empty();
         let chosenFiles = $('#inputFile')[0].files;
         if (chosenFiles && chosenFiles.length > 0) {
             for (let i = 0; i < chosenFiles.length; i++) {

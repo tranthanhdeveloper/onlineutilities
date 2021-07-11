@@ -30,10 +30,10 @@
                 <p>This convert aim to convert SVG(Scalable Vector Graphics) format file to bitmap images like PNG, JPEG, TIFF. Hopefully our tools is useful to you.</p>
             </div>
             <div class="border-top">
-                <form method="post" enctype="multipart/form-data">
+                <form method="post" enctype="multipart/form-data" th:action="${'/convert-svg-to-'+targetFmt.toLowerCase()}" accept="image/svg+xml">
                     <div class="form-group pt-3 mb-0">
                         <label>Upload your SVG image(<i>Click or drag file to section below to upload</i>)</label>
-                        <input type="file" class="form-control beauty" id="inputFile" data-showlistfile="true" name="files" multiple>
+                        <input type="file" class="form-control beauty" id="inputFile" data-showlistfile="true" name="files" multiple accept="image/svg+xml">
                     </div>
                     <div class="form-group d-none" id="selectedFileList">
                         <label>Chosen file: </label>
@@ -51,7 +51,12 @@
                     </div>
                 </form>
             </div>
-            <div th:if="${modelSource != null && !modelSource.isEmpty()}">
+            <div th:if="${error != null && !error.isEmpty()}">
+                <div class="alert alert-danger" role="alert" th:text="${error}">
+                </div>
+            </div>
+
+            <div th:if="${(modelSource != null && !modelSource.isEmpty()) && (error == null || error.isEmpty())}">
                 <div class="alert alert-primary" role="alert">
                     Converted file is  ready. <a th:href="@{${downloadLink}}">Click here</a> to download.
                 </div>
