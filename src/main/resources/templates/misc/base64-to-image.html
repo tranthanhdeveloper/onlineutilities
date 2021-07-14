@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Base64 to Image- Online utilities</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="keyword" content="base64 to image, convert, bas64, image, png, jpeg, tiff, gif">
+    <meta name="description" content="Convert base64 to image. support several format. preview and download image">
+    <template th:replace="head::common-head"/>
+    </style>
+    <link rel=stylesheet th:href="@{~/vendor/codemirror/lib/codemirror.css}">
+    <style>
+        .base64ToImage{
+            min-height: 650px;
+        }
+
+        .base64ToImage textarea{
+            height: 80%;
+        }
+
+    </style>
+    <script>
+        const pageId = "base64-to-image";
+    </script>
+</head>
+
+<body>
+<div th:replace="header::header"></div>
+<section class="container-fluid main-section">
+    <div class="row row flex-xl-nowrap">
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool">
+            <div>
+            <nav class="list-group">
+                <button class="list-group-item">
+                    Related tools
+                </button>
+                <a th:href="@{~/format/json-beautify.html}" class="list-group-item">JSON beautifier</a>
+                <a th:href="@{~/xml-format-online.html}" class="list-group-item">XML format</a>
+                <a th:href="@{~/sql-format-online.html}" class="list-group-item">SQL format</a>
+                <a th:href="@{~/mime-tools/escape-json.html}" class="list-group-item">Escape/Unescape special characters</a>
+            </nav>
+            </div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+        <main class="col-xs-12 col-md-12 col-lg-8">
+            <div>
+                <div class="text-center align-middle">
+                    <h3 class="pb-3">Base64 to Image</h3>
+                </div>
+                <div class="row base64ToImage" >
+                    <div class="col col-md-6 col-lg-6">
+                        <div class="pb-2">
+                            <button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal"
+                                    data-target="#importModal">
+                                Import from URL
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                                    <path fill-rule="evenodd"
+                                          d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                                </svg>
+                            </button>
+                            <input type="file" class="btn btn-outline-danger btn-sm" id="fileSelect" accept="text/*"/>
+                        </div>
+                        <textarea class="form-control" name="data" id="base64DataHolder" rows="20" placeholder="Paste data here then tab-out"></textarea>
+                    </div>
+                    <div class="col col-md-6 col-lg-6 ">
+                        <div class="pb-2 d-flex border-bottom">
+                            <h4 class="mr-3">Image preview</h4>
+                            <button type="button" id="saveBtn" class="btn btn-outline-success btn-sm mr-1">Save</button>
+                            <button class="btn btn-sm float-right" id="file-info" style="color: #004ed0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg></button>
+                        </div>
+                        <div class="" id="imagePreview">
+                            <div class="alert alert-warning d-none">
+                                We can not decode the base64 representation to image, the data might be damaged.
+                            </div>
+                            <div id="previewArea"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</section>
+<!-- Modal -->
+<div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalTitle"
+     aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-body">
+                <input type="url" class="form-control" id="dataImportUrl" placeholder="data URL">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" id="dataImportOkBtn" class="btn btn-primary">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+</body>
+</html>
