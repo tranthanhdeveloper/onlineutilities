@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+
+
+<div th:fragment="relatedTool(tools)">
+    <nav class="list-group">
+        <button class="list-group-item" type="button" data-toggle="collapse" data-target="#collapseRelaTools"
+                aria-expanded="false" aria-controls="collapseRelaTools">
+            Related tools
+        </button>
+        <div class="collapse show " id="collapseRelaTools">
+            <a th:href="@{~/format/json-beautify.html}" class="list-group-item">JSON beautifier</a>
+            <a th:href="@{~/css-format-online.html}" class="list-group-item">CSS format</a>
+            <a th:href="@{~/xml-format-online.html}" class="list-group-item">XML format</a>
+            <!--                <a th:each="" th:href="@{~/format/json-beautify.html}" class="list-group-item" th:text=""></a>-->
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="featuredTools" class="featuredTools">
+    <nav class="list-group">
+        <button class="list-group-item" type="button" data-toggle="collapse" data-target="#collapseFeaturedTools"
+                aria-expanded="false" aria-controls="collapseFeaturedTools">
+            Featured tools
+        </button>
+        <div class="collapse show " id="collapseFeaturedTools">
+            <a th:href="@{~//cryptographic-tools/des-decryptor.html}" class="list-group-item">DES Decryption</a>
+            <a th:href="@{~//xml-format-online.html}" class="list-group-item">XMl format</a>
+            <a th:href="@{~/format/json-beautify.html}" class="list-group-item">Json beautifier</a>
+            <a th:href="@{~/cryptographic-tools/des-text-encryption.html}" class="list-group-item">DES text
+                encryption</a>
+            <a th:href="@{~/cryptographic-tools/blowfish-file-encryption.html}" class="list-group-item">Blowfish file
+                encryption</a>
+            <a th:href="@{~/protect-pdf-online.html}" class="list-group-item">Protect PDF with password</a>
+        </div>
+    </nav>
+</div>
+
+<div th:fragment="seo(name)" th:with="seo=${@toolConfigServiceImpl.getSEODataByToolName(name)}" th:remove="tag">
+    <title th:text="${seo.getTitle()}"></title>
+    <meta charset="utf-8">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="robots" content="all">
+    <meta name="keyword" th:content="${seo.getSeoKeyword()}">
+    <meta name="description" th:content="${seo.getSeoDescription()}">
+    <link rel="home" href="https://onlineutilities.net/"/>
+    <link rel="canonical" th:href="${ seo.getSeoCanonicalUrl()}">
+
+    <!--Open Graph-->
+    <meta property="og:site_name" content="Online Utilities"/>
+    <meta property="og:title" th:content="${seo.getTitle() + ' | OnlineUtilities.net'}"/>
+    <meta property="og:description" th:content="${seo.getSeoDescription()}"/>
+    <meta property="og:url" th:content="${seo.getSeoDescription()}"/>
+
+    <meta name="twitter:site" content="@OnlineUtil"/>
+    <meta name="twitter:domain" content="www.onlineutilities.net"/>
+    <meta name="twitter:title" th:content="${seo.getTitle() + ' | OnlineUtilities.net'}"/>
+    <meta name="twitter:description" th:content="${seo.getSeoDescription()}"/>
+    <meta name="twitter:creator" content="@OnlineUtil"/>
+    <meta name="twitter:image" content="https://onlineutilities.net/logo.png"/>
+
+    <link rel="shortcut icon" th:href="@{~/favicon.ico}" type="image/x-icon"/>
+    <link rel="apple-touch-icon" th:href="@{~/apple-touch-icon.png}"/>
+    <link rel="apple-touch-icon" sizes="57x57" th:href="@{~/apple-touch-icon-57x57.png}"/>
+    <link rel="apple-touch-icon" sizes="72x72" th:href="@{~/apple-touch-icon-72x72.png}"/>
+    <link rel="apple-touch-icon" sizes="76x76" th:href="@{~/apple-touch-icon-76x76.png}"/>
+    <link rel="apple-touch-icon" sizes="114x114" th:href="@{~/apple-touch-icon-114x114.png}"/>
+    <link rel="apple-touch-icon" sizes="120x120" th:href="@{~/apple-touch-icon-120x120.png}"/>
+    <link rel="apple-touch-icon" sizes="144x144" th:href="@{~/apple-touch-icon-144x144.png}"/>
+    <link rel="apple-touch-icon" sizes="152x152" th:href="@{~/apple-touch-icon-152x152.png}"/>
+    <link rel="apple-touch-icon" sizes="180x180" th:href="@{~/apple-touch-icon-180x180.png}"/>
+</div>
+</html>

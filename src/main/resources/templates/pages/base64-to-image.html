@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<style th:fragment="style">
+    .base64ToImage {
+        min-height: 450px;
+    }
+    .base64ToImage #imagePreview{
+        max-height: 450px;
+    }
+
+    .base64ToImage textarea {
+        height: 80%;
+    }
+
+    .base64ToImage #imagePreview{
+        padding: 0.5rem;
+    }
+
+    .base64ToImage #imagePreview img{
+        width: 600px;
+        height: 405px;
+        object-fit: contain;
+    }
+
+    label.btn {
+        margin-bottom: 0 !important;
+    }
+</style>
+<script th:fragment="head-script">
+    window.pageId = "base64-to-image";
+</script>
+
+<main th:fragment="main" class="col-xs-12 col-md-12 col-lg-8">
+    <div>
+        <div class="text-center align-middle">
+            <h3 class="pb-3">Base64 to Image</h3>
+            <p>Easily convert Base64 data back to image.</p>
+        </div>
+        <div class="row base64ToImage">
+            <div class="col col-md-6 col-lg-6">
+                <div class="pb-2">
+                    <button type="button" class="btn btn-outline-primary btn-sm" data-toggle="modal"
+                            data-target="#importModal">
+                        Import from URL
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-box-arrow-in-left" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd"
+                                  d="M10 3.5a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v9a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-2a.5.5 0 0 1 1 0v2A1.5 1.5 0 0 1 9.5 14h-8A1.5 1.5 0 0 1 0 12.5v-9A1.5 1.5 0 0 1 1.5 2h8A1.5 1.5 0 0 1 11 3.5v2a.5.5 0 0 1-1 0v-2z"/>
+                            <path fill-rule="evenodd"
+                                  d="M4.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H14.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3z"/>
+                        </svg>
+                    </button>
+                    <label class="btn btn-outline-primary btn-sm">
+                        Browse file
+                        <span class="iconify" data-icon="mdi-upload" data-inline="false"></span>
+                        <input hidden type="file" id="fileSelect"/>
+                    </label>
+
+                </div>
+                <textarea class="form-control" name="data" id="base64DataHolder" rows="20"
+                          placeholder="Paste data here then tab-out"></textarea>
+            </div>
+            <div class="col col-md-6 col-lg-6 ">
+                <div class="pb-2 d-flex border-bottom">
+                    <h5 class="mr-3">Image preview</h5>
+                    <button type="button" id="saveBtn" class="btn btn-outline-success btn-sm mr-1">Save</button>
+                    <button class="btn btn-outline-success btn-sm float-right" id="file-info" style="color: #004ed0"> Show detail info
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-info-circle" viewBox="0 0 16 16">
+                            <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div class="" id="imagePreview">
+                    <div class="alert alert-warning d-none">
+                        We can not decode the base64 representation to image, the data might be damaged.
+                    </div>
+                    <div id="previewArea"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="blog-post mt-2 border-top">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <h3><i>Transform base64 to origin image.</i></h3>
+                    <p>This sample tool can quickly transform base64 text represented back to origin image. No part of data post to our server, we process at directly in the browser.</p>
+
+                </div>
+
+                <div class="col-md-12 col-lg-6">
+                    <h3>Support auto detect mimetype and basic info:</h3>
+                    <p>All info will be appear when click Info button at Image preview </p>
+                    <ul>
+                        <li>JPEG</li>
+                        <li>TIFF</li>
+                        <li>GIF</li>
+                        <li>PNG</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<template th:fragment="additional" th:remove="tag">
+    <div class="modal fade" id="importModal" tabindex="-1" role="dialog" aria-labelledby="importModalTitle"
+         aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <input type="url" class="form-control" id="dataImportUrl" placeholder="data URL">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" id="dataImportOkBtn" class="btn btn-primary">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+</html>

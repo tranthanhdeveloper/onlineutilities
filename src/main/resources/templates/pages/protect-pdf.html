@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<template th:fragment="style" th:remove="tag">
+    <style></style>
+</template>
+<template th:fragment="head-script" th:remove="tag">
+    <script ></script>
+</template>
+<div th:fragment="main" class="col-xs-12 col-md-12 col-lg-8 ">
+    <div class="container">
+        <div>
+            <form name="pdf" method="post" th:action="@{/protect-pdf-online.html}"
+                  enctype="multipart/form-data">
+                <div class="row border-bottom border-secondary pb-3">
+                    <div class="col-xs-12 col-md-12 col-lg-6">
+                        <div th:if="${error != null && !error.isEmpty()}" class="alert alert-danger"
+                             role="alert" th:text="${error}">
+                        </div>
+                        <div class="input-group form-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroupFileAddon01">Upload PDF</span>
+                            </div>
+                            <div class="custom-file">
+                                <input type="file" name="file" class="custom-file-input" id="inputGroupFile01"
+                                       aria-describedby="inputGroupFileAddon01" accept="application/pdf"
+                                       required>
+                                <label class="custom-file-label" for="inputGroupFile01">Choose PDF file</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="form-group">
+                                <label for="ownerPwd">Owner Password</label>
+                                <input type="password" name="ownerPwd" class="form-control" id="ownerPwd"
+                                       placeholder="Enter owner password" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="userPwd">User Password</label>
+                                <input type="password" name="userPwd" class="form-control" id="userPwd"
+                                       placeholder="Enter user password" required>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-left">
+                            <button type="submit" class="btn btn-primary">Summit data</button>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-md-12 col-lg-6">
+                        <p class="lead"><strong>Grant permissions:</strong></p>
+                        <!-- Default unchecked -->
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canAssembleDocument"
+                                   name="canAssembleDocument">
+                            <label class="custom-control-label" for="canAssembleDocument">Can assemble
+                                document</label>
+                            <small class="form-text text-muted">This will tell if the user can
+                                insert/rotate/delete pages.</small>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canExtractContent"
+                                   name="canExtractContent">
+                            <label class="custom-control-label" for="canExtractContent">Can Extract
+                                content</label>
+                            <small class="form-text text-muted">This will tell if the user can extract text and
+                                images from the PDF
+                                document.</small>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canFillInForm"
+                                   name="canFillInForm">
+                            <label class="custom-control-label" for="canFillInForm">Can fill in form</label>
+                            <small class="form-text text-muted">This will tell if the user can fill in
+                                interactive form fields (including
+                                signature fields).</small>
+                        </div>
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canModify" name="canModify">
+                            <label class="custom-control-label" for="canModify">Can modify document</label>
+                            <small class="form-text text-muted">This will tell if the user can modify contents
+                                of the document.</small>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canPrint" name="canPrint">
+                            <label class="custom-control-label" for="canPrint">Can print document</label>
+                            <small class="form-text text-muted">This will tell if the user can print.</small>
+                        </div>
+
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="canPrintDegraded"
+                                   name="canPrintDegraded">
+                            <label class="custom-control-label" for="canPrintDegraded">Can print document in
+                                degraded format</label>
+                            <small class="form-text text-muted">This will tell if the user can print the
+                                document in a degraded format.</small>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="blog-post mt-5">
+            <div class="row">
+                <div class="col-md-12 col-lg-6">
+                    <h1><i>Protect PDF with the password. How important is it?</i></h1>
+                    <p>In the era of the internet, we mostly send files through networks. It potentially being
+                        accessed without file owner permission. Especially with PDFs mostly contain sensitive
+                        data
+                        such as invoices, bank statements, confidential correspondence, and more. These
+                        documents
+                        must be restricted access by unauthorized person.</p>
+
+                    <h3>How to protect confidential document?</h3>
+                    <ul>
+                        <li>Encrypt document before sending through internet.</li>
+                        <li>Limit access to document such as only views, can edit, ...</li>
+                        <li>Require password to open or doing action with the document</li>
+                    </ul>
+                </div>
+
+                <div class="col-md-12 col-lg-6">
+                    <h4><i>How to protect PDF with password with OnlineUtilities.net</i></h4>
+                    <p>Owner Password: If someone has this password, he/she can do any kind of action they want.</p>
+                    <p>User Password: This password is used to restrict a user to view or perform only granted
+                        permission on the right side.</p>
+                    <p class="alert alert-warning">Please set a strong password for <i>Owner Password</i> as well as <i>User
+                        Password</i>.<br><a href="https://en.wikipedia.org/wiki/Password_strength">Learn about password
+                        strength</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<template th:fragment="additional" th:remove="tag"/>
+</html>

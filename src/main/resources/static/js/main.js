@@ -277,7 +277,8 @@
                 'video/x-ms-wmv': 'wmv',
                 'video/x-msvideo': 'avi',
                 'video/mp4': 'm4v'
-            }});
+            }
+        });
 
 
         $('#inputFile[data-showlistfile="true"]').change(function () {
@@ -295,8 +296,10 @@
             }
         });
 
-        requirejs(['page/'+pageId], function(page) {
-            console.log(page)
-        });
+        if (window.pageId !== undefined) {
+            requirejs(['page/' + window.pageId ], function (page) {
+                console.log(page)
+            });
+        }
     });
 }());

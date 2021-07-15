@@ -27,10 +27,12 @@ public class MimeToolsController extends BaseController {
         return "mime/mime-index";
     }
 
-// Base64
+    // Base64
     @GetMapping("base64-encoder.html")
-    public String base64encode() {
-        return "mime/base64-encode";
+    public String base64encode(Model model) {
+        model.addAttribute("pageId", "base64-encode");
+        model.addAttribute("pageName", "EncodeBase64Online");
+        return "view";
     }
 
     @PostMapping("base64-encoder.html")
@@ -59,12 +61,16 @@ public class MimeToolsController extends BaseController {
         }
 
         model.addAttribute("errors", error);
-        return "mime/base64-encode";
+        model.addAttribute("pageId", "base64-encode");
+        model.addAttribute("pageName", "EncodeBase64Online");
+        return "view";
     }
 
     @GetMapping("base64-decoder.html")
-    public String base64decode() {
-        return "mime/base64-decode";
+    public String base64decode(Model model) {
+        model.addAttribute("pageId", "base64-decode");
+        model.addAttribute("pageName", "DecodeBase64Online");
+        return "view";
     }
 
     @PostMapping("base64-decoder.html")
@@ -88,7 +94,10 @@ public class MimeToolsController extends BaseController {
         }
 
         model.addAttribute("errors", error);
-        return "mime/base64-decode";
+
+        model.addAttribute("pageId", "base64-decode");
+        model.addAttribute("pageName", "DecodeBase64Online");
+        return "view";
     }
 
 // HEX

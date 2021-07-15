@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"  th:with="fragment=${'pages/'+pageId}">
+
+<head>
+    <template th:replace="fragments/template::seo('CovertBase64ToImage')"/>
+    <template th:replace="head::common-head"/>
+    <template th:replace="${fragment}::style"/>
+    <template th:replace="${fragment}::head-script"/>
+</head>
+
+<body>
+<div th:replace="header::header"></div>
+<section class="container-fluid main-section">
+    <div class="row row flex-xl-nowrap">
+        <div class="col-xs-12 col-md-12 col-lg-2 related-tool sidebar">
+            <div th:replace="fragments/template::relatedTool(null)"></div>
+            <div th:replace="fragments/template::featuredTools"></div>
+        </div>
+        <div class="col-xs-12 col-md-12 col-lg-2 on-ads"></div>
+        <template th:replace="${fragment}::main"/>
+    </div>
+</section>
+<div th:replace="~{footer :: footer}"></div>
+<div th:replace="~{scripts-include :: page-script}"></div>
+<template th:replace="${fragment}::additional"/>
+</body>
+</html>

@@ -23,8 +23,10 @@ public class PdfUtilityController extends BaseController{
     private final String MERGED_FILE_PREFIX = "merged-";
 
     @GetMapping("protect-pdf-online.html")
-    public String protectPDF(){
-        return "pdf/protect-pdf.html";
+    public String protectPDF(Model model){
+        model.addAttribute("pageId", "protect-pdf");
+        model.addAttribute("pageName", "ProtectPdfWithPassword");
+        return "view";
     }
 
     @GetMapping("merge-pdf-online.html")
@@ -50,7 +52,9 @@ public class PdfUtilityController extends BaseController{
             LOGGER.error("Error occurred during protect user pdf with password, error: {}", exception.getMessage());
             model.addAttribute("error", "Error occurred during protect user pdf with password");
         }
-        return "pdf/protect-pdf.html";
+        model.addAttribute("pageId", "protect-pdf");
+        model.addAttribute("pageName", "ProtectPdfWithPassword");
+        return "view";
     }
 
     @PostMapping("merge-pdf-online.html")

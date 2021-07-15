@@ -14,9 +14,10 @@
             var url = $('#dataImportUrl').val();
             $.ajax({
                 url: url
-            }).done(function (xmlData) {
+            }).done(function (data) {
                 $('#importModal').modal('hide');
-                editor.setValue(xmlData);
+                $('#base64DataHolder').val(data);
+                $('#base64DataHolder').trigger("change");
             }).fail(function () {
                 alert("Error occurred during import data")
             });
@@ -29,7 +30,8 @@
                 var reader = new FileReader();
                 reader.readAsText(file, "UTF-8");
                 reader.onload = function (evt) {
-                    editor.setValue(evt.target.result);
+                    $('#base64DataHolder').val(evt.target.result);
+                    $('#base64DataHolder').trigger("change");
                 }
                 reader.onerror = function (evt) {
                     alert("error reading file");
@@ -47,7 +49,7 @@
 
             if (mimeType !== undefined) {
                 let source = 'data:' + mimeType + ';base64,' + base64Data;
-                previewEle.html('<img src="' + source + '" height="100%" width="100%">');
+                previewEle.html('<img src="' + source + '">');
                 $('#file-info').popover({
                     title: 'Image info',
                     html: true,

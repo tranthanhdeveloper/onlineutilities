@@ -38,9 +38,11 @@ section {
 div.related-tool{
     order: 0;
 }
-
-.related-tool div{
-    margin-top: 55px;
+div.sidebar featuredTools button{
+    color: #ff0000;
+}
+div.sidebar div{
+    margin-bottom: 0.5rem;
 }
 
 .related-tool div .list-group-item {
@@ -69,7 +71,6 @@ div.on-ads{
 }
 
 .footer {
-    position: fixed;
     bottom: 0;
     width: 100%;
     height: 75px;
