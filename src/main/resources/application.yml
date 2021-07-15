@@ -25,3 +25,5 @@ spring:
       encoding: UTF-8
       continue-on-error: false
       schema-locations: classpath:data/schema.sql
+  thymeleaf:
+    cache: false
