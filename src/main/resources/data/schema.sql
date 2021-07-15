@@ -1,1 +1,0 @@
-CREATE TABLE IF NOT EXISTS `file_token` (`token` varchar(255) not null, `creation_date` datetime, `file_name` varchar(255), `file_path` varchar(255), primary key (token))
