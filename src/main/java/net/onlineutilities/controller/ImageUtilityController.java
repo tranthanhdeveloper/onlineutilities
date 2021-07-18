@@ -1,24 +1,23 @@
 package net.onlineutilities.controller;
 
-import net.onlineutilities.api.RestEnvelopeResponse;
 import net.onlineutilities.entity.FileToken;
+import net.onlineutilities.enums.Pages;
+import net.onlineutilities.exceptions.PageNotFoundException;
 import net.onlineutilities.services.FileDownloadService;
 import net.onlineutilities.utils.FileUtils;
 import net.onlineutilities.utils.SvgUtil;
-import org.apache.batik.transcoder.TranscoderException;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.MimeType;
-import org.springframework.util.MimeTypeUtils;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
 
 @Controller
 public class ImageUtilityController extends BaseController {
@@ -30,10 +29,11 @@ public class ImageUtilityController extends BaseController {
     public String svgConvert(@PathVariable("target") String targetFmt, Model model) {
         List<String> supportedFmt = Arrays.asList("png", "jpeg", "tiff");
         if (!supportedFmt.contains(targetFmt.toLowerCase())) {
-            return "error/404";
+            throw new PageNotFoundException();
         }
         model.addAttribute("targetFmt", StringUtils.upperCase(targetFmt));
-        return "images/svg-convert.html";
+        obtainAndFillPageInfo(model, StringUtils.lowerCase(targetFmt));
+        return "view";
     }
 
     @PostMapping(value = "convert-svg-to-{target}", consumes = "multipart/form-data")
@@ -49,18 +49,21 @@ public class ImageUtilityController extends BaseController {
                     switch (StringUtils.lowerCase(targetFmt)) {
                         case "png": {
                             convertedFile = SvgUtil.convertTo(files, "png");
+                            Pages.SVG_TO_PNG.putUiModel(model);
                             break;
                         }
                         case "jpeg": {
                             convertedFile = SvgUtil.convertTo(files, "jpeg");
+                            Pages.SVG_TO_JPEG.putUiModel(model);
                             break;
                         }
                         case "tiff": {
                             convertedFile = SvgUtil.convertTo(files, "tiff");
+                            Pages.SVG_TO_TIFF.putUiModel(model);
                             break;
                         }
                         default: {
-                            break;
+                            throw new PageNotFoundException();
                         }
                     }
                     String downloadToken = fileDownloadService.createNew(FileToken.builder().withFilePath(convertedFile.getAbsolutePath()).withFileName(convertedFile.getName()).build());
@@ -72,6 +75,25 @@ public class ImageUtilityController extends BaseController {
         } else {
             model.addAttribute("error", "No files was upload, we can not continue to process!");
         }
-        return "images/svg-convert.html";
+        obtainAndFillPageInfo(model, StringUtils.lowerCase(targetFmt));
+        return "view";
+    }
+
+    private void obtainAndFillPageInfo(Model model, String type){
+        switch (type){
+            case "png": {
+                Pages.SVG_TO_PNG.putUiModel(model);
+                return;
+            }
+            case "jpeg": {
+                Pages.SVG_TO_JPEG.putUiModel(model);
+                return;
+            }
+            case "tiff": {
+                Pages.SVG_TO_TIFF.putUiModel(model);
+                return;
+            }
+        }
+        throw new PageNotFoundException();
     }
 }

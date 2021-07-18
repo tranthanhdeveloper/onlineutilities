@@ -1,5 +1,6 @@
 package net.onlineutilities.controller;
 
+import net.onlineutilities.enums.Pages;
 import org.apache.commons.codec.DecoderException;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.binary.Hex;
@@ -103,8 +104,9 @@ public class MimeToolsController extends BaseController {
 // HEX
 
     @GetMapping("hex-encoder.html")
-    public String hexEncode() {
-        return "mime/hex-encode";
+    public String hexEncode(Model model) {
+        Pages.HEX_ENCODER.putUiModel(model);
+        return "view";
     }
 
     @PostMapping("hex-encoder.html")
@@ -133,12 +135,14 @@ public class MimeToolsController extends BaseController {
         }
 
         model.addAttribute("errors", error);
-        return "mime/hex-encode";
+        Pages.HEX_ENCODER.putUiModel(model);
+        return "view";
     }
 
     @GetMapping("hex-decoder.html")
-    public String hexDecode() {
-        return "mime/hex-decode";
+    public String hexDecode(Model model) {
+        Pages.HEX_DECODER.putUiModel(model);
+        return "view";
     }
 
     @PostMapping("hex-decoder.html")
@@ -165,31 +169,36 @@ public class MimeToolsController extends BaseController {
             error.add("We can not decode for your data.");
         }
         model.addAttribute("errors", error);
-        return "mime/hex-decode";
+        Pages.HEX_DECODER.putUiModel(model);
+        return "view";
     }
 
-// URL
-
     @GetMapping("url-encoder.html")
-    public String urlEncode() {
-        return "mime/url-encoder";
+    public String urlEncode(Model model) {
+        Pages.URL_ENCODER.putUiModel(model);
+        return "view";
     }
 
     @GetMapping("url-decoder.html")
-    public String urlDecode() {
-        return "mime/url-decoder";
+    public String urlDecode(Model model) {
+        Pages.URL_DECODER.putUiModel(model);
+        return "view";
     }
 
     @GetMapping("html-encode-online.html")
-    public String htmlEncode() {
-        return "mime/html_encode";
+    public String htmlEncode(Model model) {
+        model.addAttribute("pageId", "url-decoder");
+        model.addAttribute("pageName", "DecodeUrlOnline");
+        return "view";
     }
 
     @PostMapping("html-encode-online.html")
     public String htmlEncode(@RequestParam(value = "data", defaultValue = "") String data,  Model model) {
-        model.addAttribute("data",data);
+        model.addAttribute("data", data);
         model.addAttribute("EscapedHTML", HtmlUtils.htmlEscape(data));
-        return "mime/html_encode";
+        model.addAttribute("pageId", "url-decoder");
+        model.addAttribute("pageName", "DecodeUrlOnline");
+        return "view";
     }
 
     @GetMapping("html-decode-online.html")

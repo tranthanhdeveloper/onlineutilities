@@ -21,7 +21,7 @@ public class FileCleanUp {
         this.fileDownloadService = fileDownloadService;
     }
 
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void cleanInvalidTempFile() {
         AtomicInteger cleanCounter = new AtomicInteger();
         log.info("Starting clean up file");

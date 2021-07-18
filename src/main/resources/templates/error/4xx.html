@@ -6,23 +6,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description"
-	content="An online platform that serves free online utilities and tools to increase working effectiveness.">
-<link rel="icon" type="image/png"
-	href="https://storage.googleapis.com/onlineutilities.net/static/onlineutilities.ico" />
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-	crossorigin="anonymous">
-<style>
-header {
-	padding: 156px 0 100px;
-}
-
-section {
-	padding: 150px 0;
-}
-</style>
+<meta name="description"	content="An online platform that serves free online utilities and tools to increase working effectiveness."/>
+<template th:replace="head::common-head"/>
 </head>
 
 <body>
@@ -35,7 +20,7 @@ section {
 				<h1>There's no page here!</h1>
 				<p>
 					We're sorry, the page you are looking for does not exist! Go back
-					to <a href="/" class="stretched-link">Home page</a>.
+					to <a href="/">Home page</a>.
 				</p>
 				<div class="clear-fix"></div>
 				<div>
@@ -45,6 +30,10 @@ section {
 						support, feel free to contact to us at:<a th:href="@{contact-us}" role="link">Contact us</a>
 					</p>
 				</div>
+				<div>
+					<div class="gcse-search"></div>
+					<p>Some tools are moved to other URL, search it now</p>
+				</div>
 			</div>
 			<div class="col-xs-12 col-md-3 col-xl-3 col-lg-3"></div>
 		</div>
@@ -52,6 +41,7 @@ section {
 
 	<div th:replace="footer :: footer"></div>
 	<div th:replace="scripts-include :: page-script"></div>
+	<script async src="https://cse.google.com/cse.js?cx=e8e9a739ce3470cbc"></script>
 </body>
 
 </html>

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"  th:with="fragment=${'pages/'+pageId}">
 
 <head>
-    <template th:replace="fragments/template::seo('CovertBase64ToImage')"/>
+    <template th:replace="fragments/template::seo(${pageName})"/>
     <template th:replace="head::common-head"/>
     <template th:replace="${fragment}::style"/>
     <template th:replace="${fragment}::head-script"/>

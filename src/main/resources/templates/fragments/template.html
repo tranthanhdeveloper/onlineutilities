@@ -36,6 +36,18 @@
     </nav>
 </div>
 
+<div th:fragment="featuredTools" class="randomTools" th:with="randomList=${@toolConfigServiceImpl.getRandomTools()}">
+    <nav class="list-group">
+        <button class="list-group-item" type="button" data-toggle="collapse" data-target="#collapseRandomTools"
+                aria-expanded="false" aria-controls="collapseRandomTools">
+            Random tools
+        </button>
+        <div class="collapse show " id="collapseRandomTools">
+            <a th:each="tool : ${randomList}" th:href="@{${tool.url}}" class="list-group-item" th:text="${tool.title}"></a>
+        </div>
+    </nav>
+</div>
+
 <div th:fragment="seo(name)" th:with="seo=${@toolConfigServiceImpl.getSEODataByToolName(name)}" th:remove="tag">
     <title th:text="${seo.getTitle()}"></title>
     <meta charset="utf-8">

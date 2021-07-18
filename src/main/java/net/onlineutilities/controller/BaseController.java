@@ -1,9 +1,11 @@
 package net.onlineutilities.controller;
 
+import net.onlineutilities.exceptions.PageNotFoundException;
 import org.apache.commons.io.FileUtils;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,5 +41,10 @@ public class BaseController {
                 .append("token=").append(token)
                 .append("&n=").append(downloadName);
         return builder.toString();
+    }
+
+    @ExceptionHandler(PageNotFoundException.class)
+    public String handleContentNotAllowedException(PageNotFoundException exception) {
+        return "error/404";
     }
 }

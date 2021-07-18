@@ -18,6 +18,7 @@ public class ToolsEntity {
     private String seoOgType;
     private String seoOgUrl;
     private String seoOgDescription;
+    private String url;
     private Long related1;
     private Long related2;
     private Long related10;
@@ -150,6 +151,16 @@ public class ToolsEntity {
     }
 
     @Basic
+    @Column(name = "url")
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Basic
     @Column(name = "related_1")
     public Long getRelated1() {
         return related1;
@@ -254,11 +265,11 @@ public class ToolsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ToolsEntity that = (ToolsEntity) o;
-        return id == that.id && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(title, that.title) && Objects.equals(seoKeyword, that.seoKeyword) && Objects.equals(seoDescription, that.seoDescription) && Objects.equals(seoCanonicalUrl, that.seoCanonicalUrl) && Objects.equals(seoOgTitle, that.seoOgTitle) && Objects.equals(seoOgImage, that.seoOgImage) && Objects.equals(seoOgType, that.seoOgType) && Objects.equals(seoOgUrl, that.seoOgUrl) && Objects.equals(seoOgDescription, that.seoOgDescription) && Objects.equals(related1, that.related1) && Objects.equals(related2, that.related2) && Objects.equals(related10, that.related10) && Objects.equals(related9, that.related9) && Objects.equals(related8, that.related8) && Objects.equals(related7, that.related7) && Objects.equals(related6, that.related6) && Objects.equals(related5, that.related5) && Objects.equals(related4, that.related4) && Objects.equals(related3, that.related3);
+        return id == that.id && Objects.equals(name, that.name) && Objects.equals(description, that.description) && Objects.equals(title, that.title) && Objects.equals(seoKeyword, that.seoKeyword) && Objects.equals(seoDescription, that.seoDescription) && Objects.equals(seoCanonicalUrl, that.seoCanonicalUrl) && Objects.equals(seoOgTitle, that.seoOgTitle) && Objects.equals(seoOgImage, that.seoOgImage) && Objects.equals(seoOgType, that.seoOgType) && Objects.equals(seoOgUrl, that.seoOgUrl) && Objects.equals(seoOgDescription, that.seoOgDescription) && Objects.equals(url, that.url) && Objects.equals(related1, that.related1) && Objects.equals(related2, that.related2) && Objects.equals(related10, that.related10) && Objects.equals(related9, that.related9) && Objects.equals(related8, that.related8) && Objects.equals(related7, that.related7) && Objects.equals(related6, that.related6) && Objects.equals(related5, that.related5) && Objects.equals(related4, that.related4) && Objects.equals(related3, that.related3);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, title, seoKeyword, seoDescription, seoCanonicalUrl, seoOgTitle, seoOgImage, seoOgType, seoOgUrl, seoOgDescription, related1, related2, related10, related9, related8, related7, related6, related5, related4, related3);
+        return Objects.hash(id, name, description, title, seoKeyword, seoDescription, seoCanonicalUrl, seoOgTitle, seoOgImage, seoOgType, seoOgUrl, seoOgDescription, url, related1, related2, related10, related9, related8, related7, related6, related5, related4, related3);
     }
 }
