@@ -1,9 +1,13 @@
 name: Demo manual workflow
 on:
-  workflow_dispatch
+  workflow_dispatch:
+    inputs:
+      name:
+        description: "Person to greet"
+        required: true
 jobs:
   hello_world:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "Hello World"
+      - run: echo "Hello World from demo workflow"
       - run: Echo "Greeting ${{ github.event.inputs.name }}"
