@@ -1,0 +1,8 @@
+name: Demo manual workflow
+on:
+  workflow_dispatch
+jobs:
+  hello_world:
+    steps:
+      - run: echo "Hello World"
+      - run: Echo "Greeting ${{ github.event.inputs.name }}"
