@@ -7,13 +7,6 @@
             app.init();
         }
 
-
-        $.gdprcookie.init({
-            title: "Accept cookies & privacy policy?",
-            message: "We use cookies to ensure that we give you the best experience on our website. If you continue to use this site we will assume that you are happy with it. Click the <strong>accept</strong> button below to confirm your acceptation. Learn more about our privacy here <a href=/privacy-policy.html>OnlineUtilities' privacy link</a>",
-            acceptBtnLabel: "Accept cookies",
-        });
-
         var clipboard = new ClipboardJS('.btn-clipboard-copy');
         $('.hide-by-default').hide();
 

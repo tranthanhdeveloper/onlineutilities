@@ -7,7 +7,7 @@ server:
   port: 5000
 spring:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: org.hsqldb.jdbc.JDBCDriver
     password: ${RDS_PASSWORD}
     url: jdbc:mysql://${RDS_HOSTNAME}:${RDS_PORT}/${RDS_DB_NAME}
     username: ${RDS_USERNAME}
@@ -16,7 +16,7 @@ spring:
       max-file-size: 50MB
       max-request-size: 200MB
   jpa:
-    database-platform: org.hibernate.dialect.MySQLDialect
+    database-platform: org.hibernate.dialect.HSQLDialect
     show-sql: false
     hibernate:
       ddl-auto: none
@@ -26,7 +26,7 @@ spring:
     baseline-version: 1
     baseline-on-migrate: true
     table: flyway_migration_history
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    driver-class-name: org.hibernate.dialect.HSQLDialect
     clean-on-validation-error: true
   thymeleaf:
     cache: true

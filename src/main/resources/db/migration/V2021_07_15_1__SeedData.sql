@@ -1,4 +1,4 @@
-INSERT INTO tools (name, Title, description, seo_keyword, seo_description, seo_canonical_url,
+INSERT INTO  PUBLIC.TOOLS (name, Title, description, seo_keyword, seo_description, seo_canonical_url,
                                     seo_og_title, seo_og_image, seo_og_type, seo_og_url, seo_og_description, related_1,
                                     related_2, related_10, related_9, related_8, related_7, related_6, related_5,
                                     related_4, related_3)
