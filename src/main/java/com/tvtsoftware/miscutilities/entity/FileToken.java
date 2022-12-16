@@ -1,5 +1,6 @@
 package com.tvtsoftware.miscutilities.entity;
 
+import jakarta.persistence.Column;
 import lombok.*;
 
 import jakarta.persistence.Entity;
@@ -23,6 +24,7 @@ public class FileToken {
 
     private String filePath;
 
+    @Column(name = "creation_date")
     private Timestamp creationDate;
 
 }
